@@ -1,5 +1,8 @@
 # Raw Zone
 
+## [2025-05-22] Update
+- TooLost analytics scraper now reliably extracts and saves both Spotify and Apple Music data without manual intervention, improving the completeness of the raw data zone.
+
 ## Purpose
 The raw zone stores an immutable, exact copy of the source data after initial validation. This serves as the single source of truth for all downstream processing.
 

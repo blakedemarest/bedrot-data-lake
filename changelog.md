@@ -32,3 +32,22 @@ Implemented validation script for DistroKid HTML snapshots in landing zone. Vali
 - Extend validation for other data sources
 - Add logging or reporting for failed validations
 --- END CHANGELOG ENTRY ---
+
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-22-c
+
+# What Changed (≤ 50 words)
+Finalized robust Playwright-based automation for TooLost streaming data extraction. Script detects dashboard, navigates to both streams and Apple Music stats, and saves HTML with datetime-stamped filenames. No destructive actions unless authentication is confirmed; browser remains open for user review.
+
+# Impact
+- New dated HTML files in `landing/toolost/`
+- Enhanced reliability and user control for TooLost data pulls
+- Documentation and changelogs updated in all relevant `README.md` files
+- New `src/README.md` created
+
+# Follow-ups
+- Automate parsing of downloaded HTML
+- Integrate with downstream pipelines if needed
+--- END CHANGELOG ENTRY ---
