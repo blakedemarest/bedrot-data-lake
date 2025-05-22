@@ -51,39 +51,52 @@ def login_distrokid():
                 page.fill('input[type="password"]', DK_PASSWORD)
                 page.click('button[type="submit"]')
                 logging.info("Submitted login form. If 2FA is required, please complete it in the browser.")
-                # Prompt user to complete login and 2FA
-                print("Please complete the DistroKid login and 2FA in the browser window.")
-                print("When you see your dashboard or stats page, return here and press Enter to continue.")
-                while True:
-                    input("Press Enter when you believe you are logged in and ready...")
-                    current_url = page.url
-                    print(f"Current browser URL: {current_url}")
-                    if "distrokid.com/stats" in current_url or "dashboard" in current_url or "mymusic" in current_url:
-                        logging.info("Login successful. Session saved for future use.")
-                        break
-                    else:
-                        print("Login may not have succeeded. You are not on the expected page.")
-                        retry = input("Would you like to try again? (y/n): ").strip().lower()
-                        if retry != 'y':
-                            print("Leaving the browser open. Please close it manually if you are done.")
-                            return False
             except PlaywrightTimeoutError:
                 # Login form not present, assume already logged in
                 logging.info("Login form not detected. Assuming already authenticated.")
 
-            # After login/auth, navigate to stats page and save HTML
-            stats_url = "https://distrokid.com/stats/?data=streams"
-            logging.info(f"Navigating to stats page: {stats_url}")
+            print("Please complete the DistroKid login and 2FA in the browser window.")
+            print("Once you are on your dashboard, the script will automatically download stats pages.")
+            import time
+            dashboard_detected = False
+            while not dashboard_detected:
+                current_url = page.url
+                # Adjust this check if dashboard URL changes
+                if any(x in current_url for x in ["/dashboard", "/mymusic", "/stats"]):
+                    logging.info(f"Dashboard detected at {current_url}. Proceeding to download stats.")
+                    dashboard_detected = True
+                else:
+                    time.sleep(2)
+            # At this point, we're on the dashboard. Proceed to download stats.
+            from datetime import datetime
+            output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../landing/distrokid/streams'))
+            os.makedirs(output_dir, exist_ok=True)
+            # Download streams stats
+            stats_url = "https://distrokid.com/stats/?type=all&data=streams"
+            logging.info(f"Navigating to streams stats page: {stats_url}")
             page.goto(stats_url)
             page.wait_for_selector('body', timeout=30000)
             html = page.content()
-            output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../landing/distrokid/streams'))
-            os.makedirs(output_dir, exist_ok=True)
-            output_file = os.path.join(output_dir, 'streams_stats.html')
-            with open(output_file, 'w', encoding='utf-8') as f:
+            dt_str = datetime.now().strftime('%Y%m%d_%H%M%S')
+            streams_file = os.path.join(output_dir, f'streams_stats_{dt_str}.html')
+            with open(streams_file, 'w', encoding='utf-8') as f:
                 f.write(html)
-            logging.info(f"Stats page HTML saved to {output_file}")
-            browser.close()
+            logging.info(f"Streams stats page HTML saved to {streams_file}")
+            # Download Apple Music stats
+            am_url = "https://distrokid.com/stats/?type=all&data=applemusic"
+            logging.info(f"Navigating to Apple Music stats page: {am_url}")
+            page.goto(am_url)
+            page.wait_for_selector('body', timeout=30000)
+            am_html = page.content()
+            am_file = os.path.join(output_dir, f'applemusic_stats_{dt_str}.html')
+            with open(am_file, 'w', encoding='utf-8') as f:
+                f.write(am_html)
+            logging.info(f"Apple Music stats page HTML saved to {am_file}")
+            print("Stats pages downloaded. You may now close the browser window.")
+            # Wait for user to close browser
+            while not page.is_closed():
+                time.sleep(1)
+            logging.info("Browser closed. Workflow complete.")
             return True
         except Exception as e:
             logging.exception(f"An unexpected error occurred: {e}")
