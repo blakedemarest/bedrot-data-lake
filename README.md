@@ -2,6 +2,17 @@
 
 This is the central data lake for BEDROT's music analytics platform.
 
+---
+
+## Changelog
+
+### 2025-05-22: Finalized DistroKid Data Extraction
+- Added robust Playwright automation for DistroKid login, 2FA, and streaming stats extraction.
+- Script now detects dashboard, navigates to both streams and Apple Music stats pages, and saves HTML with datetime-stamped filenames (e.g., `streams_stats_YYYYMMDD_HHMMSS.html`).
+- No destructive actions occur unless authentication is confirmed; browser remains open for user review.
+- See [`src/README.md`](src/README.md) for code structure and usage.
+---
+
 ## Directory Structure
 
 - `.agent/` - AI agent working directories

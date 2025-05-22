@@ -4,10 +4,14 @@
 The raw zone stores an immutable, exact copy of the source data after initial validation. This serves as the single source of truth for all downstream processing.
 
 ## What Goes Here
-- Validated copies of landing zone data
+- Validated copies of landing zone data (e.g., DistroKid HTML snapshots that pass validation)
 - Data in its most granular form
 - Original data types and structures preserved
 - No data should be deleted or modified
+
+## DistroKid Validation & Promotion
+- Only DistroKid HTML files that pass automated validation are promoted here from landing
+- See `src/distrokid/extractors/validate_dk_html.py` for validation logic
 
 ## Rules
 - Data is append-only
