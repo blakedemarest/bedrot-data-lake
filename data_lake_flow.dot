@@ -1,0 +1,81 @@
+digraph DataLakeFlow {
+    // Graph settings
+    rankdir=LR;
+    bgcolor="transparent";
+    node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12];
+    edge [fontname="Arial", fontsize=10];
+    
+    // Define nodes with consistent styling
+    node [fillcolor="#e1f5fe", color="#0288d1", penwidth=1.5]; // Light blue
+    
+    // External Data Sources
+    {
+        node [shape=cylinder, fillcolor="#e8f5e9", color="#388e3c"]; // Light green
+        "TikTok API" -> "Landing Zone" [label=" 1. Ingestion"];
+        "Spotify API" -> "Landing Zone";
+        "DistroKid" -> "Landing Zone";
+        "Social Media" -> "Landing Zone";
+    }
+    
+    // Data Lake Zones
+    {
+        node [shape=folder, fillcolor="#e3f2fd", color="#1976d2"]; // Blue
+        "Landing Zone" -> "Raw Zone" [label=" 2. Validation\n& Copy", fontsize=9];
+        "Raw Zone" -> "Staging Zone" [label=" 3. Clean\n& Transform", fontsize=9];
+        "Staging Zone" -> "Curated Zone" [label=" 4. Enrich\n& Aggregate", fontsize=9];
+        "Curated Zone" -> "Archive Zone" [label=" 5. Retire\nOlder Data", fontsize=9, style=dashed];
+    }
+    
+    // AI/ML Integration
+    {
+        node [shape=ellipse, fillcolor="#f3e5f5", color="#8e24aa"]; // Light purple
+        "AI/ML Models" -> "Curated Zone" [dir=both, label=" 6. Train/Score", fontsize=9];
+    }
+    
+    // Analytics & Consumption
+    {
+        node [shape=box3d, fillcolor="#fff3e0", color="#f57c00"]; // Light orange
+        "Curated Zone" -> "BI Tools" [label=" 7. Analyze"];
+        "Curated Zone" -> "APIs" [label=" 8. Serve"];
+        "Curated Zone" -> "Data Science" [label=" 9. Model"];
+    }
+    
+    // Sandbox (for experimentation)
+    {
+        node [shape=note, fillcolor="#fff9c4", color="#fbc02d"]; // Light yellow
+        "Sandbox" -> "Staging Zone" [label=" 10. Promote", style=dashed];
+        "Raw Zone" -> "Sandbox" [label=" 11. Explore", style=dotted];
+    }
+    
+    // Knowledge Base Integration
+    {
+        node [shape=note, fillcolor="#fce4ec", color="#c2185b"]; // Light pink
+        "Knowledge Base" -> "AI/ML Models" [label=" 12. Inform", style=dashed];
+        "Knowledge Base" -> "Data Science" [style=dashed];
+    }
+    
+    // Add some invisible edges for better layout
+    "Landing Zone" -> "Sandbox" [style=invis];
+    "Archive Zone" -> "Knowledge Base" [style=invis];
+    
+    // Add a title
+    labelloc="t";
+    label="BEDROT Data Lake - High Level Data Flow";
+    fontname="Arial";
+    fontsize=16;
+    
+    // Add legend
+    subgraph cluster_legend {
+        label = "Legend";
+        rankdir=TB;
+        style=dashed;
+        
+        "Process" [shape=box, style="rounded,filled", fillcolor="#e1f5fe"];
+        "Data Source" [shape=cylinder, fillcolor="#e8f5e9"];
+        "Data Store" [shape=folder, fillcolor="#e3f2fd"];
+        "AI/ML" [shape=ellipse, fillcolor="#f3e5f5"];
+        "Analytics" [shape=box3d, fillcolor="#fff3e0"];
+        "Sandbox" [shape=note, fillcolor="#fff9c4"];
+        "Knowledge" [shape=note, fillcolor="#fce4ec"];
+    }
+}

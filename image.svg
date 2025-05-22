@@ -1,0 +1,276 @@
+<svg width="967pt" height="797pt" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events" style="overflow: hidden; "><g id="viewport-20250522134652385" class="svg-pan-zoom_viewport" transform="matrix(0.7955221357260093,0,0,0.7955221357260093,31.43901479235293,58.636569038929)" style="transform: matrix(0.795522, 0, 0, 0.795522, 31.439, 58.6366);">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 793.2)">
+<title>DataLakeFlow</title>
+<text text-anchor="middle" x="479.71" y="-770.8" font-family="Arial" font-size="16.00">BEDROT Data Lake - High Level Data Flow</text>
+<g id="clust7" class="cluster">
+<title>cluster_legend</title>
+<polygon fill="none" stroke="black" stroke-dasharray="5,2" points="251.07,-431.2 251.07,-510.4 854.07,-510.4 854.07,-431.2 251.07,-431.2"></polygon>
+<text text-anchor="middle" x="552.57" y="-492" font-family="Arial" font-size="16.00">Legend</text>
+</g>
+<!-- TikTok API -->
+<g id="node1" class="node">
+<title>TikTok API</title>
+<path fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5" d="M680.41,-758.73C680.41,-760.53 663.68,-762 643.07,-762 622.47,-762 605.74,-760.53 605.74,-758.73 605.74,-758.73 605.74,-729.27 605.74,-729.27 605.74,-727.47 622.47,-726 643.07,-726 663.68,-726 680.41,-727.47 680.41,-729.27 680.41,-729.27 680.41,-758.73 680.41,-758.73"></path>
+<path fill="none" stroke="#388e3c" stroke-width="1.5" d="M680.41,-758.73C680.41,-756.92 663.68,-755.45 643.07,-755.45 622.47,-755.45 605.74,-756.92 605.74,-758.73"></path>
+<text text-anchor="middle" x="643.07" y="-740.4" font-family="Arial" font-size="12.00">TikTok API</text>
+</g>
+<!-- Landing Zone -->
+<g id="node2" class="node">
+<title>Landing Zone</title>
+<path fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5" d="M824.77,-674.73C824.77,-676.53 804.74,-678 780.07,-678 755.41,-678 735.38,-676.53 735.38,-674.73 735.38,-674.73 735.38,-645.27 735.38,-645.27 735.38,-643.47 755.41,-642 780.07,-642 804.74,-642 824.77,-643.47 824.77,-645.27 824.77,-645.27 824.77,-674.73 824.77,-674.73"></path>
+<path fill="none" stroke="#388e3c" stroke-width="1.5" d="M824.77,-674.73C824.77,-672.92 804.74,-671.45 780.07,-671.45 755.41,-671.45 735.38,-672.92 735.38,-674.73"></path>
+<text text-anchor="middle" x="780.07" y="-656.4" font-family="Arial" font-size="12.00">Landing Zone</text>
+</g>
+<!-- TikTok API&#45;&gt;Landing Zone -->
+<g id="edge1" class="edge">
+<title>TikTok API-&gt;Landing Zone</title>
+<path fill="none" stroke="black" d="M659.77,-725.79C669.79,-716.14 683.17,-704.39 696.59,-696 705.3,-690.55 715,-685.61 724.63,-681.26"></path>
+<polygon fill="black" stroke="black" points="725.81,-684.56 733.6,-677.38 723.03,-678.14 725.81,-684.56"></polygon>
+<text text-anchor="middle" x="723.32" y="-699" font-family="Arial" font-size="10.00"> 1. Ingestion</text>
+</g>
+<!-- Raw Zone -->
+<g id="node6" class="node">
+<title>Raw Zone</title>
+<polygon fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5" points="781.42,-584.4 778.42,-588.4 757.42,-588.4 754.42,-584.4 710.73,-584.4 710.73,-548.4 781.42,-548.4 781.42,-584.4"></polygon>
+<text text-anchor="middle" x="746.07" y="-562.8" font-family="Arial" font-size="12.00">Raw Zone</text>
+</g>
+<!-- Landing Zone&#45;&gt;Raw Zone -->
+<g id="edge5" class="edge">
+<title>Landing Zone-&gt;Raw Zone</title>
+<path fill="none" stroke="black" d="M759.67,-641.51C755,-636.38 750.66,-630.41 748.04,-624 744.52,-615.39 743.33,-605.42 743.24,-596.27"></path>
+<polygon fill="black" stroke="black" points="746.73,-596.52 743.58,-586.4 739.73,-596.28 746.73,-596.52"></polygon>
+<text text-anchor="middle" x="773.09" y="-615.9" font-family="Arial" font-size="9.00"> 2. Validation</text>
+<text text-anchor="middle" x="773.09" y="-605.1" font-family="Arial" font-size="9.00">&amp; Copy</text>
+</g>
+<!-- Sandbox -->
+<g id="node14" class="node">
+<title>Sandbox</title>
+<polygon fill="#fff9c4" stroke="#fbc02d" stroke-width="1.5" points="839.76,-475.2 782.39,-475.2 782.39,-439.2 845.76,-439.2 845.76,-469.2 839.76,-475.2"></polygon>
+<polyline fill="none" stroke="#fbc02d" stroke-width="1.5" points="839.76,-475.2 839.76,-469.2"></polyline>
+<polyline fill="none" stroke="#fbc02d" stroke-width="1.5" points="845.76,-469.2 839.76,-469.2"></polyline>
+<text text-anchor="middle" x="814.07" y="-453.6" font-family="Arial" font-size="12.00">Sandbox</text>
+</g>
+<!-- Landing Zone&#45;&gt;Sandbox -->
+<!-- Spotify API -->
+<g id="node3" class="node">
+<title>Spotify API</title>
+<path fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5" d="M773.75,-758.73C773.75,-760.53 756.87,-762 736.07,-762 715.28,-762 698.39,-760.53 698.39,-758.73 698.39,-758.73 698.39,-729.27 698.39,-729.27 698.39,-727.47 715.28,-726 736.07,-726 756.87,-726 773.75,-727.47 773.75,-729.27 773.75,-729.27 773.75,-758.73 773.75,-758.73"></path>
+<path fill="none" stroke="#388e3c" stroke-width="1.5" d="M773.75,-758.73C773.75,-756.92 756.87,-755.45 736.07,-755.45 715.28,-755.45 698.39,-756.92 698.39,-758.73"></path>
+<text text-anchor="middle" x="736.07" y="-740.4" font-family="Arial" font-size="12.00">Spotify API</text>
+</g>
+<!-- Spotify API&#45;&gt;Landing Zone -->
+<g id="edge2" class="edge">
+<title>Spotify API-&gt;Landing Zone</title>
+<path fill="none" stroke="black" d="M745.41,-725.61C751.24,-714.74 758.87,-700.51 765.5,-688.17"></path>
+<polygon fill="black" stroke="black" points="768.4,-690.17 770.04,-679.7 762.23,-686.86 768.4,-690.17"></polygon>
+</g>
+<!-- DistroKid -->
+<g id="node4" class="node">
+<title>DistroKid</title>
+<path fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5" d="M856.41,-758.73C856.41,-760.53 841.92,-762 824.07,-762 806.23,-762 791.73,-760.53 791.73,-758.73 791.73,-758.73 791.73,-729.27 791.73,-729.27 791.73,-727.47 806.23,-726 824.07,-726 841.92,-726 856.41,-727.47 856.41,-729.27 856.41,-729.27 856.41,-758.73 856.41,-758.73"></path>
+<path fill="none" stroke="#388e3c" stroke-width="1.5" d="M856.41,-758.73C856.41,-756.92 841.92,-755.45 824.07,-755.45 806.23,-755.45 791.73,-756.92 791.73,-758.73"></path>
+<text text-anchor="middle" x="824.07" y="-740.4" font-family="Arial" font-size="12.00">DistroKid</text>
+</g>
+<!-- DistroKid&#45;&gt;Landing Zone -->
+<g id="edge3" class="edge">
+<title>DistroKid-&gt;Landing Zone</title>
+<path fill="none" stroke="black" d="M814.74,-725.61C808.91,-714.74 801.27,-700.51 794.65,-688.17"></path>
+<polygon fill="black" stroke="black" points="797.92,-686.86 790.11,-679.7 791.75,-690.17 797.92,-686.86"></polygon>
+</g>
+<!-- Social Media -->
+<g id="node5" class="node">
+<title>Social Media</title>
+<path fill="#e8f5e9" stroke="#388e3c" stroke-width="1.5" d="M959.42,-758.73C959.42,-760.53 940.44,-762 917.07,-762 893.71,-762 874.72,-760.53 874.72,-758.73 874.72,-758.73 874.72,-729.27 874.72,-729.27 874.72,-727.47 893.71,-726 917.07,-726 940.44,-726 959.42,-727.47 959.42,-729.27 959.42,-729.27 959.42,-758.73 959.42,-758.73"></path>
+<path fill="none" stroke="#388e3c" stroke-width="1.5" d="M959.42,-758.73C959.42,-756.92 940.44,-755.45 917.07,-755.45 893.71,-755.45 874.72,-756.92 874.72,-758.73"></path>
+<text text-anchor="middle" x="917.07" y="-740.4" font-family="Arial" font-size="12.00">Social Media</text>
+</g>
+<!-- Social Media&#45;&gt;Landing Zone -->
+<g id="edge4" class="edge">
+<title>Social Media-&gt;Landing Zone</title>
+<path fill="none" stroke="black" d="M888.69,-726.01C868.3,-713.81 840.59,-697.22 818.26,-683.85"></path>
+<polygon fill="black" stroke="black" points="820.1,-680.88 809.72,-678.75 816.51,-686.88 820.1,-680.88"></polygon>
+</g>
+<!-- Staging Zone -->
+<g id="node7" class="node">
+<title>Staging Zone</title>
+<polygon fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5" points="251.77,-391.2 248.77,-395.2 227.77,-395.2 224.77,-391.2 164.38,-391.2 164.38,-355.2 251.77,-355.2 251.77,-391.2"></polygon>
+<text text-anchor="middle" x="208.07" y="-369.6" font-family="Arial" font-size="12.00">Staging Zone</text>
+</g>
+<!-- Raw Zone&#45;&gt;Staging Zone -->
+<g id="edge6" class="edge">
+<title>Raw Zone-&gt;Staging Zone</title>
+<path fill="none" stroke="black" d="M710.62,-564.54C594.66,-561.38 232.04,-548.5 197.57,-510.4 171.07,-481.11 183.49,-432.28 195.41,-401.74"></path>
+<polygon fill="black" stroke="black" points="198.53,-403.36 199.13,-392.78 192.07,-400.68 198.53,-403.36"></polygon>
+<text text-anchor="middle" x="222.83" y="-459.9" font-family="Arial" font-size="9.00"> 3. Clean</text>
+<text text-anchor="middle" x="222.83" y="-449.1" font-family="Arial" font-size="9.00">&amp; Transform</text>
+</g>
+<!-- Raw Zone&#45;&gt;Sandbox -->
+<g id="edge14" class="edge">
+<title>Raw Zone-&gt;Sandbox</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M741.65,-548.14C740.23,-538.47 740.39,-526.72 746.71,-518.4 754.38,-508.31 763.62,-517.56 774.07,-510.4 783.62,-503.86 791.88,-494.32 798.37,-485.17"></path>
+<polygon fill="black" stroke="black" points="801.28,-487.11 803.86,-476.84 795.44,-483.26 801.28,-487.11"></polygon>
+<text text-anchor="middle" x="772.76" y="-521.4" font-family="Arial" font-size="10.00"> 11. Explore</text>
+</g>
+<!-- Curated Zone -->
+<g id="node8" class="node">
+<title>Curated Zone</title>
+<polygon fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5" points="252.76,-297.6 249.76,-301.6 228.76,-301.6 225.76,-297.6 163.39,-297.6 163.39,-261.6 252.76,-261.6 252.76,-297.6"></polygon>
+<text text-anchor="middle" x="208.07" y="-276" font-family="Arial" font-size="12.00">Curated Zone</text>
+</g>
+<!-- Staging Zone&#45;&gt;Curated Zone -->
+<g id="edge7" class="edge">
+<title>Staging Zone-&gt;Curated Zone</title>
+<path fill="none" stroke="black" d="M208.07,-354.97C208.07,-342.13 208.07,-324.3 208.07,-309.32"></path>
+<polygon fill="black" stroke="black" points="211.57,-309.58 208.07,-299.58 204.57,-309.58 211.57,-309.58"></polygon>
+<text text-anchor="middle" x="233.09" y="-329.1" font-family="Arial" font-size="9.00"> 4. Enrich</text>
+<text text-anchor="middle" x="233.09" y="-318.3" font-family="Arial" font-size="9.00">&amp; Aggregate</text>
+</g>
+<!-- Archive Zone -->
+<g id="node9" class="node">
+<title>Archive Zone</title>
+<polygon fill="#e3f2fd" stroke="#1976d2" stroke-width="1.5" points="175.42,-204 172.42,-208 151.42,-208 148.42,-204 88.72,-204 88.72,-168 175.42,-168 175.42,-204"></polygon>
+<text text-anchor="middle" x="132.07" y="-182.4" font-family="Arial" font-size="12.00">Archive Zone</text>
+</g>
+<!-- Curated Zone&#45;&gt;Archive Zone -->
+<g id="edge8" class="edge">
+<title>Curated Zone-&gt;Archive Zone</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M170.64,-261.16C163.19,-256.32 156,-250.47 150.55,-243.6 144.1,-235.45 139.86,-224.96 137.1,-215.23"></path>
+<polygon fill="black" stroke="black" points="140.57,-214.72 134.84,-205.82 133.77,-216.36 140.57,-214.72"></polygon>
+<text text-anchor="middle" x="172.83" y="-235.5" font-family="Arial" font-size="9.00"> 5. Retire</text>
+<text text-anchor="middle" x="172.83" y="-224.7" font-family="Arial" font-size="9.00">Older Data</text>
+</g>
+<!-- BI Tools -->
+<g id="node11" class="node">
+<title>BI Tools</title>
+<polygon fill="#fff3e0" stroke="#f57c00" stroke-width="1.5" points="296.08,-204 240.07,-204 236.07,-200 236.07,-168 292.08,-168 296.08,-172 296.08,-204"></polygon>
+<polyline fill="none" stroke="#f57c00" stroke-width="1.5" points="292.08,-200 236.07,-200"></polyline>
+<polyline fill="none" stroke="#f57c00" stroke-width="1.5" points="292.08,-200 292.08,-168"></polyline>
+<polyline fill="none" stroke="#f57c00" stroke-width="1.5" points="292.08,-200 296.08,-204"></polyline>
+<text text-anchor="middle" x="266.07" y="-182.4" font-family="Arial" font-size="12.00">BI Tools</text>
+</g>
+<!-- Curated Zone&#45;&gt;BI Tools -->
+<g id="edge10" class="edge">
+<title>Curated Zone-&gt;BI Tools</title>
+<path fill="none" stroke="black" d="M218.98,-261.37C227.44,-248.02 239.3,-229.28 249.01,-213.95"></path>
+<polygon fill="black" stroke="black" points="251.81,-216.06 254.21,-205.74 245.9,-212.32 251.81,-216.06"></polygon>
+<text text-anchor="middle" x="266.81" y="-229.8" font-family="Arial" font-size="10.00"> 7. Analyze</text>
+</g>
+<!-- APIs -->
+<g id="node12" class="node">
+<title>APIs</title>
+<polygon fill="#fff3e0" stroke="#f57c00" stroke-width="1.5" points="368.07,-204 318.07,-204 314.07,-200 314.07,-168 364.07,-168 368.07,-172 368.07,-204"></polygon>
+<polyline fill="none" stroke="#f57c00" stroke-width="1.5" points="364.07,-200 314.07,-200"></polyline>
+<polyline fill="none" stroke="#f57c00" stroke-width="1.5" points="364.07,-200 364.07,-168"></polyline>
+<polyline fill="none" stroke="#f57c00" stroke-width="1.5" points="364.07,-200 368.07,-204"></polyline>
+<text text-anchor="middle" x="341.07" y="-182.4" font-family="Arial" font-size="12.00">APIs</text>
+</g>
+<!-- Curated Zone&#45;&gt;APIs -->
+<g id="edge11" class="edge">
+<title>Curated Zone-&gt;APIs</title>
+<path fill="none" stroke="black" d="M253.25,-265.37C267.44,-259.97 282.63,-252.78 295.07,-243.6 306.15,-235.43 316.12,-223.99 323.92,-213.53"></path>
+<polygon fill="black" stroke="black" points="326.64,-215.74 329.57,-205.56 320.93,-211.7 326.64,-215.74"></polygon>
+<text text-anchor="middle" x="336.08" y="-229.8" font-family="Arial" font-size="10.00"> 8. Serve</text>
+</g>
+<!-- Data Science -->
+<g id="node13" class="node">
+<title>Data Science</title>
+<polygon fill="#fff3e0" stroke="#f57c00" stroke-width="1.5" points="228.76,-36 145.39,-36 141.39,-32 141.39,0 224.76,0 228.76,-4 228.76,-36"></polygon>
+<polyline fill="none" stroke="#f57c00" stroke-width="1.5" points="224.76,-32 141.39,-32"></polyline>
+<polyline fill="none" stroke="#f57c00" stroke-width="1.5" points="224.76,-32 224.76,0"></polyline>
+<polyline fill="none" stroke="#f57c00" stroke-width="1.5" points="224.76,-32 228.76,-36"></polyline>
+<text text-anchor="middle" x="185.07" y="-14.4" font-family="Arial" font-size="12.00">Data Science</text>
+</g>
+<!-- Curated Zone&#45;&gt;Data Science -->
+<g id="edge12" class="edge">
+<title>Curated Zone-&gt;Data Science</title>
+<path fill="none" stroke="black" d="M206.53,-261.16C202.63,-217.2 192.38,-101.48 187.6,-47.49"></path>
+<polygon fill="black" stroke="black" points="191.11,-47.52 186.75,-37.87 184.14,-48.14 191.11,-47.52"></polygon>
+<text text-anchor="middle" x="217.64" y="-141" font-family="Arial" font-size="10.00"> 9. Model</text>
+</g>
+<!-- Knowledge Base -->
+<g id="node15" class="node">
+<title>Knowledge Base</title>
+<polygon fill="#fce4ec" stroke="#c2185b" stroke-width="1.5" points="174.11,-120 74.04,-120 74.04,-84 180.11,-84 180.11,-114 174.11,-120"></polygon>
+<polyline fill="none" stroke="#c2185b" stroke-width="1.5" points="174.11,-120 174.11,-114"></polyline>
+<polyline fill="none" stroke="#c2185b" stroke-width="1.5" points="180.11,-114 174.11,-114"></polyline>
+<text text-anchor="middle" x="127.07" y="-98.4" font-family="Arial" font-size="12.00">Knowledge Base</text>
+</g>
+<!-- Archive Zone&#45;&gt;Knowledge Base -->
+<!-- AI/ML Models -->
+<g id="node10" class="node">
+<title>AI/ML Models</title>
+<ellipse fill="#f3e5f5" stroke="#8e24aa" stroke-width="1.5" cx="57.07" cy="-18" rx="57.07" ry="18"></ellipse>
+<text text-anchor="middle" x="57.07" y="-14.4" font-family="Arial" font-size="12.00">AI/ML Models</text>
+</g>
+<!-- AI/ML Models&#45;&gt;Curated Zone -->
+<g id="edge9" class="edge">
+<title>AI/ML Models-&gt;Curated Zone</title>
+<path fill="none" stroke="black" d="M53.09,-47.57C49.23,-86.47 47.96,-156.65 80.07,-204 97.41,-229.56 126.64,-247.55 152.79,-259.45"></path>
+<polygon fill="black" stroke="black" points="56.55,-48.17 54.2,-37.84 49.59,-47.38 56.55,-48.17"></polygon>
+<polygon fill="black" stroke="black" points="151.05,-262.52 161.62,-263.27 153.83,-256.09 151.05,-262.52"></polygon>
+<text text-anchor="middle" x="87.59" y="-141.3" font-family="Arial" font-size="9.00"> 6. Train/Score</text>
+</g>
+<!-- Sandbox&#45;&gt;Staging Zone -->
+<g id="edge13" class="edge">
+<title>Sandbox-&gt;Staging Zone</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M790,-438.72C784.95,-435.76 779.5,-433.05 774.07,-431.2 680.49,-399.2 386.88,-382.38 263.53,-376.58"></path>
+<polygon fill="black" stroke="black" points="263.8,-373.09 253.64,-376.12 263.47,-380.08 263.8,-373.09"></polygon>
+<text text-anchor="middle" x="757.7" y="-412.2" font-family="Arial" font-size="10.00"> 10. Promote</text>
+</g>
+<!-- Knowledge Base&#45;&gt;AI/ML Models -->
+<g id="edge15" class="edge">
+<title>Knowledge Base-&gt;AI/ML Models</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M112.23,-83.61C102.54,-72.26 89.73,-57.25 78.89,-44.55"></path>
+<polygon fill="black" stroke="black" points="81.56,-42.29 72.4,-36.96 76.23,-46.83 81.56,-42.29"></polygon>
+<text text-anchor="middle" x="120.97" y="-57" font-family="Arial" font-size="10.00"> 12. Inform</text>
+</g>
+<!-- Knowledge Base&#45;&gt;Data Science -->
+<g id="edge16" class="edge">
+<title>Knowledge Base-&gt;Data Science</title>
+<path fill="none" stroke="black" stroke-dasharray="5,2" d="M139.37,-83.61C147.22,-72.52 157.53,-57.94 166.38,-45.43"></path>
+<polygon fill="black" stroke="black" points="169,-47.79 171.92,-37.6 163.29,-43.74 169,-47.79"></polygon>
+</g>
+<!-- Process -->
+<g id="node16" class="node">
+<title>Process</title>
+<path fill="#e1f5fe" stroke="#0288d1" stroke-width="1.5" d="M752.75,-475.2C752.75,-475.2 717.4,-475.2 717.4,-475.2 711.4,-475.2 705.4,-469.2 705.4,-463.2 705.4,-463.2 705.4,-451.2 705.4,-451.2 705.4,-445.2 711.4,-439.2 717.4,-439.2 717.4,-439.2 752.75,-439.2 752.75,-439.2 758.75,-439.2 764.75,-445.2 764.75,-451.2 764.75,-451.2 764.75,-463.2 764.75,-463.2 764.75,-469.2 758.75,-475.2 752.75,-475.2"></path>
+<text text-anchor="middle" x="735.07" y="-453.6" font-family="Arial" font-size="12.00">Process</text>
+</g>
+<!-- Data Source -->
+<g id="node17" class="node">
+<title>Data Source</title>
+<path fill="#e8f5e9" stroke="#0288d1" stroke-width="1.5" d="M687.43,-471.93C687.43,-473.73 668.89,-475.2 646.07,-475.2 623.26,-475.2 604.72,-473.73 604.72,-471.93 604.72,-471.93 604.72,-442.47 604.72,-442.47 604.72,-440.67 623.26,-439.2 646.07,-439.2 668.89,-439.2 687.43,-440.67 687.43,-442.47 687.43,-442.47 687.43,-471.93 687.43,-471.93"></path>
+<path fill="none" stroke="#0288d1" stroke-width="1.5" d="M687.43,-471.93C687.43,-470.12 668.89,-468.65 646.07,-468.65 623.26,-468.65 604.72,-470.12 604.72,-471.93"></path>
+<text text-anchor="middle" x="646.07" y="-453.6" font-family="Arial" font-size="12.00">Data Source</text>
+</g>
+<!-- Data Store -->
+<g id="node18" class="node">
+<title>Data Store</title>
+<polygon fill="#e3f2fd" stroke="#0288d1" stroke-width="1.5" points="586.76,-475.2 583.76,-479.2 562.76,-479.2 559.76,-475.2 513.39,-475.2 513.39,-439.2 586.76,-439.2 586.76,-475.2"></polygon>
+<text text-anchor="middle" x="550.07" y="-453.6" font-family="Arial" font-size="12.00">Data Store</text>
+</g>
+<!-- AI/ML -->
+<g id="node19" class="node">
+<title>AI/ML</title>
+<ellipse fill="#f3e5f5" stroke="#0288d1" stroke-width="1.5" cx="465.07" cy="-457.2" rx="30.24" ry="18"></ellipse>
+<text text-anchor="middle" x="465.07" y="-453.6" font-family="Arial" font-size="12.00">AI/ML</text>
+</g>
+<!-- Analytics -->
+<g id="node20" class="node">
+<title>Analytics</title>
+<polygon fill="#fff3e0" stroke="#0288d1" stroke-width="1.5" points="417.08,-475.2 357.07,-475.2 353.07,-471.2 353.07,-439.2 413.08,-439.2 417.08,-443.2 417.08,-475.2"></polygon>
+<polyline fill="none" stroke="#0288d1" stroke-width="1.5" points="413.08,-471.2 353.07,-471.2"></polyline>
+<polyline fill="none" stroke="#0288d1" stroke-width="1.5" points="413.08,-471.2 413.08,-439.2"></polyline>
+<polyline fill="none" stroke="#0288d1" stroke-width="1.5" points="413.08,-471.2 417.08,-475.2"></polyline>
+<text text-anchor="middle" x="385.07" y="-453.6" font-family="Arial" font-size="12.00">Analytics</text>
+</g>
+<!-- Knowledge -->
+<g id="node21" class="node">
+<title>Knowledge</title>
+<polygon fill="#fce4ec" stroke="#0288d1" stroke-width="1.5" points="328.76,-475.2 259.38,-475.2 259.38,-439.2 334.76,-439.2 334.76,-469.2 328.76,-475.2"></polygon>
+<polyline fill="none" stroke="#0288d1" stroke-width="1.5" points="328.76,-475.2 328.76,-469.2"></polyline>
+<polyline fill="none" stroke="#0288d1" stroke-width="1.5" points="334.76,-469.2 328.76,-469.2"></polyline>
+<text text-anchor="middle" x="297.07" y="-453.6" font-family="Arial" font-size="12.00">Knowledge</text>
+</g>
+</g>
+</g></svg>
