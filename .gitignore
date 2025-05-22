@@ -3,6 +3,17 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Playwright browsers and user data
+/ms-playwright/
+/playwright/.cache/
+/playwright/.browsers/
+**/playwright/.cache/
+**/playwright/.browsers/
+# Windows default location for Playwright browsers
+C:/Users/*/AppData/Local/ms-playwright/
+# Playwright persistent session directories
+.playwright*
+
 # C extensions
 *.so
 
@@ -117,3 +128,6 @@ ENV/
 
 # Cython debug symbols
 cython_debug/
+
+#Windsurf Rules
+.windsurf
