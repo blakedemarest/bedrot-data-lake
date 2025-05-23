@@ -1,0 +1,706 @@
+{
+  "totalStreams": [
+    {
+      "date": "2025-04-15",
+      "streams": 12
+    },
+    {
+      "date": "2025-03-24",
+      "streams": 41
+    },
+    {
+      "date": "2025-03-15",
+      "streams": 21
+    },
+    {
+      "date": "2025-03-14",
+      "streams": 11
+    },
+    {
+      "date": "2025-05-15",
+      "streams": 48
+    },
+    {
+      "date": "2025-02-13",
+      "streams": 8
+    },
+    {
+      "date": "2025-02-07",
+      "streams": 2
+    },
+    {
+      "date": "2025-04-06",
+      "streams": 8
+    },
+    {
+      "date": "2025-03-10",
+      "streams": 8
+    },
+    {
+      "date": "2025-04-23",
+      "streams": 11
+    },
+    {
+      "date": "2025-03-30",
+      "streams": 10
+    },
+    {
+      "date": "2025-04-01",
+      "streams": 14
+    },
+    {
+      "date": "2025-02-20",
+      "streams": 4
+    },
+    {
+      "date": "2025-02-21",
+      "streams": 8
+    },
+    {
+      "date": "2025-02-25",
+      "streams": 10
+    },
+    {
+      "date": "2025-03-03",
+      "streams": 4
+    },
+    {
+      "date": "2025-04-22",
+      "streams": 18
+    },
+    {
+      "date": "2025-03-19",
+      "streams": 23
+    },
+    {
+      "date": "2025-02-23",
+      "streams": 3
+    },
+    {
+      "date": "2025-05-04",
+      "streams": 96
+    },
+    {
+      "date": "2025-05-06",
+      "streams": 37
+    },
+    {
+      "date": "2025-04-18",
+      "streams": 20
+    },
+    {
+      "date": "2025-02-10",
+      "streams": 14
+    },
+    {
+      "date": "2025-03-02",
+      "streams": 2
+    },
+    {
+      "date": "2025-03-12",
+      "streams": 16
+    },
+    {
+      "date": "2025-02-24",
+      "streams": 7
+    },
+    {
+      "date": "2025-02-14",
+      "streams": 6
+    },
+    {
+      "date": "2025-04-26",
+      "streams": 41
+    },
+    {
+      "date": "2025-05-14",
+      "streams": 74
+    },
+    {
+      "date": "2025-04-17",
+      "streams": 24
+    },
+    {
+      "date": "2025-02-17",
+      "streams": 30
+    },
+    {
+      "date": "2025-03-22",
+      "streams": 80
+    },
+    {
+      "date": "2025-02-12",
+      "streams": 21
+    },
+    {
+      "date": "2025-02-09",
+      "streams": 15
+    },
+    {
+      "date": "2025-05-09",
+      "streams": 139
+    },
+    {
+      "date": "2025-03-07",
+      "streams": 21
+    },
+    {
+      "date": "2025-02-08",
+      "streams": 5
+    },
+    {
+      "date": "2025-04-04",
+      "streams": 18
+    },
+    {
+      "date": "2025-04-12",
+      "streams": 12
+    },
+    {
+      "date": "2025-03-01",
+      "streams": 4
+    },
+    {
+      "date": "2025-05-18",
+      "streams": 15
+    },
+    {
+      "date": "2025-04-28",
+      "streams": 24
+    },
+    {
+      "date": "2025-05-08",
+      "streams": 33
+    },
+    {
+      "date": "2025-05-17",
+      "streams": 25
+    },
+    {
+      "date": "2025-04-27",
+      "streams": 63
+    },
+    {
+      "date": "2025-02-15",
+      "streams": 1
+    },
+    {
+      "date": "2025-02-11",
+      "streams": 3
+    },
+    {
+      "date": "2025-03-08",
+      "streams": 2
+    },
+    {
+      "date": "2025-05-02",
+      "streams": 67
+    },
+    {
+      "date": "2025-03-26",
+      "streams": 18
+    },
+    {
+      "date": "2025-03-06",
+      "streams": 6
+    },
+    {
+      "date": "2025-04-21",
+      "streams": 18
+    },
+    {
+      "date": "2025-04-02",
+      "streams": 9
+    },
+    {
+      "date": "2025-02-16",
+      "streams": 1
+    },
+    {
+      "date": "2025-03-29",
+      "streams": 17
+    },
+    {
+      "date": "2025-03-09",
+      "streams": 11
+    },
+    {
+      "date": "2025-03-23",
+      "streams": 28
+    },
+    {
+      "date": "2025-05-12",
+      "streams": 85
+    },
+    {
+      "date": "2025-04-08",
+      "streams": 12
+    },
+    {
+      "date": "2025-03-11",
+      "streams": 12
+    },
+    {
+      "date": "2025-04-29",
+      "streams": 26
+    },
+    {
+      "date": "2025-04-16",
+      "streams": 25
+    },
+    {
+      "date": "2025-04-30",
+      "streams": 11
+    },
+    {
+      "date": "2025-05-11",
+      "streams": 92
+    },
+    {
+      "date": "2025-03-17",
+      "streams": 8
+    },
+    {
+      "date": "2025-05-16",
+      "streams": 31
+    },
+    {
+      "date": "2025-05-01",
+      "streams": 13
+    },
+    {
+      "date": "2025-03-31",
+      "streams": 17
+    },
+    {
+      "date": "2025-04-19",
+      "streams": 28
+    },
+    {
+      "date": "2025-03-16",
+      "streams": 23
+    },
+    {
+      "date": "2025-02-18",
+      "streams": 22
+    },
+    {
+      "date": "2025-02-27",
+      "streams": 14
+    },
+    {
+      "date": "2025-03-04",
+      "streams": 6
+    },
+    {
+      "date": "2025-03-20",
+      "streams": 11
+    },
+    {
+      "date": "2025-04-14",
+      "streams": 12
+    },
+    {
+      "date": "2025-04-07",
+      "streams": 17
+    },
+    {
+      "date": "2025-05-03",
+      "streams": 106
+    },
+    {
+      "date": "2025-05-10",
+      "streams": 105
+    },
+    {
+      "date": "2025-02-28",
+      "streams": 12
+    },
+    {
+      "date": "2025-02-19",
+      "streams": 5
+    },
+    {
+      "date": "2025-04-11",
+      "streams": 26
+    },
+    {
+      "date": "2025-03-25",
+      "streams": 54
+    },
+    {
+      "date": "2025-03-27",
+      "streams": 68
+    },
+    {
+      "date": "2025-03-13",
+      "streams": 13
+    },
+    {
+      "date": "2025-04-09",
+      "streams": 35
+    },
+    {
+      "date": "2025-02-26",
+      "streams": 17
+    },
+    {
+      "date": "2025-05-05",
+      "streams": 77
+    },
+    {
+      "date": "2025-03-28",
+      "streams": 24
+    },
+    {
+      "date": "2025-04-13",
+      "streams": 6
+    },
+    {
+      "date": "2025-04-10",
+      "streams": 20
+    },
+    {
+      "date": "2025-04-25",
+      "streams": 31
+    },
+    {
+      "date": "2025-04-03",
+      "streams": 9
+    },
+    {
+      "date": "2025-04-20",
+      "streams": 10
+    },
+    {
+      "date": "2025-05-07",
+      "streams": 38
+    },
+    {
+      "date": "2025-04-05",
+      "streams": 15
+    },
+    {
+      "date": "2025-03-21",
+      "streams": 26
+    },
+    {
+      "date": "2025-05-13",
+      "streams": 68
+    },
+    {
+      "date": "2025-03-05",
+      "streams": 5
+    },
+    {
+      "date": "2025-04-24",
+      "streams": 7
+    },
+    {
+      "date": "2025-03-18",
+      "streams": 29
+    }
+  ],
+  "totalShazam": [
+    {
+      "date": "2025-02-25",
+      "streams": "10"
+    },
+    {
+      "date": "2025-02-20",
+      "streams": "6"
+    },
+    {
+      "date": "2025-02-21",
+      "streams": "6"
+    },
+    {
+      "date": "2025-02-13",
+      "streams": "9"
+    },
+    {
+      "date": "2025-02-14",
+      "streams": "5"
+    },
+    {
+      "date": "2025-02-23",
+      "streams": "5"
+    },
+    {
+      "date": "2025-02-18",
+      "streams": "9"
+    },
+    {
+      "date": "2025-03-31",
+      "streams": "5"
+    },
+    {
+      "date": "2025-02-08",
+      "streams": "9"
+    },
+    {
+      "date": "2025-02-09",
+      "streams": "5"
+    },
+    {
+      "date": "2025-02-17",
+      "streams": "8"
+    },
+    {
+      "date": "2025-02-26",
+      "streams": "6"
+    },
+    {
+      "date": "2025-02-19",
+      "streams": "5"
+    }
+  ],
+  "tracksTotal": [
+    {
+      "isrc": "QT2VB2509864",
+      "streams": 741,
+      "track": "ANOVUS",
+      "release": "THE SOURCE",
+      "cover": "https://toolost.s3.us-east-2.amazonaws.com/convertedArtwork/842d4295fe5a4d7fa17b1f207e68bae1.jpg"
+    },
+    {
+      "isrc": "QZPEW2531028",
+      "streams": 733,
+      "track": "ENGAGEMENT PROTOCOL",
+      "release": "THE SOURCE",
+      "cover": "https://toolost.s3.us-east-2.amazonaws.com/convertedArtwork/842d4295fe5a4d7fa17b1f207e68bae1.jpg"
+    },
+    {
+      "isrc": "QZVEM2588623",
+      "streams": 492,
+      "track": "THE SOURCE",
+      "release": "THE SOURCE",
+      "cover": "https://toolost.s3.us-east-2.amazonaws.com/convertedArtwork/842d4295fe5a4d7fa17b1f207e68bae1.jpg"
+    },
+    {
+      "isrc": "QT2VB2509865",
+      "streams": 310,
+      "track": "ENGAGEMENT PROTOCOL",
+      "release": "ANOVUS",
+      "cover": "https://toolost.s3.us-east-2.amazonaws.com/convertedArtwork/227c02633c904589b9b5784a1f092ae1.jpg"
+    },
+    {
+      "isrc": "QZVEM2588628",
+      "streams": 112,
+      "track": "ANOVUS (SLOWED)",
+      "release": "THE SOURCE",
+      "cover": "https://toolost.s3.us-east-2.amazonaws.com/convertedArtwork/842d4295fe5a4d7fa17b1f207e68bae1.jpg"
+    },
+    {
+      "isrc": "QZVEM2588625",
+      "streams": 65,
+      "track": "THE SOURCE (SLOWED)",
+      "release": "THE SOURCE",
+      "cover": "https://toolost.s3.us-east-2.amazonaws.com/convertedArtwork/842d4295fe5a4d7fa17b1f207e68bae1.jpg"
+    },
+    {
+      "isrc": "QZVEM2588624",
+      "streams": 54,
+      "track": "Z1",
+      "release": "THE SOURCE",
+      "cover": "https://toolost.s3.us-east-2.amazonaws.com/convertedArtwork/842d4295fe5a4d7fa17b1f207e68bae1.jpg"
+    },
+    {
+      "isrc": "QZVEM2588626",
+      "streams": 28,
+      "track": "ENGAGEMENT PROTOCOL (SLOWED)",
+      "release": "THE SOURCE",
+      "cover": "https://toolost.s3.us-east-2.amazonaws.com/convertedArtwork/842d4295fe5a4d7fa17b1f207e68bae1.jpg"
+    },
+    {
+      "isrc": "QZVEM2588627",
+      "streams": 23,
+      "track": "Z1 (SLOWED)",
+      "release": "THE SOURCE",
+      "cover": "https://toolost.s3.us-east-2.amazonaws.com/convertedArtwork/842d4295fe5a4d7fa17b1f207e68bae1.jpg"
+    }
+  ],
+  "countryTotal": [
+    {
+      "country": "US",
+      "streams": 1397
+    },
+    {
+      "country": "JP",
+      "streams": 362
+    },
+    {
+      "country": "CA",
+      "streams": 82
+    },
+    {
+      "country": "TH",
+      "streams": 75
+    },
+    {
+      "country": "GB",
+      "streams": 72
+    },
+    {
+      "country": "MX",
+      "streams": 64
+    },
+    {
+      "country": "RU",
+      "streams": 58
+    },
+    {
+      "country": "BR",
+      "streams": 54
+    },
+    {
+      "country": "FR",
+      "streams": 53
+    },
+    {
+      "country": "CZ",
+      "streams": 42
+    },
+    {
+      "country": "CL",
+      "streams": 40
+    },
+    {
+      "country": "HK",
+      "streams": 37
+    },
+    {
+      "country": "ZA",
+      "streams": 25
+    },
+    {
+      "country": "AU",
+      "streams": 24
+    },
+    {
+      "country": "SV",
+      "streams": 22
+    },
+    {
+      "country": "EC",
+      "streams": 21
+    },
+    {
+      "country": "DE",
+      "streams": 18
+    },
+    {
+      "country": "MD",
+      "streams": 15
+    },
+    {
+      "country": "IT",
+      "streams": 14
+    },
+    {
+      "country": "TW",
+      "streams": 9
+    },
+    {
+      "country": "EE",
+      "streams": 9
+    },
+    {
+      "country": "UA",
+      "streams": 8
+    },
+    {
+      "country": "LV",
+      "streams": 6
+    },
+    {
+      "country": "HN",
+      "streams": 6
+    },
+    {
+      "country": "MO",
+      "streams": 5
+    },
+    {
+      "country": "CH",
+      "streams": 4
+    },
+    {
+      "country": "ES",
+      "streams": 4
+    },
+    {
+      "country": "MY",
+      "streams": 4
+    },
+    {
+      "country": "KR",
+      "streams": 4
+    },
+    {
+      "country": "LT",
+      "streams": 3
+    },
+    {
+      "country": "AE",
+      "streams": 3
+    },
+    {
+      "country": "TR",
+      "streams": 3
+    },
+    {
+      "country": "FI",
+      "streams": 2
+    },
+    {
+      "country": "NL",
+      "streams": 2
+    },
+    {
+      "country": "PT",
+      "streams": 1
+    },
+    {
+      "country": "RO",
+      "streams": 1
+    },
+    {
+      "country": "GE",
+      "streams": 1
+    },
+    {
+      "country": "PA",
+      "streams": 1
+    },
+    {
+      "country": "CO",
+      "streams": 1
+    },
+    {
+      "country": "SI",
+      "streams": 1
+    },
+    {
+      "country": "KZ",
+      "streams": 1
+    },
+    {
+      "country": "HU",
+      "streams": 1
+    },
+    {
+      "country": "CR",
+      "streams": 1
+    },
+    {
+      "country": "PL",
+      "streams": 1
+    },
+    {
+      "country": "PE",
+      "streams": 1
+    }
+  ],
+  "streamTotal": 2558
+}
