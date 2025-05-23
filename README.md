@@ -27,9 +27,10 @@ This is the central data lake for BEDROT's music analytics platform.
 - `landing/` - Initial data ingestion area
 - `raw/` - Immutable raw data
 - `staging/` - Cleaned and validated data
-- `curated/` - Business-ready datasets
+- `curated/` - Business-ready datasets (main source for business reporting)
 - `archive/` - Historical data archives
-- `sandbox/` - Experimental work area
+- `sandbox/` - Experimental work area (Jupyter notebooks for raw data exploration and cleaning)
+    - See `sandbox/distrokid_raw_exploration.ipynb` and `sandbox/toolost_raw_exploration.ipynb` for data profiling and cleaning pipelines that output analytics-ready CSVs to `curated/`.
 - `knowledge/` - AI knowledge base
   - `decisions/` - Decision records
   - `patterns/` - Common data patterns
