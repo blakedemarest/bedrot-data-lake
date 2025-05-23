@@ -41,3 +41,17 @@ Finalized robust Playwright-based automation for TooLost streaming data extracti
 - Automate parsing of downloaded JSON
 - Integrate with downstream pipelines if needed
 --- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-23-toolost-raw-validation
+# What Changed (≤ 50 words)
+Added Python script to validate TooLost analytics JSON files in landing zone. Valid files are automatically promoted to raw/toolost/streams/ with audit logging. Structure and field checks ensure only correct data is moved to the raw zone.
+# Impact
+- Ensures only valid TooLost analytics are promoted to raw
+- Automated, auditable, and robust data flow from landing to raw/toolost/streams/
+- No manual copy required for valid extractions
+# Follow-ups
+- Extend validation for other platforms (e.g., Deezer, TikTok)
+- Add optional deletion from landing after promotion
+--- END CHANGELOG ENTRY ---

@@ -11,6 +11,11 @@ This is the central data lake for BEDROT's music analytics platform.
 - Script now detects dashboard, navigates to both streams and Apple Music stats pages, and saves HTML with datetime-stamped filenames (e.g., `streams_stats_YYYYMMDD_HHMMSS.html`).
 - No destructive actions occur unless authentication is confirmed; browser remains open for user review.
 - See [`src/README.md`](src/README.md) for code structure and usage.
+
+### 2025-05-22: TooLost JSON Validation and Promotion
+- Validated copies of landing zone data (e.g., DistroKid HTML snapshots that pass validation)
+- Validated TooLost analytics JSON files, promoted using `src/toolost/validate_toolost_json.py` after automated structure checks
+
 ---
 
 ## Directory Structure

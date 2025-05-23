@@ -8,6 +8,8 @@ The raw zone stores an immutable, exact copy of the source data after initial va
 
 ## What Goes Here
 - Validated copies of landing zone data (e.g., DistroKid HTML snapshots that pass validation)
+- Validated TooLost analytics JSON files (see `src/toolost/validate_toolost_json.py` and changelog for details)
+
 - Data in its most granular form
 - Original data types and structures preserved
 - No data should be deleted or modified
