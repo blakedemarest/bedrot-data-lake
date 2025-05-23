@@ -52,6 +52,6 @@ Added Python script to validate TooLost analytics JSON files in landing zone. Va
 - Automated, auditable, and robust data flow from landing to raw/toolost/streams/
 - No manual copy required for valid extractions
 # Follow-ups
-- Extend validation for other platforms (e.g., Deezer, TikTok)
+- Move ipynb experiments to more robust python scripts in `src/`
 - Add optional deletion from landing after promotion
 --- END CHANGELOG ENTRY ---
