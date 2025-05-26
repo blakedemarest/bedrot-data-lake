@@ -35,11 +35,15 @@ spotify_df["date"] = pd.to_datetime(spotify_df["date"])
 spotify_df["spotify_streams"] = spotify_df["streams"].astype(int)
 spotify_df = spotify_df[["date", "spotify_streams"]]
 
+print(f"Most recent Spotify reporting date: {spotify_df['date'].max().date()}")
+
 # Apple JSON has top-level "totalStreams"
 apple_df = pd.DataFrame(apple_data.get("totalStreams", []))
 apple_df["date"] = pd.to_datetime(apple_df["date"])
 apple_df["apple_streams"] = apple_df["streams"].astype(int)
 apple_df = apple_df[["date", "apple_streams"]]
+
+print(f"Most recent Apple Music reporting date: {apple_df['date'].max().date()}")
 
 
 # %%

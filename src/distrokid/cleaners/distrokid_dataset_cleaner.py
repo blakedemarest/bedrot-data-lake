@@ -74,6 +74,9 @@ def extract_apple_daily(html_path: Path) -> pd.DataFrame:
 dk_df    = extract_distrokid_daily(distrokid_html)
 apple_df = extract_apple_daily(apple_html)
 
+print(f"Most recent DistroKid (Spotify) reporting date: {dk_df['date'].max().date()}")
+print(f"Most recent Apple Music reporting date: {apple_df['date'].max().date()}")
+
 combined = (dk_df
             .merge(apple_df, on="date", how="outer")
             .sort_values("date")

@@ -67,7 +67,8 @@ def main():
     promoted = []
     failed = []
     # Always resolve from the data_lake directory (project root)
-    project_root = Path(__file__).resolve().parent.parent.parent
+    # Go up three levels: extractors -> toolost -> src -> data_lake
+    project_root = Path(__file__).resolve().parents[3]
     raw_dir = project_root / "raw" / "toolost" / "streams"
     raw_dir.mkdir(parents=True, exist_ok=True)
     print(f"[DEBUG] Files will be copied to: {raw_dir}")

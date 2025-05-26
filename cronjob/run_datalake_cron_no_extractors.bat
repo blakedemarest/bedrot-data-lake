@@ -8,16 +8,6 @@ for /f "usebackq tokens=1,2 delims==" %%i in ("%~dp0..\.env") do set %%i=%%j
 REM Change to project root directory
 cd /d "%PROJECT_ROOT%"
 
-REM 1. Meta Ads Extraction
-REM Runs the Meta Ads pipeline Python script
-python src\metaads\extractors\meta_raw_dump.py
-IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
-
-REM 2. DistroKid Auth & Download
-echo Running DistroKid Auth & Download...
-python src\distrokid\extractors\dk_auth.py
-IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
-
 REM 3. DistroKid HTML Validation
 echo Running DistroKid HTML Validation...
 python src\distrokid\extractors\validate_dk_html.py
@@ -26,11 +16,6 @@ IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 REM 4. DistroKid Dataset Cleaner
 echo Running DistroKid Dataset Cleaner...
 python src\distrokid\cleaners\distrokid_dataset_cleaner.py
-IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
-
-REM 5. TooLost Scraper
-echo Running TooLost Scraper...
-python src\toolost\extractors\toolost_scraper.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
 REM 6. TooLost JSON Validation
