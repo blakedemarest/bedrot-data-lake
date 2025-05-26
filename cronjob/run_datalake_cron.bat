@@ -23,9 +23,9 @@ echo Running DistroKid HTML Validation...
 python src\distrokid\extractors\validate_dk_html.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
-REM 4. DistroKid Raw Exploration (Jupyter notebook)
-echo Running DistroKid Raw Exploration...
-python sandbox\distrokid_raw_exploration.ipynb
+REM 4. DistroKid Dataset Cleaner
+echo Running DistroKid Dataset Cleaner...
+python src\distrokid\cleaners\distrokid_dataset_cleaner.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
 REM 5. TooLost Scraper
@@ -38,17 +38,12 @@ echo Running TooLost JSON Validation...
 python src\toolost\validate_toolost_json.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
-REM 7. TooLost Raw Exploration (Jupyter notebook)
-echo Running TooLost Raw Exploration...
-python sandbox\toolost_raw_exploration.ipynb
+REM 7. TooLost Dataset Cleaner
+REM Consolidates and cleans TooLost streaming data, producing a curated CSV for analytics
+python src\toolost\cleaners\toolost_dataset_cleaner.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
-REM 8. Curate & Clean Data (replace with your script/notebook)
-echo Running Curation & Cleaning...
-python staging\curation_notebook_or_script.py
-IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
-
-REM 9. Analytics & Reporting (replace with your script/notebook)
+REM 8. Analytics & Reporting (replace with your script/notebook)
 echo Running Analytics & Reporting...
 python curated\analytics_notebook_or_script.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%

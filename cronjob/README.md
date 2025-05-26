@@ -5,7 +5,7 @@ This master cron job automates the sequential execution of all critical ETL and 
 
 **The workflow includes:**
 - Extracting and validating Meta Ads, DistroKid, and TooLost data
-- Running exploratory/cleaning notebooks
+- Cleaning and merging DistroKid and TooLost data using dedicated dataset cleaner scripts in `src/distrokid/cleaners` and `src/toolost/cleaners`
 - Curating and preparing analytics-ready datasets
 - Generating analytics and reports
 
