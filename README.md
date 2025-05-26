@@ -24,13 +24,13 @@ This is the central data lake for BEDROT productions
   - `cache/` - Temporary processing artifacts
   - `context/` - Session-specific context
   - `logs/` - Agent execution logs
-- `landing/` - Initial data ingestion area
+- `landing/` - Initial data ingestion area for raw dumps from DistroKid and Meta Ads API
 - `raw/` - Immutable raw data
 - `staging/` - Cleaned and validated data
 - `curated/` - Business-ready datasets (main source for business reporting)
 - `archive/` - Historical data archives
 - `sandbox/` - Experimental work area (Jupyter notebooks for raw data exploration and cleaning)
-    - See `sandbox/distrokid_raw_exploration.ipynb` and `sandbox/toolost_raw_exploration.ipynb` for data profiling and cleaning pipelines that output analytics-ready CSVs to `curated/`.
+    - See `sandbox/distrokid_raw_exploration.ipynb`, `sandbox/toolost_raw_exploration.ipynb`, and `sandbox/meta_raw_dump.ipynb` for data profiling and cleaning pipelines that output analytics-ready CSVs to `curated/` or raw dumps to `landing/`.
 - `knowledge/` - AI knowledge base
   - `decisions/` - Decision records
   - `patterns/` - Common data patterns

@@ -55,3 +55,19 @@ Added Python script to validate TooLost analytics JSON files in landing zone. Va
 - Move ipynb experiments to more robust python scripts in `src/`
 - Add optional deletion from landing after promotion
 --- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-26-meta-ads-ingest
+
+# What Changed (≤ 50 words)
+Added support for Meta Ads API data ingestion. Created [meta_raw_dump.ipynb](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/sandbox/meta_raw_dump.ipynb:0:0-0:0) in sandbox to extract campaigns, ad sets, ads, and insights as raw JSON dumps to landing zone. Updated landing/README.md and main README.md to document Meta Ads as a supported source.
+
+# Impact
+- Meta Ads campaign/ad/insight data now available for analytics
+- Landing zone and documentation updated for new data source
+
+# Follow-ups
+- Build cleaning/curation pipeline for Meta Ads data
+- Integrate with downstream analytics workflows
+--- END CHANGELOG ENTRY ---

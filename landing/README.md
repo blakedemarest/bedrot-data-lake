@@ -13,7 +13,7 @@
 - See `src/distrokid/extractors/validate_dk_html.py` for details
 
 ## Purpose
-The landing zone is the initial entry point for all incoming data into the data lake. This is where data is first ingested from various sources before any processing occurs.
+The landing zone is the initial entry point for all incoming data into the data lake. This is where data is first ingested from various sources before any processing occurs. Supported sources now include Meta Ads API (see `meta_raw_dump.ipynb` in sandbox for extraction workflow), DistroKid, TooLost, TikTok, and Spotify.
 
 ## What Goes Here
 - Raw data files from external sources
@@ -28,6 +28,10 @@ The landing zone is the initial entry point for all incoming data into the data 
 - Include source system and timestamp in filenames
 
 ## Example Files
+- `meta_ads/20250526_180701/campaigns.json` (Meta Ads API raw campaigns dump)
+- `meta_ads/20250526_180701/adsets.json` (Meta Ads API raw ad sets dump)
+- `meta_ads/20250526_180701/ads.json` (Meta Ads API raw ads dump)
+- `meta_ads/20250526_180701/insights.json` (Meta Ads API raw insights dump)
 - `tiktok_analytics_20240522.json`
 - `spotify_streams_20240522.csv`
 - `distrokid_sales_20240522.xlsx`
