@@ -93,10 +93,8 @@ def login_distrokid():
                 f.write(am_html)
             logging.info(f"Apple Music stats page HTML saved to {am_file}")
             print("Stats pages downloaded. You may now close the browser window.")
-            # Wait for user to close browser
-            while not page.is_closed():
-                time.sleep(1)
-            logging.info("Browser closed. Workflow complete.")
+            browser.close()
+            logging.info("Browser closed automatically after stats download. Workflow complete.")
             return True
         except Exception as e:
             logging.exception(f"An unexpected error occurred: {e}")

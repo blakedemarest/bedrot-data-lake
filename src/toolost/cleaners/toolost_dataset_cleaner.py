@@ -8,10 +8,17 @@ from IPython.display import display
 
 # %%
 # Cell 2: Define file paths and load JSON
-base_dir = r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\landing\toolost"
-
-spotify_path = os.path.join(base_dir, "toolost_spotify_20250522_124556.json")
-apple_path   = os.path.join(base_dir, "toolost_apple_20250522_124556.json")
+import glob
+raw_dir = r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\raw\toolost\streams"
+# Get latest Spotify JSON
+spotify_files = sorted(glob.glob(os.path.join(raw_dir, "toolost_spotify_*.json")), key=os.path.getmtime, reverse=True)
+apple_files = sorted(glob.glob(os.path.join(raw_dir, "toolost_apple_*.json")), key=os.path.getmtime, reverse=True)
+if not spotify_files or not apple_files:
+    raise FileNotFoundError("Could not find required TooLost JSON files in raw/toolost/streams.")
+spotify_path = spotify_files[0]
+apple_path = apple_files[0]
+print(f"Using Spotify JSON: {spotify_path}")
+print(f"Using Apple JSON: {apple_path}")
 
 with open(spotify_path, "r", encoding="utf-8") as f:
     spotify_data = json.load(f)

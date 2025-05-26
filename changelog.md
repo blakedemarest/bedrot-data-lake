@@ -71,3 +71,40 @@ Added support for Meta Ads API data ingestion. Created [meta_raw_dump.ipynb](cci
 - Build cleaning/curation pipeline for Meta Ads data
 - Integrate with downstream analytics workflows
 --- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-26-dataset-cleaners-pipeline
+
+# What Changed (≤ 50 words)
+Replaced DistroKid and TooLost exploratory notebooks with dedicated dataset cleaner scripts. Updated cronjob batch file and pipeline diagram to use these scripts, clarified README documentation, and removed notebook-based steps from the automated workflow.
+
+# Impact
+- Pipeline is now fully script-based for DistroKid and TooLost cleaning
+- Improved automation, reproducibility, and maintainability
+- Updated documentation and flow diagram for clarity
+
+# Follow-ups
+- Convert any remaining analytics/reporting notebooks to scripts
+- Monitor for errors in new script-based steps
+--- END CHANGELOG ENTRY ---
+
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-26-cron-latest-file-automation
+
+# What Changed (≤ 50 words)
+Batch file now runs Meta Ads extraction from `src/metaads/extractors/meta_raw_dump.py`. DistroKid and TooLost cleaner scripts automatically process the latest files in the raw zone. Documentation and READMEs updated to reflect these improvements.
+
+# Impact
+- Fully automated, always-up-to-date cleaning for DistroKid and TooLost
+- No more manual filename edits required in cleaner scripts
+- Meta Ads extraction is now part of the main ETL pipeline
+- Documentation and usage instructions improved
+
+# Follow-ups
+- Monitor for edge cases with file selection (e.g., missing or corrupt files)
+- Add similar automation for any future data sources
+- Consider adding logging for which files are processed each run
+--- END CHANGELOG ENTRY ---

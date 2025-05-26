@@ -155,10 +155,8 @@ async def main():
             print("[WARNING] Apple Music API response not captured after 60 seconds. Please check selectors or try again.")
 
         print("Data collection complete. You may now close the browser window to end the script.")
-        # Wait for browser close
-        while any(page.is_closed() is False for page in browser.pages):
-            await asyncio.sleep(2)
         await browser.close()
+        print("Browser closed automatically after data collection. Workflow complete.")
 
 if __name__ == "__main__":
     asyncio.run(main())

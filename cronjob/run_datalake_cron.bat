@@ -8,9 +8,9 @@ for /f "usebackq tokens=1,2 delims==" %%i in ("%~dp0..\.env") do set %%i=%%j
 REM Change to project root directory
 cd /d "%PROJECT_ROOT%"
 
-REM 1. Meta Ads Extraction (Jupyter notebook, recommend convert to .py for automation)
-echo Running Meta Ads extraction...
-python sandbox\meta_raw_dump.ipynb
+REM 1. Meta Ads Extraction
+REM Runs the Meta Ads pipeline Python script
+python src\metaads\extractors\meta_raw_dump.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
 REM 2. DistroKid Auth & Download
@@ -34,8 +34,12 @@ python src\toolost\extractors\toolost_scraper.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
 REM 6. TooLost JSON Validation
-echo Running TooLost JSON Validation...
-python src\toolost\validate_toolost_json.py
+REM Finds the latest TooLost JSON files and validates them
+for /f "delims=" %%a in ('dir /b /o-d "landing\toolost\toolost_spotify_*.json"') do set LATEST_SPOTIFY=landing\toolost\%%a & goto :found_spotify
+:found_spotify
+for /f "delims=" %%a in ('dir /b /o-d "landing\toolost\toolost_apple_*.json"') do set LATEST_APPLE=landing\toolost\%%a & goto :found_apple
+:found_apple
+python src\toolost\extractors\validate_toolost_json.py %LATEST_SPOTIFY% %LATEST_APPLE%
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
 REM 7. TooLost Dataset Cleaner

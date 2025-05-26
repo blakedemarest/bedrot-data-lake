@@ -7,8 +7,17 @@ import re, json, pandas as pd
 # %%
 # 📂 Cell 2 – Source & target paths
 # ------------------------------------------------------------
-distrokid_html = Path(r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\landing\distrokid\streams\streams_stats_20250522_085156.html")
-apple_html     = Path(r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\landing\distrokid\streams\applemusic_stats_20250522_085156.html")
+from glob import glob
+raw_dir = Path(r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\raw\distrokid\streams")
+# Get latest DistroKid HTML
+streams_files = sorted(raw_dir.glob("streams_stats_*.html"), key=lambda p: p.stat().st_mtime, reverse=True)
+apple_files = sorted(raw_dir.glob("applemusic_stats_*.html"), key=lambda p: p.stat().st_mtime, reverse=True)
+if not streams_files or not apple_files:
+    raise FileNotFoundError("Could not find required DistroKid or Apple Music HTML files in raw/distrokid/streams.")
+distrokid_html = streams_files[0]
+apple_html = apple_files[0]
+print(f"Using DistroKid HTML: {distrokid_html}")
+print(f"Using Apple Music HTML: {apple_html}")
 
 curated_dir    = Path(r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\curated")
 curated_dir.mkdir(parents=True, exist_ok=True)
