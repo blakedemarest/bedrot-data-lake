@@ -108,3 +108,21 @@ Batch file now runs Meta Ads extraction from `src/metaads/extractors/meta_raw_du
 - Add similar automation for any future data sources
 - Consider adding logging for which files are processed each run
 --- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-26-cronjob-automation
+
+# What Changed (≤ 50 words)
+Added a Python script to auto-generate a "no extractors" cron job batch file from the master cron job. The master batch file now always runs this script as its final step, ensuring the secondary file is always up-to-date and eliminating manual duplication.
+
+# Impact
+- No more manual edits needed for the secondary cron job file
+- Centralized maintenance of ETL pipeline scheduling
+- All batch file steps now run in the correct working directory
+- Cleaner scripts now print the most recent reporting date for auditability
+
+# Follow-ups
+- Replace analytics/reporting placeholders with real scripts
+- Consider similar automation for other workflow variants
+--- END CHANGELOG ENTRY ---

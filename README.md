@@ -18,6 +18,15 @@ This is the central data lake for BEDROT productions
 
 ---
 
+## Cron Job Pipeline Automation
+
+**Centralized Cron Job Maintenance:**
+- Only edit the master cron job file: `cronjob/run_datalake_cron.bat`.
+- The secondary batch file (`run_datalake_cron_no_extractors.bat`, which skips extractor scripts) is always generated automatically by `cronjob/generate_no_extractors_cron.py` (run as the last step of the master cron job).
+- This eliminates manual duplication and ensures both cron jobs are always in sync.
+
+---
+
 ## Directory Structure
 
 - `.agent/` - AI agent working directories
