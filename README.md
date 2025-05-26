@@ -1,6 +1,6 @@
 # BEDROT Data Lake
 
-This is the central data lake for BEDROT's music analytics platform.
+This is the central data lake for BEDROT productions
 
 ---
 
