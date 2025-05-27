@@ -4,12 +4,14 @@ import os
 import json
 import pandas as pd
 from IPython.display import display
-
+from dotenv import load_dotenv
 
 # %%
 # Cell 2: Define file paths and load JSON
 import glob
-raw_dir = r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\raw\toolost\streams"
+load_dotenv()
+PROJECT_ROOT = os.getenv("PROJECT_ROOT")
+raw_dir = os.path.join(PROJECT_ROOT, "raw", "toolost", "streams")
 # Get latest Spotify JSON
 spotify_files = sorted(glob.glob(os.path.join(raw_dir, "toolost_spotify_*.json")), key=os.path.getmtime, reverse=True)
 apple_files = sorted(glob.glob(os.path.join(raw_dir, "toolost_apple_*.json")), key=os.path.getmtime, reverse=True)
@@ -57,18 +59,18 @@ display(df.head())
 
 
 # %%
-# Cell 5: Save to curated CSV
-curated_dir = r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\curated"
-os.makedirs(curated_dir, exist_ok=True)
+# Cell 5: Save to staging CSV
+staging_dir = os.path.join(PROJECT_ROOT, "staging")
+os.makedirs(staging_dir, exist_ok=True)
 
-output_csv = os.path.join(curated_dir, "daily_streams_toolost.csv")
+output_csv = os.path.join(staging_dir, "daily_streams_toolost.csv")
 df.to_csv(output_csv, index=False)
 print(f"Saved CSV to: {output_csv}")
 
 
 # %%
 # Cell 6: Post-validation (using absolute path)
-validate_path = r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\curated\daily_streams_toolost.csv"
+validate_path = os.path.join(staging_dir, "daily_streams_toolost.csv")
 validate_df = pd.read_csv(validate_path)
 
 total_spotify  = validate_df["spotify_streams"].sum()

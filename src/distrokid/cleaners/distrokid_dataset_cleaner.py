@@ -3,12 +3,16 @@
 # ------------------------------------------------------------
 from pathlib import Path
 import re, json, pandas as pd
+import os
+from dotenv import load_dotenv
 
 # %%
 # 📂 Cell 2 – Source & target paths
 # ------------------------------------------------------------
 from glob import glob
-raw_dir = Path(r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\raw\distrokid\streams")
+load_dotenv()
+PROJECT_ROOT = Path(os.getenv("PROJECT_ROOT"))
+raw_dir = PROJECT_ROOT / "raw" / "distrokid" / "streams"
 # Get latest DistroKid HTML
 streams_files = sorted(raw_dir.glob("streams_stats_*.html"), key=lambda p: p.stat().st_mtime, reverse=True)
 apple_files = sorted(raw_dir.glob("applemusic_stats_*.html"), key=lambda p: p.stat().st_mtime, reverse=True)
@@ -19,10 +23,10 @@ apple_html = apple_files[0]
 print(f"Using DistroKid HTML: {distrokid_html}")
 print(f"Using Apple Music HTML: {apple_html}")
 
-curated_dir    = Path(r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\curated")
-curated_dir.mkdir(parents=True, exist_ok=True)
+staging_dir    = PROJECT_ROOT / "staging"
+staging_dir.mkdir(parents=True, exist_ok=True)
 
-out_csv        = curated_dir / "daily_streams_distrokid.csv"
+out_csv        = staging_dir / "daily_streams_distrokid.csv"
 print("CSV will be saved to:", out_csv)
 
 
@@ -101,12 +105,8 @@ combined.tail()
 # %%
 # 🔍 Cell 7 – Post-validation check (absolute path)
 # ------------------------------------------------------------
-from pathlib import Path
-import pandas as pd
-
-csv_to_validate = Path(r"C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\curated\daily_streams_distrokid.csv")
-
-df = pd.read_csv(csv_to_validate)
+validate_path = staging_dir / "daily_streams_distrokid.csv"
+df = pd.read_csv(validate_path)
 
 sum_spotify  = df["spotify_streams"].sum()
 sum_apple    = df["apple_streams"].sum()
@@ -123,6 +123,3 @@ else:
 
 
 # %%
-
-
-

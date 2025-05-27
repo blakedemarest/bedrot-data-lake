@@ -154,3 +154,21 @@ Cleaner is now fully automated and batch-friendly. Ensures all metrics are numer
 # Follow-ups
 Document additional cleaning steps as they are added. Consider extending the pattern to other data sources.
 --- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+May2025-StagingCleanerRefactor
+
+# What Changed (≤ 50 words)
+All finalized output CSVs from DistroKid, TooLost, and Meta Ads cleaner scripts now write to the `staging/` directory (not `curated/`). Path management standardized using `PROJECT_ROOT` from `.env`. All relevant README files updated to reflect this workflow.
+
+# Impact
+- Output location for analytics and reporting scripts is now `/staging`
+- No more hardcoded project root paths
+- Improved automation and portability
+- Documentation is accurate and up-to-date
+
+# Follow-ups
+- Update downstream analytics/reporting scripts to read from `/staging`
+- Add script-specific documentation if needed
+---

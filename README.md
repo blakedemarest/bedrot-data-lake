@@ -13,13 +13,12 @@ This is the central data lake for BEDROT productions
 
 ---
 
-
-
 - `.agent/` — AI agent working directories (cache, context, logs)
 - `archive/` — **Historical data**; long-term storage for datasets no longer actively used.
 - `changelog.md` — Project changelog.
 - `cronjob/` — Batch files and automation scripts.
-- `curated/` — **Business-ready datasets**. Main consumption layer for analytics, dashboards, and ML. Contains cleaned, aggregated, and enriched data with stable schemas and documentation.
+- `curated/` — **Business-ready datasets**. Main consumption layer for analytics, dashboards, and ML. Contains cleaned, aggregated, and enriched data with stable schemas and documentation. 
+  - **Note:** As of May 2025, all finalized output CSVs from cleaner scripts (e.g., DistroKid, TooLost, Meta Ads) are first written to the `staging/` directory. Only after validation and business logic are they promoted to `curated/`.
 - `data_lake_flow.dot` — Pipeline visualization (Graphviz).
 - `docker-compose.yml` — MinIO and other service orchestration.
 - `image.png`, `image.svg` — Project diagrams.
@@ -31,7 +30,7 @@ This is the central data lake for BEDROT productions
 - `sandbox/` — Experimental work area (Jupyter notebooks for raw data exploration and cleaning).
 - `src/` — All ETL and pipeline code:
   - `distrokid/`
-    - `extractors/` — DistroKid ## Directory Structuredata extraction scripts
+    - `extractors/` — DistroKid data extraction scripts
     - `cleaners/` — DistroKid data cleaning scripts
   - `metaads/`
     - `extractors/` — Meta Ads data extraction scripts
@@ -43,21 +42,26 @@ This is the central data lake for BEDROT productions
     - `extractors/` — TikTok data extraction scripts
     - `cleaners/` — TikTok data cleaning scripts
   - `raw/` — Raw ETL helpers/utilities
-- `staging/` — **Data cleaning, validation, and transformation zone**. Where data is standardized, quality-checked, and joined/aggregated. All transformations and schema enforcement occur here. Next step: move to `curated` for business use.
+- `staging/` — **Data cleaning, validation, and transformation zone**. Where data is standardized, quality-checked, and joined/aggregated. All transformations and schema enforcement occur here. **All output from cleaner scripts (DistroKid, TooLost, Meta Ads, etc.) lands here by default.** Next step: move to `curated` for business use.
 - `tests/` — Automated tests
 
 ---
 
-### Meta Ads Data Cleaner: `metaads_tidy.py`
+### Cleaner Scripts: Output & Path Management
 
-- **Purpose:**
+- **Output Location:**
+  - As of May 2025, all finalized output CSVs from DistroKid, TooLost, and Meta Ads cleaner scripts are written to the `staging/` directory (not `curated/`).
+  - Only after validation and business logic are outputs promoted to `curated/`.
+
+- **Path Management:**
+  - All scripts use the `PROJECT_ROOT` variable from `.env` for path resolution. This ensures robust automation and eliminates hardcoded paths.
+  - Update `.env` as needed to change the project root location across all scripts.
+
+- **Meta Ads Data Cleaner: `metaads_tidy.py`**
   - Loads the most recent Meta Ads dump from the landing zone automatically (no manual folder selection needed).
-  - Reads all raw JSON files (`ads.json`, `adsets.json`, `campaigns.json`, `insights.json`, `campaigns.json`).
+  - Reads all raw JSON files (`ads.json`, `adsets.json`, `campaigns.json`, `insights.json`).
   - Converts key metrics (`spend`, `impressions`, `clicks`, `reach`, `cpc`, `ctr`, `frequency`) to numeric types for analysis and cleaning.
   - Prints loaded dataframe shapes for quick sanity checking.
-
-- **How it works:**
-  - Uses `PROJECT_ROOT` from `.env` for robust path resolution.
   - Always selects the latest timestamped Meta Ads dump folder in `landing/`.
   - Designed for easy extension (add more cleaning, joins, or exports as needed).
 

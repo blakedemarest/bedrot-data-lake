@@ -43,13 +43,14 @@ python src\toolost\extractors\validate_toolost_json.py %LATEST_SPOTIFY% %LATEST_
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
 REM 7. TooLost Dataset Cleaner
-REM Consolidates and cleans TooLost streaming data, producing a curated CSV for analytics
+REM Consolidates and cleans TooLost streaming data, producing a staging CSV for analytics (now outputs to /staging)
 python src\toolost\cleaners\toolost_dataset_cleaner.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
 REM 8. Analytics & Reporting (replace with your script/notebook)
 echo Running Analytics & Reporting...
-python curated\analytics_notebook_or_script.py
+REM NOTE: Downstream analytics should now read from /staging, not /curated
+python staging\analytics_notebook_or_script.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
 echo All steps completed successfully.
