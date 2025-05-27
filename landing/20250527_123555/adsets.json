@@ -1,0 +1,3042 @@
+[
+  {
+    "id": "120224907266840075",
+    "name": "THE STATE OF THE WORLD - AD 5",
+    "status": "PAUSED",
+    "campaign_id": "120224907266750075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:57:56-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:57:56-0700",
+    "updated_time": "2025-05-24T08:34:16-0700"
+  },
+  {
+    "id": "120224907266830075",
+    "name": "THE STATE OF THE WORLD - AD 2",
+    "status": "PAUSED",
+    "campaign_id": "120224907266750075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:06-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:06-0700",
+    "updated_time": "2025-05-23T21:58:29-0700"
+  },
+  {
+    "id": "120224907266820075",
+    "name": "THE STATE OF THE WORLD - AD 4",
+    "status": "PAUSED",
+    "campaign_id": "120224907266750075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:16-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:16-0700",
+    "updated_time": "2025-05-24T21:09:19-0700"
+  },
+  {
+    "id": "120224907266810075",
+    "name": "THE STATE OF THE WORLD - AD 3",
+    "status": "ACTIVE",
+    "campaign_id": "120224907266750075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:01-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:01-0700",
+    "updated_time": "2025-05-23T06:58:01-0700"
+  },
+  {
+    "id": "120224907266740075",
+    "name": "THE STATE OF THE WORLD - AD 1",
+    "status": "PAUSED",
+    "campaign_id": "120224907266750075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:12-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:12-0700",
+    "updated_time": "2025-05-23T21:58:37-0700"
+  },
+  {
+    "id": "120224906903600075",
+    "name": "THE STATE OF THE WORLD - AD 3",
+    "status": "ACTIVE",
+    "campaign_id": "120224906903540075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:09-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:09-0700",
+    "updated_time": "2025-05-23T06:58:09-0700"
+  },
+  {
+    "id": "120224906903590075",
+    "name": "THE STATE OF THE WORLD - AD 2",
+    "status": "PAUSED",
+    "campaign_id": "120224906903540075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:23-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:23-0700",
+    "updated_time": "2025-05-24T13:33:10-0700"
+  },
+  {
+    "id": "120224906903580075",
+    "name": "THE STATE OF THE WORLD - AD 5",
+    "status": "PAUSED",
+    "campaign_id": "120224906903540075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:27-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:27-0700",
+    "updated_time": "2025-05-26T07:52:25-0700"
+  },
+  {
+    "id": "120224906903570075",
+    "name": "THE STATE OF THE WORLD - AD 4",
+    "status": "PAUSED",
+    "campaign_id": "120224906903540075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:14-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:14-0700",
+    "updated_time": "2025-05-24T13:32:49-0700"
+  },
+  {
+    "id": "120224906903530075",
+    "name": "THE STATE OF THE WORLD - AD 1",
+    "status": "PAUSED",
+    "campaign_id": "120224906903540075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:18-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:18-0700",
+    "updated_time": "2025-05-24T21:10:55-0700"
+  },
+  {
+    "id": "120224906419970075",
+    "name": "THE STATE OF THE WORLD - AD 4",
+    "status": "PAUSED",
+    "campaign_id": "120224906419890075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            },
+            {
+              "id": "6003192799672",
+              "name": "Hard trance"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:32-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:32-0700",
+    "updated_time": "2025-05-24T21:13:30-0700"
+  },
+  {
+    "id": "120224906419960075",
+    "name": "THE STATE OF THE WORLD - AD 1",
+    "status": "PAUSED",
+    "campaign_id": "120224906419890075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            },
+            {
+              "id": "6003192799672",
+              "name": "Hard trance"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:37-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:37-0700",
+    "updated_time": "2025-05-24T21:09:42-0700"
+  },
+  {
+    "id": "120224906419950075",
+    "name": "THE STATE OF THE WORLD - AD 5",
+    "status": "PAUSED",
+    "campaign_id": "120224906419890075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            },
+            {
+              "id": "6003192799672",
+              "name": "Hard trance"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:27-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:27-0700",
+    "updated_time": "2025-05-23T22:00:35-0700"
+  },
+  {
+    "id": "120224906419930075",
+    "name": "THE STATE OF THE WORLD - AD 3",
+    "status": "PAUSED",
+    "campaign_id": "120224906419890075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            },
+            {
+              "id": "6003192799672",
+              "name": "Hard trance"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:41-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:41-0700",
+    "updated_time": "2025-05-25T13:50:57-0700"
+  },
+  {
+    "id": "120224906419870075",
+    "name": "THE STATE OF THE WORLD - AD 2",
+    "status": "PAUSED",
+    "campaign_id": "120224906419890075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            },
+            {
+              "id": "6003192799672",
+              "name": "Hard trance"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:23-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:23-0700",
+    "updated_time": "2025-05-23T22:01:41-0700"
+  },
+  {
+    "id": "120224904684730075",
+    "name": "THE STATE OF THE WORLD - AD 3",
+    "status": "PAUSED",
+    "campaign_id": "120224903624070075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            }
+          ]
+        },
+        {
+          "interests": [
+            {
+              "id": "6002911345572",
+              "name": "Techno"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:59:33-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:59:33-0700",
+    "updated_time": "2025-05-26T21:27:47-0700"
+  },
+  {
+    "id": "120224904684720075",
+    "name": "THE STATE OF THE WORLD - AD 4",
+    "status": "PAUSED",
+    "campaign_id": "120224903624070075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            }
+          ]
+        },
+        {
+          "interests": [
+            {
+              "id": "6002911345572",
+              "name": "Techno"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:59:49-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:59:49-0700",
+    "updated_time": "2025-05-24T13:35:38-0700"
+  },
+  {
+    "id": "120224904684710075",
+    "name": "THE STATE OF THE WORLD - AD 5",
+    "status": "PAUSED",
+    "campaign_id": "120224903624070075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            }
+          ]
+        },
+        {
+          "interests": [
+            {
+              "id": "6002911345572",
+              "name": "Techno"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:58:55-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:58:55-0700",
+    "updated_time": "2025-05-24T13:34:57-0700"
+  },
+  {
+    "id": "120224904466990075",
+    "name": "THE STATE OF THE WORLD - AD 2",
+    "status": "PAUSED",
+    "campaign_id": "120224903624070075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            }
+          ]
+        },
+        {
+          "interests": [
+            {
+              "id": "6002911345572",
+              "name": "Techno"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:59:25-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:59:25-0700",
+    "updated_time": "2025-05-24T08:33:49-0700"
+  },
+  {
+    "id": "120224903624060075",
+    "name": "THE STATE OF THE WORLD - AD 1",
+    "status": "PAUSED",
+    "campaign_id": "120224903624070075",
+    "daily_budget": "500",
+    "lifetime_budget": "0",
+    "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+    "targeting": {
+      "age_max": 44,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6002969794329",
+              "name": "Spotify"
+            }
+          ]
+        },
+        {
+          "interests": [
+            {
+              "id": "6002911345572",
+              "name": "Techno"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "IE",
+          "IT",
+          "PF",
+          "VI",
+          "MX",
+          "GF",
+          "NL",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "AN",
+          "TF",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "CH",
+          "TR",
+          "GB",
+          "FI",
+          "BE",
+          "AR",
+          "AU",
+          "CL",
+          "AT",
+          "PL",
+          "CZ",
+          "CO",
+          "HU",
+          "FR",
+          "DE",
+          "UA"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-23T06:14:50-0700",
+    "pacing_type": [
+      "standard"
+    ],
+    "created_time": "2025-05-23T06:14:50-0700",
+    "updated_time": "2025-05-23T21:59:11-0700"
+  },
+  {
+    "id": "120223459844410075",
+    "name": "New Engagement Ad Set",
+    "status": "ACTIVE",
+    "campaign_id": "120223459844420075",
+    "targeting": {
+      "age_max": 47,
+      "age_min": 18,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "TH",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-05-02T10:00:00-0700",
+    "created_time": "2025-05-02T09:27:10-0700",
+    "updated_time": "2025-05-05T10:10:31-0700"
+  },
+  {
+    "id": "120222355643870075",
+    "name": "New Engagement Ad Set",
+    "status": "ACTIVE",
+    "campaign_id": "120222355643880075",
+    "targeting": {
+      "age_max": 47,
+      "age_min": 18,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "TH",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "profile_reels",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-04-25T06:36:26-0700",
+    "created_time": "2025-04-25T06:36:25-0700",
+    "updated_time": "2025-05-06T11:12:53-0700"
+  },
+  {
+    "id": "120218209686880075",
+    "name": "New Engagement Ad Set",
+    "status": "PAUSED",
+    "campaign_id": "120218209686890075",
+    "targeting": {
+      "age_max": 47,
+      "age_min": 18,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "TH",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "facebook",
+        "instagram"
+      ],
+      "facebook_positions": [
+        "facebook_reels"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-03-25T09:00:00-0700",
+    "created_time": "2025-03-25T08:52:10-0700",
+    "updated_time": "2025-04-25T15:01:04-0700"
+  },
+  {
+    "id": "120218209525730075",
+    "name": "New Engagement Ad Set",
+    "status": "ACTIVE",
+    "campaign_id": "120218209525770075",
+    "targeting": {
+      "age_max": 47,
+      "age_min": 18,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "TH",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "facebook",
+        "instagram"
+      ],
+      "facebook_positions": [
+        "facebook_reels"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-03-25T08:28:53-0700",
+    "created_time": "2025-03-25T08:28:52-0700",
+    "updated_time": "2025-04-08T10:25:41-0700"
+  },
+  {
+    "id": "120218067787880075",
+    "name": "New Engagement Ad Set - TARGET AUDIENCE DNB",
+    "status": "PAUSED",
+    "campaign_id": "120218067399650075",
+    "targeting": {
+      "age_max": 47,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6003537481663",
+              "name": "Drum and bass"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-03-21T09:00:00-0700",
+    "created_time": "2025-03-21T08:41:04-0700",
+    "updated_time": "2025-03-22T09:40:25-0700"
+  },
+  {
+    "id": "120218067399620075",
+    "name": "New Engagement Ad Set - No Audience Target",
+    "status": "PAUSED",
+    "campaign_id": "120218067399650075",
+    "targeting": {
+      "age_max": 47,
+      "age_min": 16,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "TH",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-03-22T09:35:23-0700",
+    "created_time": "2025-03-22T09:35:22-0700",
+    "updated_time": "2025-03-24T05:05:23-0700"
+  },
+  {
+    "id": "120218066028920075",
+    "name": "New Engagement Ad Set - TARGET AUDIENCE Industrial and DnB",
+    "status": "ACTIVE",
+    "campaign_id": "120217792461870075",
+    "targeting": {
+      "age_max": 35,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6003537481663",
+              "name": "Drum and bass"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-03-21T09:00:00-0700",
+    "created_time": "2025-03-21T07:24:33-0700",
+    "updated_time": "2025-03-21T07:36:08-0700"
+  },
+  {
+    "id": "120217792461860075",
+    "name": "New Engagement Ad Set",
+    "status": "PAUSED",
+    "campaign_id": "120217792461870075",
+    "targeting": {
+      "age_max": 35,
+      "age_min": 18,
+      "flexible_spec": [
+        {
+          "interests": [
+            {
+              "id": "6003537481663",
+              "name": "Drum and bass"
+            }
+          ]
+        }
+      ],
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-03-21T09:00:00-0700",
+    "created_time": "2025-03-21T07:08:32-0700",
+    "updated_time": "2025-03-23T13:04:34-0700"
+  },
+  {
+    "id": "120215277232140075",
+    "name": "New Engagement Ad Set",
+    "status": "ACTIVE",
+    "campaign_id": "120215277232180075",
+    "targeting": {
+      "age_max": 47,
+      "age_min": 16,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "TH",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-02-07T09:00:00-0800",
+    "created_time": "2025-02-07T07:07:43-0800",
+    "updated_time": "2025-02-09T17:49:16-0800"
+  },
+  {
+    "id": "120214961689410075",
+    "name": "New Engagement Ad Set",
+    "status": "ACTIVE",
+    "campaign_id": "120214961689440075",
+    "targeting": {
+      "age_max": 47,
+      "age_min": 16,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "TH",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-02-07T09:00:00-0800",
+    "created_time": "2025-02-07T07:11:28-0800",
+    "updated_time": "2025-02-09T17:48:58-0800"
+  },
+  {
+    "id": "120214803933310075",
+    "name": "New Engagement Ad Set",
+    "status": "ACTIVE",
+    "campaign_id": "120214803933120075",
+    "targeting": {
+      "age_max": 47,
+      "age_min": 16,
+      "geo_locations": {
+        "countries": [
+          "US",
+          "MO",
+          "BN",
+          "IE",
+          "IT",
+          "JP",
+          "PF",
+          "LB",
+          "MY",
+          "AD",
+          "VI",
+          "MZ",
+          "MX",
+          "GF",
+          "MC",
+          "NL",
+          "LI",
+          "NZ",
+          "AX",
+          "NO",
+          "CA",
+          "GQ",
+          "SA",
+          "AN",
+          "ZA",
+          "CW",
+          "TF",
+          "KR",
+          "BL",
+          "ES",
+          "UM",
+          "SE",
+          "AE",
+          "GB",
+          "IL",
+          "DO",
+          "DK",
+          "BE",
+          "PA",
+          "JO",
+          "GR",
+          "AU",
+          "TH",
+          "CL",
+          "AT",
+          "KW",
+          "HK",
+          "BR",
+          "HR",
+          "PL",
+          "PT",
+          "LU",
+          "BG",
+          "CZ",
+          "SI",
+          "SK",
+          "LT",
+          "HU",
+          "EC",
+          "RO",
+          "GT",
+          "CR",
+          "QA",
+          "SV",
+          "HN",
+          "NI",
+          "FR",
+          "UY",
+          "BH",
+          "VN",
+          "DE",
+          "MT",
+          "MV",
+          "OM",
+          "EE",
+          "LV"
+        ],
+        "location_types": [
+          "home",
+          "recent"
+        ]
+      },
+      "targeting_automation": {
+        "advantage_audience": 0
+      },
+      "publisher_platforms": [
+        "instagram"
+      ],
+      "instagram_positions": [
+        "stream",
+        "story",
+        "explore",
+        "reels"
+      ],
+      "device_platforms": [
+        "mobile",
+        "desktop"
+      ]
+    },
+    "optimization_goal": "OFFSITE_CONVERSIONS",
+    "start_time": "2025-01-20T09:43:00-0800",
+    "created_time": "2025-01-17T08:24:18-0800",
+    "updated_time": "2025-01-22T04:44:16-0800"
+  }
+]

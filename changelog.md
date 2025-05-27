@@ -126,3 +126,18 @@ Added a Python script to auto-generate a "no extractors" cron job batch file fro
 - Replace analytics/reporting placeholders with real scripts
 - Consider similar automation for other workflow variants
 --- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-27-meta_ads_dump_folder_naming
+
+# What Changed (≤ 50 words)
+Meta Ads extractor output folder now uses the format `meta_ads_dump_<timestamp>` under the landing directory. Ad set level spend is included in [insights.json](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/landing/20250527_123555/insights.json:0:0-0:0). Output directory is anchored to `PROJECT_ROOT` from `.env`.
+
+# Impact
+All Meta Ads dumps are organized with clear, timestamped folder names for easy tracking. Data is reliably stored in the correct landing directory. No breaking changes.
+
+# Follow-ups
+Validate downstream scripts use the new folder naming. Consider adding similar timestamped naming for other extractors.
+--- END CHANGELOG ENTRY ---
+

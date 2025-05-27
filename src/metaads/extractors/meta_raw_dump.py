@@ -1,16 +1,6 @@
-# %%
-# ╔════════════════════════════════════════════════════════════════╗
-# ║ 🔧  Cell 1 – One-time installs (run once)                      ║
-# ╚════════════════════════════════════════════════════════════════╝
-# Jupyter-native magic – safest inside notebooks
-%pip install facebook-business==19.0.0 python-dotenv pandas tqdm
-
-# ── If you ever need an in-Python fallback, uncomment this block ──
-# import subprocess, sys
-# subprocess.check_call([
-#     sys.executable, "-m", "pip", "install",
-#     "facebook-business==19.0.0", "python-dotenv", "pandas", "tqdm"
-# ])
+# (Removed Jupyter/IPython magic - use requirements.txt for dependencies)
+# If you need to install dependencies, run:
+# pip install facebook-business==19.0.0 python-dotenv pandas tqdm
 
 
 # %%
@@ -36,27 +26,16 @@ from facebook_business.adobjects.adsinsights import AdsInsights
 load_dotenv()
 ACCESS_TOKEN  = os.getenv("META_ACCESS_TOKEN")
 AD_ACCOUNT_ID = os.getenv("META_AD_ACCOUNT_ID")      # format: act_123…
-assert ACCESS_TOKEN and AD_ACCOUNT_ID, ".env vars missing"
+PROJECT_ROOT  = os.getenv("PROJECT_ROOT")
+assert ACCESS_TOKEN and AD_ACCOUNT_ID and PROJECT_ROOT, ".env vars missing"
 
 FacebookAdsApi.init(access_token=ACCESS_TOKEN, api_version="v19.0")
 
-
-# %%
-# ╔════════════════════════════════════════════════════════════════╗
-# ║ 🗂️  Cell 3 – Output directory helper (FINAL)                   ║
-# ╚════════════════════════════════════════════════════════════════╝
-# Notebook path  : …\sandbox\meta_raw_dump.ipynb
-# Dump directory : …\landing\<timestamp>\
-
+# Set landing_root using PROJECT_ROOT from .env
+landing_root = Path(PROJECT_ROOT) / "landing"
 timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
-
-try:
-    here = Path(__file__).resolve().parent          # when executed as .py
-except NameError:
-    here = Path.cwd()                               # when run in Notebook
-
-landing_root = (here.parent / "landing").resolve()  # sibling to sandbox
-root_dir     = landing_root / timestamp
+folder_name = f"meta_ads_dump_{timestamp}"
+root_dir = landing_root / folder_name
 root_dir.mkdir(parents=True, exist_ok=True)
 
 print(f"🔖 Dump directory → {root_dir}")
@@ -88,11 +67,14 @@ AD_FIELDS = [
 ]
 
 INSIGHT_FIELDS = [
-    AdsInsights.Field.campaign_id, AdsInsights.Field.adset_id, AdsInsights.Field.ad_id,
-    AdsInsights.Field.date_start, AdsInsights.Field.date_stop, AdsInsights.Field.impressions,
-    AdsInsights.Field.clicks, AdsInsights.Field.spend, AdsInsights.Field.reach,
-    AdsInsights.Field.cpc, AdsInsights.Field.cpm, AdsInsights.Field.cpp,
-    AdsInsights.Field.action_values,
+    AdsInsights.Field.campaign_id, AdsInsights.Field.campaign_name,
+    AdsInsights.Field.adset_id, AdsInsights.Field.adset_name,
+    AdsInsights.Field.ad_id, AdsInsights.Field.ad_name,
+    AdsInsights.Field.spend,  # Ensure spend is included
+    AdsInsights.Field.impressions, AdsInsights.Field.clicks,
+    AdsInsights.Field.cpc, AdsInsights.Field.ctr,
+    AdsInsights.Field.reach, AdsInsights.Field.frequency,
+    AdsInsights.Field.date_start, AdsInsights.Field.date_stop,
 ]
 
 
@@ -145,7 +127,7 @@ print(f"🚚 {len(ad_data)} ads saved")
 # ╔════════════════════════════════════════════════════════════════╗
 # ║ 📈  Cell 7 – Insights dump (level toggle)                      ║
 # ╚════════════════════════════════════════════════════════════════╝
-INSIGHT_LEVEL = "campaign"          # or "adset" or "ad"
+INSIGHT_LEVEL = "adset"            # adset-level insights (for spend, etc). Change to 'campaign' or 'ad' as needed.
 
 insight_records = []
 print("Fetching insights …")

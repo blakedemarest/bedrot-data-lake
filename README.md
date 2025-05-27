@@ -4,20 +4,6 @@ This is the central data lake for BEDROT productions
 
 ---
 
-## Changelog
-
-### 2025-05-22: Finalized DistroKid Data Extraction
-- Added robust Playwright automation for DistroKid login, 2FA, and streaming stats extraction.
-- Script now detects dashboard, navigates to both streams and Apple Music stats pages, and saves HTML with datetime-stamped filenames (e.g., `streams_stats_YYYYMMDD_HHMMSS.html`).
-- No destructive actions occur unless authentication is confirmed; browser remains open for user review.
-- See [`src/README.md`](src/README.md) for code structure and usage.
-
-### 2025-05-22: TooLost JSON Validation and Promotion
-- Validated copies of landing zone data (e.g., DistroKid HTML snapshots that pass validation)
-- Validated TooLost analytics JSON files, promoted using `src/toolost/validate_toolost_json.py` after automated structure checks
-
----
-
 ## Cron Job Pipeline Automation
 
 **Centralized Cron Job Maintenance:**
@@ -27,23 +13,52 @@ This is the central data lake for BEDROT productions
 
 ---
 
-## Directory Structure
 
-- `.agent/` - AI agent working directories
-  - `cache/` - Temporary processing artifacts
-  - `context/` - Session-specific context
-  - `logs/` - Agent execution logs
-- `landing/` - Initial data ingestion area
-- `raw/` - Immutable raw data
-- `staging/` - Cleaned and validated data
-- `curated/` - Business-ready datasets (main source for business reporting)
-- `archive/` - Historical data archives
-- `sandbox/` - Experimental work area (Jupyter notebooks for raw data exploration and cleaning)
-    - See `src/distrokid/cleaners/distrokid_dataset_cleaner.py` and `src/toolost/cleaners/toolost_dataset_cleaner.py` for automated cleaning and merging of DistroKid and TooLost data. Use `sandbox/meta_raw_dump.ipynb` for Meta Ads API extraction and profiling. Cleaned analytics-ready CSVs are output to `curated/`.
-- `knowledge/` - AI knowledge base
-  - `decisions/` - Decision records
-  - `patterns/` - Common data patterns
-  - `agents/` - Agent-specific knowledge
+
+- `.agent/` — AI agent working directories (cache, context, logs)
+- `archive/` — **Historical data**; long-term storage for datasets no longer actively used.
+- `changelog.md` — Project changelog.
+- `cronjob/` — Batch files and automation scripts.
+- `curated/` — **Business-ready datasets**. Main consumption layer for analytics, dashboards, and ML. Contains cleaned, aggregated, and enriched data with stable schemas and documentation.
+- `data_lake_flow.dot` — Pipeline visualization (Graphviz).
+- `docker-compose.yml` — MinIO and other service orchestration.
+- `image.png`, `image.svg` — Project diagrams.
+- `knowledge/` — AI knowledge base (decisions, patterns, agents).
+- `landing/` — **Initial data ingestion zone**. Raw, unaltered data files from all external sources (APIs, partners, etc). No transformations allowed. Files are read-only and timestamped. Next step: move to `raw` after initial validation.
+- `minio/` — MinIO configuration.
+- `raw/` — **Immutable, validated source-of-truth zone**. Exact, append-only copies of validated data from landing. No transformations. Maintains full lineage. Next step: processed to `staging`.
+- `requirements.txt` — Python dependencies.
+- `sandbox/` — Experimental work area (Jupyter notebooks for raw data exploration and cleaning).
+- `src/` — All ETL and pipeline code:
+  - `distrokid/`
+    - `extractors/` — DistroKid ## Directory Structuredata extraction scripts
+    - `cleaners/` — DistroKid data cleaning scripts
+  - `toolost/`
+    - `extractors/` — TooLost data extraction scripts
+    - `cleaners/` — TooLost data cleaning scripts
+  - `metaads/`
+    - `extractors/` — Meta Ads data extraction scripts
+  - `linktree/`
+    - `extractors/` — Linktree data extraction scripts
+    - `cleaners/` — Linktree data cleaning scripts
+  - `tiktok/`
+    - `extractors/` — TikTok data extraction scripts
+    - `cleaners/` — TikTok data cleaning scripts
+  - `raw/` — Raw ETL helpers/utilities
+- `staging/` — **Data cleaning, validation, and transformation zone**. Where data is standardized, quality-checked, and joined/aggregated. All transformations and schema enforcement occur here. Next step: move to `curated` for business use.
+- `tests/` — Automated tests
+
+---
+
+### Data Zone Importance & Flow
+
+- **Landing:** _First stop for all incoming data. Ensures traceability and auditability from the very start. No changes allowed—preserves original context._
+- **Raw:** _Immutable, validated, and append-only. The single source of truth for all downstream processing. Guarantees reproducibility and full lineage._
+- **Staging:** _Where data is cleaned, validated, and transformed. Ensures consistency, quality, and readiness for analytics. All business logic and joins applied here._
+- **Curated:** _The “golden” layer. Datasets are business-ready, documented, and optimized for analytics, reporting, and ML. This is what end-users and applications consume._
+- **Archive:** _Long-term retention. Keeps historical data accessible for compliance and future analysis._
+
+This structure ensures robust data governance, auditability, and a clear, repeatable data flow from raw ingestion to business insight.
 
 ## Getting Started with MinIO
 
