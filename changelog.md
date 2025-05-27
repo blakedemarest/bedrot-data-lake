@@ -188,3 +188,19 @@ Automated promotion of `tidy_metaads.csv` from `/staging` to `/curated` as `meta
 # Follow-ups
 - Update `/curated/README.md` to document the new Meta Ads dataset and schema.
 - Consider adding schema/data dictionary details for future maintainers.
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-27-linktree_analytics_extractor
+
+# What Changed (≤ 50 words)
+Created a Playwright-based extractor script for Linktree analytics. The script automates login, sets analytics filters, and captures all relevant GraphQL network responses, saving them to the landing zone for further processing.
+
+# Impact
+No new dependencies beyond Playwright. Enables automated, repeatable Linktree analytics extraction. Manual login supported for secure authentication.
+
+# Follow-ups
+- Integrate with main ETL/cron if desired
+- Add post-processing/validation for captured JSONs
+- Document usage in project-level README
+--- END CHANGELOG ENTRY ---

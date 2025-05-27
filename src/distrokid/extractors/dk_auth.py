@@ -92,9 +92,31 @@ def login_distrokid():
             with open(am_file, 'w', encoding='utf-8') as f:
                 f.write(am_html)
             logging.info(f"Apple Music stats page HTML saved to {am_file}")
-            print("Stats pages downloaded. You may now close the browser window.")
+            # ---- Begin Bank TSV Download Enhancement ----
+            print("Stats pages downloaded. Proceeding to download DistroKid bank TSV...")
+            try:
+                # Step 1: Go to bank page
+                page.goto("https://distrokid.com/bank/")
+                page.wait_for_selector('a[href="/bank/details/"]', timeout=10000)
+                # Step 2: Click 'See Excruciating Detail' button
+                page.click('a[href="/bank/details/"]')
+                page.wait_for_url("https://distrokid.com/bank/details/")
+                # Step 3: Wait for download button and download TSV
+                from playwright.sync_api import TimeoutError
+                page.wait_for_selector('div[onclick^="downloadBank"]', timeout=10000)
+                import time as _time
+                tsv_file = os.path.join(output_dir, f'dk_bank_details_{dt_str}.tsv')
+                with page.expect_download() as download_info:
+                    page.click('div[onclick^="downloadBank"]')
+                download = download_info.value
+                download.save_as(tsv_file)
+                logging.info(f"DistroKid bank TSV downloaded to {tsv_file}")
+            except Exception as bank_exc:
+                logging.error(f"Failed to download DistroKid bank TSV: {bank_exc}")
+            # ---- End Bank TSV Download Enhancement ----
+            print("All downloads complete. You may now close the browser window.")
             browser.close()
-            logging.info("Browser closed automatically after stats download. Workflow complete.")
+            logging.info("Browser closed automatically after all downloads. Workflow complete.")
             return True
         except Exception as e:
             logging.exception(f"An unexpected error occurred: {e}")

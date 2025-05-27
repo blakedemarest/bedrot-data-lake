@@ -18,6 +18,11 @@ echo Running DistroKid Dataset Cleaner...
 python src\distrokid\cleaners\distrokid_dataset_cleaner.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
+REM 4a. Process DistroKid Bank Details (2025-05-27-dk_bank_details_etl)
+echo Processing DistroKid Bank Details...
+python src\distrokid\extractors\process_dk_bank_details.py
+IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
+
 REM 6. TooLost JSON Validation
 REM Finds the latest TooLost JSON files and validates them
 for /f "delims=" %%a in ('dir /b /o-d "landing\toolost\toolost_spotify_*.json"') do set LATEST_SPOTIFY=landing\toolost\%%a & goto :found_spotify
@@ -30,6 +35,11 @@ IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 REM 7. TooLost Dataset Cleaner
 REM Consolidates and cleans TooLost streaming data, producing a staging CSV for analytics (now outputs to /staging)
 python src\toolost\cleaners\toolost_dataset_cleaner.py
+IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
+
+REM 7a. Archive Old Data Files
+REM Archives data files older than 7 days from landing and raw zones to archive zone
+python src\archive_old_data.py
 IF %ERRORLEVEL% NEQ 0 exit /b %ERRORLEVEL%
 
 REM 8. Analytics & Reporting (replace with your script/notebook)

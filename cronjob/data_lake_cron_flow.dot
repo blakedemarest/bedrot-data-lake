@@ -18,14 +18,17 @@ digraph DataLakeCronJob {
     // Curation/Analytics
     "Curate & Clean Data\n(staging/curation_notebook_or_script)" [fillcolor="#c5e1a5"];
     "Analytics & Reporting\n(curated/analytics_notebook_or_script)" [fillcolor="#c5e1a5"];
+    // Maintenance/Archiving (2025-05-27-cronjob-automation)
+    "Archive Old Data Files\n(src/archive_old_data.py)" [fillcolor="#a5d6a7"];
 
     // Flow
     "Meta Ads Extraction\n(sandbox/meta_raw_dump.ipynb)" -> "Curate & Clean Data\n(staging/curation_notebook_or_script)";
     "DistroKid Auth & Download\n(src/distrokid/extractors/dk_auth.py)" -> "DistroKid HTML Validation\n(src/distrokid/extractors/validate_dk_html.py)";
     "DistroKid HTML Validation\n(src/distrokid/extractors/validate_dk_html.py)" -> "DistroKid Dataset Cleaner\n(src/distrokid/cleaners/distrokid_dataset_cleaner.py)";
-    "DistroKid Dataset Cleaner\n(src/distrokid/cleaners/distrokid_dataset_cleaner.py)" -> "Analytics & Reporting\n(curated/analytics_notebook_or_script)";
+    "DistroKid Dataset Cleaner\n(src/distrokid/cleaners/distrokid_dataset_cleaner.py)" -> "Archive Old Data Files\n(src/archive_old_data.py)";
     "TooLost Scraper\n(src/toolost/extractors/toolost_scraper.py)" -> "TooLost JSON Validation\n(src/toolost/validate_toolost_json.py)";
     "TooLost JSON Validation\n(src/toolost/validate_toolost_json.py)" -> "TooLost Dataset Cleaner\n(src/toolost/cleaners/toolost_dataset_cleaner.py)";
-    "TooLost Dataset Cleaner\n(src/toolost/cleaners/toolost_dataset_cleaner.py)" -> "Analytics & Reporting\n(curated/analytics_notebook_or_script)";
+    "TooLost Dataset Cleaner\n(src/toolost/cleaners/toolost_dataset_cleaner.py)" -> "Archive Old Data Files\n(src/archive_old_data.py)";
+    "Archive Old Data Files\n(src/archive_old_data.py)" -> "Analytics & Reporting\n(curated/analytics_notebook_or_script)";
     "Curate & Clean Data\n(staging/curation_notebook_or_script)" -> "Analytics & Reporting\n(curated/analytics_notebook_or_script)";
 }

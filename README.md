@@ -65,6 +65,14 @@ This is the central data lake for BEDROT productions
   - Always selects the latest timestamped Meta Ads dump folder in `landing/`.
   - Designed for easy extension (add more cleaning, joins, or exports as needed).
 
+- **Linktree Analytics Extractor: `linktree_analytics_extractor.py` (2025-05-27-linktree_analytics_extractor)**
+  - Location: `src/linktree/extractors/linktree_analytics_extractor.py`
+  - Automates extraction of Linktree analytics via Playwright.
+  - Navigates to analytics dashboard, waits for manual login, sets filters to 'Last 365 days' and 'Daily'.
+  - Captures all GraphQL network responses and saves as JSON in `landing/linktree/analytics/`.
+  - Browser remains open until user closes it (manual login supported).
+  - See changelog entry: `2025-05-27-linktree_analytics_extractor`.
+
 - **Benefits:**
   - Zero manual path edits needed—safe for automation and batch runs.
   - Ensures all metrics are numeric for downstream analytics and reporting.
