@@ -141,3 +141,16 @@ All Meta Ads dumps are organized with clear, timestamped folder names for easy t
 Validate downstream scripts use the new folder naming. Consider adding similar timestamped naming for other extractors.
 --- END CHANGELOG ENTRY ---
 
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-27-metaads_tidy_cleaner
+
+# What Changed (≤ 50 words)
+Added [metaads_tidy.py](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/src/metaads/cleaners/metaads_tidy.py:0:0-0:0) cleaner script for Meta Ads. It auto-detects the latest landing folder, loads all raw JSONs, and converts key metrics to numeric types for robust analysis. No manual path edits required.
+
+# Impact
+Cleaner is now fully automated and batch-friendly. Ensures all metrics are numeric for downstream analytics. Reduces manual errors and setup time.
+
+# Follow-ups
+Document additional cleaning steps as they are added. Consider extending the pattern to other data sources.
+--- END CHANGELOG ENTRY ---

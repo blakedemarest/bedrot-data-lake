@@ -33,11 +33,9 @@ This is the central data lake for BEDROT productions
   - `distrokid/`
     - `extractors/` — DistroKid ## Directory Structuredata extraction scripts
     - `cleaners/` — DistroKid data cleaning scripts
-  - `toolost/`
-    - `extractors/` — TooLost data extraction scripts
-    - `cleaners/` — TooLost data cleaning scripts
   - `metaads/`
     - `extractors/` — Meta Ads data extraction scripts
+    - `cleaners/` — Meta Ads data cleaning scripts (see below)
   - `linktree/`
     - `extractors/` — Linktree data extraction scripts
     - `cleaners/` — Linktree data cleaning scripts
@@ -47,6 +45,26 @@ This is the central data lake for BEDROT productions
   - `raw/` — Raw ETL helpers/utilities
 - `staging/` — **Data cleaning, validation, and transformation zone**. Where data is standardized, quality-checked, and joined/aggregated. All transformations and schema enforcement occur here. Next step: move to `curated` for business use.
 - `tests/` — Automated tests
+
+---
+
+### Meta Ads Data Cleaner: `metaads_tidy.py`
+
+- **Purpose:**
+  - Loads the most recent Meta Ads dump from the landing zone automatically (no manual folder selection needed).
+  - Reads all raw JSON files (`ads.json`, `adsets.json`, `campaigns.json`, `insights.json`, `campaigns.json`).
+  - Converts key metrics (`spend`, `impressions`, `clicks`, `reach`, `cpc`, `ctr`, `frequency`) to numeric types for analysis and cleaning.
+  - Prints loaded dataframe shapes for quick sanity checking.
+
+- **How it works:**
+  - Uses `PROJECT_ROOT` from `.env` for robust path resolution.
+  - Always selects the latest timestamped Meta Ads dump folder in `landing/`.
+  - Designed for easy extension (add more cleaning, joins, or exports as needed).
+
+- **Benefits:**
+  - Zero manual path edits needed—safe for automation and batch runs.
+  - Ensures all metrics are numeric for downstream analytics and reporting.
+  - Can be adapted for other data sources with similar folder conventions.
 
 ---
 
