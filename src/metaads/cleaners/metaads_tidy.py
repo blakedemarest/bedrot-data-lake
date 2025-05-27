@@ -33,6 +33,13 @@ print("Loaded shapes → ads:", ads.shape,
       "campaigns:", campaigns.shape,
       "insights:", insights.shape)
 
+# --- Promote staged CSV to curated (as metaads_campaigns_daily.csv) ---
+import shutil
+staging_csv = project_root / "staging" / "tidy_metaads.csv"
+curated_csv = project_root / "curated" / "metaads_campaigns_daily.csv"
+shutil.copy2(staging_csv, curated_csv)
+print(f"✅ Promoted {staging_csv.name} to curated as {curated_csv.name}")
+
 
 # %%
 # Cell 3: Flatten ads.json (including campaign_id & adset_id)

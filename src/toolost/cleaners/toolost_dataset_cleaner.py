@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 import glob
 load_dotenv()
 PROJECT_ROOT = os.getenv("PROJECT_ROOT")
+# FIX: Use correct raw zone (PROJECT_ROOT/raw/toolost/streams), not src/raw/toolost/streams
 raw_dir = os.path.join(PROJECT_ROOT, "raw", "toolost", "streams")
 # Get latest Spotify JSON
 spotify_files = sorted(glob.glob(os.path.join(raw_dir, "toolost_spotify_*.json")), key=os.path.getmtime, reverse=True)

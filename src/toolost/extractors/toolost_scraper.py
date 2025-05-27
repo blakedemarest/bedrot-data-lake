@@ -8,7 +8,11 @@ from playwright.async_api import async_playwright
 # Shared persistent session directory
 SESSION_DIR = str(Path(__file__).resolve().parent.parent.parent / ".playwright_dk_session")
 # Output directory
-OUTPUT_DIR = Path(__file__).resolve().parent.parent.parent.parent / "landing" / "toolost"
+# FIX: Use correct raw zone (PROJECT_ROOT/raw/toolost), not src/landing/toolost
+from dotenv import load_dotenv
+load_dotenv()
+PROJECT_ROOT = os.getenv("PROJECT_ROOT")
+OUTPUT_DIR = Path(PROJECT_ROOT) / "raw" / "toolost"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 TOOLOST_URL = "https://toolost.com/user-portal/analytics/platform"

@@ -157,7 +157,7 @@ Document additional cleaning steps as they are added. Consider extending the pat
 
 --- CHANGELOG ENTRY (PIN THIS) ---
 # Change ID
-May2025-StagingCleanerRefactor
+2025-05-27-StagingCleanerRefactor
 
 # What Changed (≤ 50 words)
 All finalized output CSVs from DistroKid, TooLost, and Meta Ads cleaner scripts now write to the `staging/` directory (not `curated/`). Path management standardized using `PROJECT_ROOT` from `.env`. All relevant README files updated to reflect this workflow.
@@ -171,4 +171,20 @@ All finalized output CSVs from DistroKid, TooLost, and Meta Ads cleaner scripts 
 # Follow-ups
 - Update downstream analytics/reporting scripts to read from `/staging`
 - Add script-specific documentation if needed
----
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-27-metaads_curated_promotion
+
+# What Changed (≤ 50 words)
+Automated promotion of `tidy_metaads.csv` from `/staging` to `/curated` as `metaads_campaigns_daily.csv` via the [metaads_tidy.py](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/src/metaads/cleaners/metaads_tidy.py:0:0-0:0) cleaner script. No changes to upstream data processing logic.
+
+# Impact
+- Meta Ads business-ready data is now available in the curated zone for analytics and reporting.
+- Ensures consistent naming and location for downstream consumers.
+- No new dependencies or breaking changes.
+
+# Follow-ups
+- Update `/curated/README.md` to document the new Meta Ads dataset and schema.
+- Consider adding schema/data dictionary details for future maintainers.

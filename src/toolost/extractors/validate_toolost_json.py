@@ -1,6 +1,7 @@
 import json
 import re
 import sys
+import os
 from pathlib import Path
 
 def is_valid_date(date_str):
@@ -66,9 +67,10 @@ def main():
         sys.exit(1)
     promoted = []
     failed = []
-    # Always resolve from the data_lake directory (project root)
-    # Go up three levels: extractors -> toolost -> src -> data_lake
-    project_root = Path(__file__).resolve().parents[3]
+    # Always resolve from the PROJECT_ROOT environment variable for consistency
+    from dotenv import load_dotenv
+    load_dotenv()
+    project_root = Path(os.getenv("PROJECT_ROOT"))
     raw_dir = project_root / "raw" / "toolost" / "streams"
     raw_dir.mkdir(parents=True, exist_ok=True)
     print(f"[DEBUG] Files will be copied to: {raw_dir}")
