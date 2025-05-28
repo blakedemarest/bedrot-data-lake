@@ -82,6 +82,25 @@ venv/
 *.db
 *.sqlite3
 
+# ---
+# Exclude all collected data (json, csv, html) in all zones
+landing/**/*.json
+landing/**/*.csv
+landing/**/*.html
+raw/**/*.json
+raw/**/*.csv
+raw/**/*.html
+staging/**/*.json
+staging/**/*.csv
+staging/**/*.html
+curated/**/*.json
+curated/**/*.csv
+curated/**/*.html
+archive/**/*.json
+archive/**/*.csv
+archive/**/*.html
+# ---
+
 # Logs
 logs/
 *.log

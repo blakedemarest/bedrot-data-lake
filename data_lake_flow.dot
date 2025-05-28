@@ -2,6 +2,7 @@ digraph DataLakeFlow {
     // Graph settings
     rankdir=LR;
     bgcolor="transparent";
+    splines=ortho;
     node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12];
     edge [fontname="Arial", fontsize=10];
     
@@ -23,7 +24,21 @@ digraph DataLakeFlow {
         "Landing Zone" -> "Raw Zone" [label=" 2. Validation\n& Copy", fontsize=9];
         "Raw Zone" -> "Staging Zone" [label=" 3. Clean\n& Transform", fontsize=9];
         "Staging Zone" -> "Curated Zone" [label=" 4. Enrich\n& Aggregate", fontsize=9];
-        "Curated Zone" -> "Archive Zone" [label=" 5. Retire\nOlder Data", fontsize=9, style=dashed];
+        // Archive zone now receives retired data from both Landing and Raw
+        "Landing Zone" -> "Archive Zone" [label="Retire Older Data", fontsize=9, style=dashed];
+        "Raw Zone" -> "Archive Zone" [label="Retire Older Data", fontsize=9, style=dashed];
+        // Remove Curated->Archive arrow to avoid redundancy
+    }
+
+    // ETL Scripts orchestration
+    // Shows src/ as the logic engine powering the data lake
+    {
+        node [shape=box, fillcolor="#e1f5fe", color="#0288d1"];
+        "ETL Scripts (src/)";
+        "ETL Scripts (src/)" -> "Landing Zone" [label="Extractors", style=dotted];
+        "ETL Scripts (src/)" -> "Raw Zone" [label="Validate/Copy", style=dotted];
+        "ETL Scripts (src/)" -> "Staging Zone" [label="Clean/Transform", style=dotted];
+        "ETL Scripts (src/)" -> "Curated Zone" [label="Enrich/Aggregate", style=dotted];
     }
     
     // AI/ML Integration
@@ -64,18 +79,5 @@ digraph DataLakeFlow {
     fontname="Arial";
     fontsize=16;
     
-    // Add legend
-    subgraph cluster_legend {
-        label = "Legend";
-        rankdir=TB;
-        style=dashed;
-        
-        "Process" [shape=box, style="rounded,filled", fillcolor="#e1f5fe"];
-        "Data Source" [shape=cylinder, fillcolor="#e8f5e9"];
-        "Data Store" [shape=folder, fillcolor="#e3f2fd"];
-        "AI/ML" [shape=ellipse, fillcolor="#f3e5f5"];
-        "Analytics" [shape=box3d, fillcolor="#fff3e0"];
-        "Sandbox" [shape=note, fillcolor="#fff9c4"];
-        "Knowledge" [shape=note, fillcolor="#fce4ec"];
-    }
+
 }
