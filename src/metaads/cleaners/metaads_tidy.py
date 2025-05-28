@@ -7,10 +7,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 project_root = Path(os.getenv("PROJECT_ROOT"))
-landing_dir  = project_root / "landing"
+landing_dir  = project_root / "landing" / "metaads"
 subdirs      = [d for d in landing_dir.iterdir() if d.is_dir()]
 if not subdirs:
-    raise FileNotFoundError(f"No landing sub-folders under {landing_dir}")
+    raise FileNotFoundError(f"No landing/metaads sub-folders under {landing_dir}")
 data_dir     = max(subdirs, key=lambda d: d.stat().st_mtime)
 
 print("⤷ Loading data from:", data_dir)

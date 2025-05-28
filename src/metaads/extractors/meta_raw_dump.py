@@ -32,7 +32,7 @@ assert ACCESS_TOKEN and AD_ACCOUNT_ID and PROJECT_ROOT, ".env vars missing"
 FacebookAdsApi.init(access_token=ACCESS_TOKEN, api_version="v19.0")
 
 # Set landing_root using PROJECT_ROOT from .env
-landing_root = Path(PROJECT_ROOT) / "landing"
+landing_root = Path(PROJECT_ROOT) / "landing" / "metaads"
 timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
 folder_name = f"meta_ads_dump_{timestamp}"
 root_dir = landing_root / folder_name

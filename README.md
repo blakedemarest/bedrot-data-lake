@@ -1,15 +1,47 @@
 # BEDROT Data Lake
 
+## Project Folder Structure
+
+```plaintext
+BEDROT_DATA_LAKE/
+├── .agent/
+├── .venv/
+├── .windsurf/
+├── archive/
+├── curated/
+├── landing/
+├── minio/
+├── raw/
+├── sandbox/
+├── src/
+│   ├── .playwright_dk_session/
+│   ├── distrokid/
+│   │   ├── extractors/
+│   │   └── cleaners/
+│   ├── linktree/
+│   │   ├── extractors/
+│   │   └── cleaners/
+│   ├── metaads/
+│   │   ├── extractors/
+│   │   └── cleaners/
+│   ├── tiktok/
+│   │   ├── extractors/
+│   │   ├── cleaners/
+│   │   └── cookies/
+│   ├── toolost/
+│   │   ├── extractors/
+│   │   └── cleaners/
+├── staging/
+├── staged/
+├── tests/
+├── knowledge/
+```
+
 This is the central data lake for BEDROT productions
 
 ---
 
-## Cron Job Pipeline Automation
 
-**Centralized Cron Job Maintenance:**
-- Only edit the master cron job file: `cronjob/run_datalake_cron.bat`.
-- The secondary batch file (`run_datalake_cron_no_extractors.bat`, which skips extractor scripts) is always generated automatically by `cronjob/generate_no_extractors_cron.py` (run as the last step of the master cron job).
-- This eliminates manual duplication and ensures both cron jobs are always in sync.
 
 ---
 
@@ -40,6 +72,9 @@ This is the central data lake for BEDROT productions
     - `cleaners/` — Linktree data cleaning scripts
   - `tiktok/`
     - `extractors/` — TikTok data extraction scripts
+      - `tiktok_analytics_extractor_zonea0.py` — Extracts analytics for the ZONE A0 TikTok account using its own persistent browser profile and cookies.
+      - `tiktok_analytics_extractor_pig1987.py` — Extracts analytics for the PIG1987 TikTok account with a separate browser profile and cookies.
+      - Extendable: Add new extractor scripts for additional TikTok accounts by duplicating and adjusting the user profile/cookie paths as needed.
     - `cleaners/` — TikTok data cleaning scripts
   - `raw/` — Raw ETL helpers/utilities
 - `staging/` — **Data cleaning, validation, and transformation zone**. Where data is standardized, quality-checked, and joined/aggregated. All transformations and schema enforcement occur here. **All output from cleaner scripts (DistroKid, TooLost, Meta Ads, etc.) lands here by default.** Next step: move to `curated` for business use.
@@ -79,6 +114,13 @@ This is the central data lake for BEDROT productions
   - Can be adapted for other data sources with similar folder conventions.
 
 ---
+
+## Cron Job Pipeline Automation
+
+**Centralized Cron Job Maintenance:**
+- Only edit the master cron job file: `cronjob/run_datalake_cron.bat`.
+- The secondary batch file (`run_datalake_cron_no_extractors.bat`, which skips extractor scripts) is always generated automatically by `cronjob/generate_no_extractors_cron.py` (run as the last step of the master cron job).
+- This eliminates manual duplication and ensures both cron jobs are always in sync.
 
 ### Data Zone Importance & Flow
 

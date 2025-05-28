@@ -204,3 +204,52 @@ No new dependencies beyond Playwright. Enables automated, repeatable Linktree an
 - Add post-processing/validation for captured JSONs
 - Document usage in project-level README
 --- END CHANGELOG ENTRY ---
+
+# Change ID
+2025-05-28-tiktok-extractor-rollout
+
+# What Changed (≤ 50 words)
+Initial rollout and stabilization of the TikTok analytics extractor. The extractor now reliably automates login, analytics navigation, date range selection, and CSV download using a persistent browser session. All debug output removed and context closing fixed.
+
+# Impact
+- TikTok analytics extraction is now fully automated and production-ready.
+- No manual tab management or debug noise.
+- Resolves long-standing automation and selector issues.
+
+# Follow-ups
+- Parameterize date range and file format for future flexibility.
+- Add error handling/logging for failed downloads.
+- add further functionality for other artist pig1987
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-28-tiktok-extractor-pig1987-profile
+
+# What Changed (≤ 50 words)
+Created a new script, [tiktok_analytics_extractor_pig1987.py](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/src/tiktok/extractors/tiktok_analytics_extractor_pig1987.py:0:0-0:0), to automate TikTok analytics extraction for the PIG1987 account. The script uses a dedicated persistent Playwright user profile and PIG1987-specific cookies, ensuring full session isolation from other TikTok automation.
+
+# Impact
+- Each TikTok automation now uses its own browser profile for true multi-account support.
+- The script will auto-create the profile directory if missing and import cookies only once.
+- No interference between ZONE A0 and PIG1987 sessions.
+
+# Follow-ups
+-create loading script for tiktok analytics, moving csvs from landing to raw to staging to curated
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-05-28-metaads-landing-folder-refactor
+
+# What Changed (≤ 50 words)
+Refactored both the Meta Ads extractor (`meta_raw_dump.py`) and cleaner ([metaads_tidy.py](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/src/metaads/cleaners/metaads_tidy.py:0:0-0:0)) scripts to use the dedicated `landing/metaads/` subfolder for all raw dumps and tidy processing, instead of the root landing folder.
+
+# Impact
+- Keeps Meta Ads data organized and isolated from other sources.
+- Prevents accidental processing of non-Meta Ads data.
+- Pipeline is now source-specific and easier to maintain.
+
+# Follow-ups
+- Update documentation to reflect new folder structure.
+- Apply similar refactoring to other sources if needed.
+--- END CHANGELOG ENTRY ---
