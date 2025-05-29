@@ -92,6 +92,21 @@ This is the central data lake for BEDROT productions
   - All scripts use the `PROJECT_ROOT` variable from `.env` for path resolution. This ensures robust automation and eliminates hardcoded paths.
   - Update `.env` as needed to change the project root location across all scripts.
 
+- **DistroKid & TooLost Staging-to-Curated Cleaners**
+  - Scripts: `src/distrokid/cleaners/distrokid_staging2curated.py`, `src/toolost/cleaners/toolost_staging2curated.py`
+  - **Unified Structure:** Both scripts follow a modular pattern for promoting validated, business-ready data from `staging/` to `curated/` with robust archiving and change detection.
+  - **Workflow:**
+    - Load new daily streams data for the relevant source from `staging/`.
+    - Remove any stale rows for that source from the curated CSV.
+    - Merge and cast numeric columns, enforce categorical ordering (`distrokid` before `toolost`).
+    - Only write to `curated/` if data has changed; prior versions are archived with a timestamp in `archive/`.
+    - DistroKid cleaner also promotes bank details CSVs with the same atomic, auditable logic.
+  - **Benefits:**
+    - Ensures no duplication or stale data in curated outputs.
+    - Guarantees full auditability and rollback via timestamped archives.
+    - Consistent, maintainable codebase for all staging-to-curated promotions.
+  - See changelog entry: `2025-05-29-staging2curated-refactor` for details on the refactor and its impact.
+
 - **Meta Ads Data Cleaner: `metaads_tidy.py`**
   - Loads the most recent Meta Ads dump from the landing zone automatically (no manual folder selection needed).
   - Reads all raw JSON files (`ads.json`, `adsets.json`, `campaigns.json`, `insights.json`).
