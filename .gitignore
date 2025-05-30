@@ -70,6 +70,19 @@ venv/
 # IDE specific files
 .idea/
 .vscode/
+# === SENSITIVE DATA PROTECTION ===
+# Ignore all contents of landing/ and raw/ (including all subfolders and files)
+landing/*
+raw/*
+
+# Allow .gitkeep and README.md so folders and docs are preserved
+!landing/.gitkeep
+!raw/.gitkeep
+!landing/README.md
+!raw/README.md
+
+# (existing rules below)
+
 *.swp
 *.swo
 
