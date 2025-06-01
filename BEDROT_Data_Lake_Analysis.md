@@ -92,6 +92,8 @@ graph LR
     class L,R,S,C,A zones
 ```
 
+<!-- End of Mermaid diagram. The following is a Markdown list. -->
+
 Each zone has a specific purpose in the data lifecycle:
 
 - **Landing Zone**: Initial data ingestion where external data is first collected. This zone is read-only and preserves the original format of the data. Files are often timestamped and never modified after landing.
@@ -144,19 +146,20 @@ flowchart TD
         Exploration["Data Exploration"]
     end
 
-    External --> |"1. Ingestion"| Landing
-    Landing --> |"2. Validation"| Raw
-    Raw --> |"3. Clean & Transform"| Staging
-    Staging --> |"4. Enrich & Aggregate"| Curated
+    External --|Ingestion|--> Landing
+    Landing --|Validation|--> Raw
+    Raw --|Clean & Transform|--> Staging
+    Staging --|Enrich & Aggregate|--> Curated
     
-    Landing -.-> |"Retire Older Data"| Archive
-    Raw -.-> |"Retire Older Data"| Archive
+    Landing -.->|Retire| Archive
+    Raw -.->|Retire| Archive
 
-    Scripts --> |"Automation"| Lake
+    Scripts --|Automation|--> Lake
     
     Curated --> Consumers
     Raw --> Sandbox
-    Sandbox --> |"Promote"| Staging
+    Sandbox --|Promote|--> Staging
+    Sandbox --|Retire|--> Archive
 
     classDef external fill:#e8f5e9,stroke:#388e3c
     classDef lake fill:#e3f2fd,stroke:#1976d2
