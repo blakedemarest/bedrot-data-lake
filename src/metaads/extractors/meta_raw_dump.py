@@ -94,7 +94,7 @@ def fetch_all(edge_method, fields, params=None):
     while True:
         results.extend(cursor)
         if cursor and cursor.load_next_page():
-            cursor = cursor.next
+            cursor = cursor.next()
         else:
             break
 
