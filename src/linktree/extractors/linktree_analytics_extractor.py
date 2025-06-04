@@ -18,19 +18,7 @@ def main():
         context = browser.new_context()
         page = context.new_page()
 
-        # Intercept and save GraphQL responses
-        def handle_response(response):
-            if response.url.startswith('https://graph.linktr.ee/graphql'):
-                try:
-                    body = response.body()
-                    ts = datetime.now().strftime('%Y%m%d_%H%M%S_%f')
-                    fname = OUTPUT_DIR / f"graphql_{ts}.json"
-                    with open(fname, 'wb') as f:
-                        f.write(body)
-                    print(f"[SAVED] {fname}")
-                except Exception as e:
-                    print(f"[ERROR] Could not save response: {e}")
-        context.on("response", handle_response)
+        # Intercept and save GraphQL responses will be registered later
 
         print("[INFO] Navigating to https://linktr.ee/admin/analytics ...")
         page.goto('https://linktr.ee/admin/analytics')
