@@ -210,3 +210,15 @@ Update `.env` with your preferred credentials before starting MinIO.
 3. Cleaned in `staging`
 4. Business-ready in `curated`
 5. Archived to `archive` when no longer actively used
+
+## Running Tests
+
+This project uses **pytest** for the test suite. To run tests locally with coverage:
+
+```bash
+pip install -r requirements.txt
+pytest -q --cov=src
+```
+
+The CI workflow executes the same command on every push and pull request. Coverage results are uploaded as an artifact in GitHub Actions.
+
