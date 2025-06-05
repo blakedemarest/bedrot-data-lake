@@ -1,5 +1,16 @@
 --- CHANGELOG ENTRY (PIN THIS) ---
 # Change ID
+2025-06-06-ci-workflow
+# What Changed (≤ 50 words)
+Added GitHub Actions workflow running pytest with coverage on each push and pull request. README now documents how to run tests locally.
+# Impact
+- Standard CI testing ensures reliability
+- Coverage artifacts available for analysis
+# Follow-ups
+- Enforce coverage thresholds as tests expand
+--- END CHANGELOG ENTRY ---
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
 2025-05-22
 # What Changed (≤ 50 words)
 Finalized robust Playwright-based automation for DistroKid streaming data extraction. Script detects dashboard, navigates to both streams and Apple Music stats, and saves HTML with datetime-stamped filenames. No destructive actions unless authentication is confirmed; browser remains open for user review.
