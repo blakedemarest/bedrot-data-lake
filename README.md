@@ -203,6 +203,17 @@ For full diagrams, technical details, and deep-dive documentation, see `BEDROT_D
 
 Update `.env` with your preferred credentials before starting MinIO.
 
+## Running Tests
+
+The project uses **pytest** with coverage enabled. After installing dependencies,
+run:
+
+```bash
+pytest -q
+```
+
+Coverage results are printed in the terminal.
+
 ## Data Flow
 
 1. Data lands in the `landing` zone
