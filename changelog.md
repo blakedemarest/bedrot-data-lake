@@ -253,3 +253,21 @@ Refactored both the Meta Ads extractor (`meta_raw_dump.py`) and cleaner ([metaad
 - Update documentation to reflect new folder structure.
 - Apply similar refactoring to other sources if needed.
 --- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-05-toolost-extractor-flow
+
+# What Changed (≤ 50 words)
+Refactored `toolost_scraper.py` so that analytics extraction (Spotify/Apple) always completes before navigating to notifications for sales report download. Updated all relevant README files to document the new ETL flow, modularity, and robust folder usage.
+
+# Impact
+- Ensures reliable TooLost ETL runs in automation and batch.
+- Reduces flakiness in both analytics and sales report extraction.
+- Improves project documentation and onboarding clarity.
+- No new dependencies.
+
+# Follow-ups
+- Monitor for edge cases in notifications detection.
+- Consider similar flow audits for other Playwright-based extractors.
+--- END CHANGELOG ENTRY ---
