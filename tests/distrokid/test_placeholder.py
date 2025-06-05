@@ -1,5 +1,6 @@
 import os
 
+
 def get_module(tmp_path):
     os.environ['PROJECT_ROOT'] = str(tmp_path)
     from src.distrokid.cleaners import distrokid_landing2raw as dlr
@@ -38,7 +39,6 @@ def test_copy_if_new(tmp_path):
     src.write_text('hello')
     assert dlr._copy_if_new(src, dest_dir) is True
     assert (dest_dir / src.name).exists()
-    # same content
     assert dlr._copy_if_new(src, dest_dir) is False
     src.write_text('new')
     assert dlr._copy_if_new(src, dest_dir) is True
