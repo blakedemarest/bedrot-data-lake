@@ -9,7 +9,7 @@ Added GitHub Actions workflow running pytest with coverage on each push and pull
 # Follow-ups
 - Enforce coverage thresholds as tests expand
 --- END CHANGELOG ENTRY ---
---- CHANGELOG ENTRY (PIN THIS) ---
+
 # Change ID
 2025-05-22
 # What Changed (≤ 50 words)
