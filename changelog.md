@@ -271,3 +271,18 @@ Refactored `toolost_scraper.py` so that analytics extraction (Spotify/Apple) alw
 - Monitor for edge cases in notifications detection.
 - Consider similar flow audits for other Playwright-based extractors.
 --- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-06-toolost-earnings-pipeline
+# What Changed (≤ 50 words)
+Planned a new TooLost earnings pipeline based on the CSV `@05-2025-70799.csv`.
+Landing2raw, raw2staging, and staging2curated will validate, transform, and merge
+these reports into curated earnings data.
+# Impact
+- Adds a finance path for TooLost with the same audit logic as streams.
+- Provides a curated `tidy_daily_earnings.csv` for analytics.
+# Follow-ups
+- Implement the code updates in the three cleaner scripts.
+- Validate sample earnings data to finalize schema.
+--- END CHANGELOG ENTRY ---

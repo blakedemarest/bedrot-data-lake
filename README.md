@@ -110,6 +110,7 @@ This is the central data lake for BEDROT productions
     - Merge and cast numeric columns, enforce categorical ordering (`distrokid` before `toolost`).
     - Only write to `curated/` if data has changed; prior versions are archived with a timestamp in `archive/`.
     - DistroKid cleaner also promotes bank details CSVs with the same atomic, auditable logic.
+    - Toolost pipeline will ingest earnings CSVs (e.g., `@05-2025-70799.csv`) via updated landing2raw, raw2staging, and staging2curated scripts.
   - **Benefits:**
     - Ensures no duplication or stale data in curated outputs.
     - Guarantees full auditability and rollback via timestamped archives.
