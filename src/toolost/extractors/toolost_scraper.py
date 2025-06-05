@@ -27,49 +27,35 @@ async def main():
             viewport={"width": 1280, "height": 900},
         )
         page = await browser.new_page()
-        print(f"Navigating to {TOOLOST_URL} ...")
-        await page.goto(TOOLOST_URL)
+        # 1. Launch Login Page
+        LOGIN_URL = "https://toolost.com/login"
+        print(f"[TOOLOST] Navigating to login page: {LOGIN_URL}")
+        await page.goto(LOGIN_URL)
 
-        # --- CLICK LOGGING ---
-        LOG_FILE = Path(__file__).parent / "toolost_click_selectors.log"
-        async def log_click(event):
-            # Evaluate in page context to get details
-            selector = await page.evaluate('el => el.outerHTML', event.target)
-            tag = await page.evaluate('el => el.tagName', event.target)
-            text = await page.evaluate('el => el.innerText', event.target)
-            classes = await page.evaluate('el => el.className', event.target)
-            el_id = await page.evaluate('el => el.id', event.target)
-            log_entry = f"TAG: {tag}\nTEXT: {text}\nCLASSES: {classes}\nID: {el_id}\nOUTER_HTML: {selector}\n{'-'*40}\n"
-            with open(LOG_FILE, "a", encoding="utf-8") as f:
-                f.write(log_entry)
-            print(f"[CLICK LOGGED] Tag: {tag}, Text: {text}, Classes: {classes}, ID: {el_id}")
-        await page.expose_binding("log_click", lambda source, event: asyncio.create_task(log_click(event)))
-        await page.evaluate("""
-            document.addEventListener('click', function(event) {
-                window.log_click(event);
-            }, true);
-        """)
 
         # Wait for manual authentication
-        print("Please log in to TooLost and complete any 2FA in the opened browser window.")
-        # Wait for a known post-login element or URL
+        print("[TOOLOST] Please log in to TooLost and complete any 2FA in the opened browser window.")
+        # Wait for a known post-login DOM element (sidebar, dashboard, or user menu)
         while True:
-            url = page.url
-            # Detect successful login at /user-portal (not just /analytics/platform)
-            if "/user-portal" in url:
-                print("Login detected. Navigating to analytics dashboard...")
-                await page.goto(TOOLOST_URL)
-                # Now wait for dashboard
-                try:
-                    # Try common content selectors; fallback if not found
-                    await page.wait_for_selector("main, .ant-layout-content, .analytics, .dashboard", timeout=10000)
-                    print("Analytics dashboard loaded!")
-                    break
-                except Exception:
-                    print("Dashboard selector not found, but URL is correct. Proceeding after fallback delay.")
-                    await asyncio.sleep(3)
-                    break
+            try:
+                # Wait for a sidebar, dashboard header, or user menu that only appears when logged in
+                await page.wait_for_selector("nav, aside, .ant-layout-sider, .dashboard, [data-testid*=user-menu]", timeout=2000)
+                print("[TOOLOST] Authenticated dashboard detected!")
+                break
+            except Exception:
+                pass
             await asyncio.sleep(2)
+        # Now navigate to analytics dashboard (explicit correct URL)
+        ANALYTICS_URL = "https://toolost.com/user-portal/analytics/platform"
+        print(f"[TOOLOST] Navigating to analytics dashboard: {ANALYTICS_URL}")
+        await page.goto(ANALYTICS_URL)
+        try:
+            await page.wait_for_selector("main, .ant-layout-content, .analytics, .dashboard", timeout=10000)
+            print("[TOOLOST] Analytics dashboard loaded!")
+        except Exception:
+            print("[TOOLOST] Dashboard selector not found, but URL is correct. Proceeding after fallback delay.")
+            await asyncio.sleep(3)
+
 
         # Set up response capture for timestamped filenames
         api_results = {"spotify": None, "apple": None}
@@ -87,18 +73,31 @@ async def main():
 
         # Step 1: Automate date range selection ("This Year")
         print("Selecting date range: This Year...")
-        # Click date range dropdown
-        await page.click("[class*=ant-picker], [data-testid*=date], [role=button]:has-text('Last 30 Days')")
-        await asyncio.sleep(1)
-        # Try to click 'This Year' or 'Year' option
+        # Wait for the date picker to be visible and enabled
         try:
-            await page.click("text=This Year")
-        except Exception:
+            await page.wait_for_selector("[class*=ant-picker], [data-testid*=date], [role=button]", timeout=15000, state="visible")
+            await asyncio.sleep(1)
+            # Try a robust click sequence
             try:
-                await page.click("text=Year")
+                await page.click("[class*=ant-picker], [data-testid*=date], [role=button]:has-text('Last 30 Days')", timeout=5000)
             except Exception:
-                print("Could not find 'This Year' or 'Year' in dropdown. Please update selector if needed.")
-        await asyncio.sleep(2)
+                # Fallback: click any available date picker
+                try:
+                    await page.click("[class*=ant-picker], [data-testid*=date], [role=button]", timeout=5000)
+                except Exception:
+                    print("[TOOLOST] Could not find a clickable date picker. Skipping date selection.")
+            await asyncio.sleep(1)
+            # Try to click 'This Year' or 'Year' option
+            try:
+                await page.click("text=This Year", timeout=3000)
+            except Exception:
+                try:
+                    await page.click("text=Year", timeout=3000)
+                except Exception:
+                    print("[TOOLOST] Could not find 'This Year' or 'Year' in dropdown. Please update selector if needed.")
+            await asyncio.sleep(2)
+        except Exception:
+            print("[TOOLOST] Date picker not found after dashboard load. Skipping date selection.")
 
         # Wait for Spotify API call
         print("Waiting for Spotify API call for full year...")
@@ -157,6 +156,56 @@ async def main():
             print(f"Saved Apple analytics to {apple_path}")
         else:
             print("[WARNING] Apple Music API response not captured after 60 seconds. Please check selectors or try again.")
+
+        # --- Now go to notifications and download latest sales report ---
+        print("[TOOLOST] Navigating to notifications page...")
+        NOTIFICATIONS_URL = "https://toolost.com/user-portal/notifications"
+        await page.goto(NOTIFICATIONS_URL)
+        try:
+            await page.wait_for_selector("div.body-1.font-weight-bold.mb-1", timeout=10000)
+        except Exception:
+            print("[TOOLOST] Notification blocks not found after navigation. Proceeding anyway.")
+        await asyncio.sleep(2)
+        print("[TOOLOST] Looking for latest sales report notification...")
+        import re
+        retry_count = 0
+        max_retries = 3
+        found_report = False
+        while retry_count < max_retries and not found_report:
+            report_blocks = page.locator("div.body-1.font-weight-bold.mb-1")
+            matching_blocks = await report_blocks.all_inner_texts()
+            latest_idx = None
+            for idx, text in enumerate(matching_blocks):
+                if re.search(r"Your \\(\d{2}-\d{4}\\) Sales report has been generated", text):
+                    latest_idx = idx
+                    break
+            if latest_idx is not None:
+                print(f"[TOOLOST] Found sales report notification: {matching_blocks[latest_idx]}")
+                # Try to find the corresponding attachment button (assume same index)
+                attachment_buttons = page.locator("button:has-text('Attachment')")
+                if await attachment_buttons.count() > latest_idx:
+                    button = attachment_buttons.nth(latest_idx)
+                    print("[TOOLOST] Downloading sales report attachment...")
+                    async with page.expect_download() as download_info:
+                        await button.click()
+                    download = await download_info.value
+                    filename = await download.suggested_filename()
+                    LANDING_DIR = Path(PROJECT_ROOT) / "landing" / "toolost" / "streams"
+                    LANDING_DIR.mkdir(parents=True, exist_ok=True)
+                    save_path = LANDING_DIR / filename
+                    await download.save_as(str(save_path))
+                    print(f"[TOOLOST] Downloaded: {filename} to {save_path}")
+                    found_report = True
+                else:
+                    print("[TOOLOST] Could not find matching attachment button for latest report.")
+                    break
+            else:
+                retry_count += 1
+                if retry_count < max_retries:
+                    print(f"[TOOLOST] No sales report notification found! Retrying in 7 seconds... (Attempt {retry_count+1}/{max_retries})")
+                    await asyncio.sleep(7)
+                else:
+                    print("[TOOLOST] No sales report notification found after multiple attempts!")
 
         print("Data collection complete. You may now close the browser window to end the script.")
         await browser.close()
