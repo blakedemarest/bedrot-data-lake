@@ -43,3 +43,4 @@ def test_copy_if_new(tmp_path):
     src.write_text('new')
     assert dlr._copy_if_new(src, dest_dir) is True
     assert len(list(dest_dir.glob('file*.txt'))) == 2
+
