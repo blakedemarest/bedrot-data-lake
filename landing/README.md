@@ -2,6 +2,11 @@
 
 ## Changelog
 
+### 2025-06-05: TooLost Extractor Flow Refactor (`2025-06-05-toolost-extractor-flow`)
+- TooLost Playwright extractor now always completes analytics extraction (Spotify/Apple) before navigating to notifications for sales report download.
+- All Playwright-based extractors are robust to login/2FA and modular for future platforms.
+- All outputs use correct PROJECT_ROOT and folder conventions (landing, raw, staging).
+
 ### 2025-05-22: DistroKid Streaming Data Automation
 - Automated extraction of DistroKid streaming and Apple Music stats using Playwright.
 - HTML page sources are now saved with datetime-stamped filenames (e.g., `streams_stats_YYYYMMDD_HHMMSS.html`).

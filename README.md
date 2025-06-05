@@ -1,5 +1,11 @@
 # BEDROT Data Lake
 
+## Executive Summary
+
+The BEDROT Data Lake provides a robust, modular, and auditable platform for ingesting, validating, transforming, and curating data from music, social, and ad platforms. Data flows through clearly defined zones (Landing, Raw, Staging, Curated, Archive), ensuring traceability, governance, and business readiness. Automation and modular Python ETL scripts (with Playwright for web sources) enable reliable, scalable operations.
+
+For full architectural diagrams and technical deep-dive, see: `BEDROT_Data_Lake_Analysis.md`
+
 ## Project Folder Structure
 
 ```plaintext
@@ -46,18 +52,18 @@ This is the central data lake for BEDROT productions
 ---
 
 - `.agent/` — AI agent working directories (cache, context, logs)
-- `archive/` — **Historical data**; long-term storage for datasets no longer actively used.
+- `archive/` — **Archive Zone**: Long-term storage for datasets no longer actively used. Ensures historical data is preserved for compliance and future analysis.
 - `changelog.md` — Project changelog.
-- `cronjob/` — Batch files and automation scripts.
-- `curated/` — **Business-ready datasets**. Main consumption layer for analytics, dashboards, and ML. Contains cleaned, aggregated, and enriched data with stable schemas and documentation. 
-  - **Note:** As of May 2025, all finalized output CSVs from cleaner scripts (e.g., DistroKid, TooLost, Meta Ads) are first written to the `staging/` directory. Only after validation and business logic are they promoted to `curated/`.
+- `cronjob/` — Batch files and automation scripts (automation triggers all ETL stages).
+- `curated/` — **Curated Zone**: Business-ready datasets for analytics, dashboards, and ML. Cleaned, aggregated, and enriched data with stable schemas.
+  - **Note:** All outputs from cleaner scripts are first written to `staging/` and only promoted to `curated/` after validation.
 - `data_lake_flow.dot` — Pipeline visualization (Graphviz).
 - `docker-compose.yml` — MinIO and other service orchestration.
-- `image.png`, `image.svg` — Project diagrams.
+- `image.png`, `image.svg` — Project diagrams (see analysis doc for mermaid diagrams).
 - `knowledge/` — AI knowledge base (decisions, patterns, agents).
-- `landing/` — **Initial data ingestion zone**. Raw, unaltered data files from all external sources (APIs, partners, etc). No transformations allowed. Files are read-only and timestamped. Next step: move to `raw` after initial validation.
+- `landing/` — **Landing Zone**: Initial data ingestion. Raw, unaltered, timestamped files from all external sources. Read-only. Next: move to `raw` after validation.
 - `minio/` — MinIO configuration.
-- `raw/` — **Immutable, validated source-of-truth zone**. Exact, append-only copies of validated data from landing. No transformations. Maintains full lineage. Next step: processed to `staging`.
+- `raw/` — **Raw Zone**: Immutable, validated, append-only copies of data from landing. Maintains full lineage. Next: processed to `staging`.
 - `requirements.txt` — Python dependencies.
 - `sandbox/` — Experimental work area (Jupyter notebooks for raw data exploration and cleaning).
 - `src/` — All ETL and pipeline code:
@@ -66,35 +72,38 @@ This is the central data lake for BEDROT productions
     - `cleaners/` — DistroKid data cleaning scripts
   - `metaads/`
     - `extractors/` — Meta Ads data extraction scripts
-    - `cleaners/` — Meta Ads data cleaning scripts (see below)
   - `linktree/`
     - `extractors/` — Linktree data extraction scripts
     - `cleaners/` — Linktree data cleaning scripts
+  - `metaads/`
+    - `extractors/` — Meta Ads data extraction scripts
+    - `cleaners/` — Meta Ads data cleaning scripts (see below)
   - `tiktok/`
     - `extractors/` — TikTok data extraction scripts
       - `tiktok_analytics_extractor_zonea0.py` — Extracts analytics for the ZONE A0 TikTok account using its own persistent browser profile and cookies.
       - `tiktok_analytics_extractor_pig1987.py` — Extracts analytics for the PIG1987 TikTok account with a separate browser profile and cookies.
       - Extendable: Add new extractor scripts for additional TikTok accounts by duplicating and adjusting the user profile/cookie paths as needed.
     - `cleaners/` — TikTok data cleaning scripts
+  - `toolost/`
+    - `extractors/` — TooLost data extraction scripts (see `toolost_scraper.py` for robust Playwright-based ETL: analytics is always extracted before notifications/sales report)
+    - `cleaners/` — TooLost data cleaning scripts
   - `raw/` — Raw ETL helpers/utilities
 - `staging/` — **Data cleaning, validation, and transformation zone**. Where data is standardized, quality-checked, and joined/aggregated. All transformations and schema enforcement occur here. **All output from cleaner scripts (DistroKid, TooLost, Meta Ads, etc.) lands here by default.** Next step: move to `curated` for business use.
 - `tests/` — Automated tests
 
 ---
 
-### Cleaner Scripts: Output & Path Management
+### Data Lake Zone Definitions
 
-- **Output Location:**
-  - As of May 2025, all finalized output CSVs from DistroKid, TooLost, and Meta Ads cleaner scripts are written to the `staging/` directory (not `curated/`).
-  - Only after validation and business logic are outputs promoted to `curated/`.
+- **Landing Zone**: Initial data ingestion, raw files, timestamped, never modified. Ensures traceability and auditability.
+- **Raw Zone**: Immutable, validated, append-only. Full data lineage, no transformations.
+- **Staging Zone**: Data cleaning, validation, transformation, and joining. All business logic applied here. Outputs promoted to `curated/` only after validation.
+- **Curated Zone**: Business-ready, stable, and documented datasets for analytics and ML. Consumed by BI tools and downstream apps.
+- **Archive Zone**: Long-term retention for compliance and historical analysis.
 
-- **Path Management:**
-  - All scripts use the `PROJECT_ROOT` variable from `.env` for path resolution. This ensures robust automation and eliminates hardcoded paths.
-  - Update `.env` as needed to change the project root location across all scripts.
-
-- **DistroKid & TooLost Staging-to-Curated Cleaners**
-  - Scripts: `src/distrokid/cleaners/distrokid_staging2curated.py`, `src/toolost/cleaners/toolost_staging2curated.py`
-  - **Unified Structure:** Both scripts follow a modular pattern for promoting validated, business-ready data from `staging/` to `curated/` with robust archiving and change detection.
+- **DistroKid & TooLost Extractors and Staging-to-Curated Cleaners**
+  - Scripts: `src/distrokid/cleaners/distrokid_staging2curated.py`, `src/toolost/cleaners/toolost_staging2curated.py`, `src/toolost/extractors/toolost_scraper.py`
+  - **Unified Structure:** All Playwright-based extractors (including TooLost) are modular, robust to login/2FA, and use PROJECT_ROOT for all outputs. The TooLost extractor now completes analytics extraction (Spotify/Apple) before navigating to notifications for sales report download, ensuring reliable ETL flow. See changelog entry `2025-06-05-toolost-extractor-flow`.
   - **Workflow:**
     - Load new daily streams data for the relevant source from `staging/`.
     - Remove any stale rows for that source from the curated CSV.
@@ -130,22 +139,39 @@ This is the central data lake for BEDROT productions
 
 ---
 
-## Cron Job Pipeline Automation
+## ETL Pipeline Architecture
 
-**Centralized Cron Job Maintenance:**
-- Only edit the master cron job file: `cronjob/run_datalake_cron.bat`.
-- The secondary batch file (`run_datalake_cron_no_extractors.bat`, which skips extractor scripts) is always generated automatically by `cronjob/generate_no_extractors_cron.py` (run as the last step of the master cron job).
-- This eliminates manual duplication and ensures both cron jobs are always in sync.
+The ETL pipeline is modular and source-centric, with clear separation between extraction, validation, transformation, and loading. Automation is managed by batch/cron jobs that trigger each stage in sequence.
 
-### Data Zone Importance & Flow
+- **Extraction**: Playwright-based scripts for DistroKid, TooLost, TikTok, Meta Ads, Linktree, etc. Each extractor handles login/2FA, navigation, and robust download/capture of analytics and sales reports.
+- **Validation**: Landing-to-raw validators ensure data integrity, structure, and correct source mapping.
+- **Transformation**: Raw-to-staging cleaners standardize, join, and aggregate data. All business logic is applied here. Outputs are only promoted to curated after validation.
+- **Loading**: Staging-to-curated promotion scripts archive prior versions and ensure only changed data is written.
+- **Automation**: All stages are orchestrated by batch scripts and cron jobs for hands-off operation.
 
-- **Landing:** _First stop for all incoming data. Ensures traceability and auditability from the very start. No changes allowed—preserves original context._
-- **Raw:** _Immutable, validated, and append-only. The single source of truth for all downstream processing. Guarantees reproducibility and full lineage._
-- **Staging:** _Where data is cleaned, validated, and transformed. Ensures consistency, quality, and readiness for analytics. All business logic and joins applied here._
-- **Curated:** _The “golden” layer. Datasets are business-ready, documented, and optimized for analytics, reporting, and ML. This is what end-users and applications consume._
-- **Archive:** _Long-term retention. Keeps historical data accessible for compliance and future analysis._
+### Extractor Class Hierarchy
 
-This structure ensures robust data governance, auditability, and a clear, repeatable data flow from raw ingestion to business insight.
+- `BaseExtractor`: Common interface for all extractors (`extract_data`, `validate_credentials`, `handle_authentication`).
+- `PlaywrightExtractor`: Adds browser/session logic, login/2FA handling, and navigation helpers.
+- `DistroKidExtractor`, `TooLostExtractor`, `TikTokExtractor`, etc.: Source-specific subclasses implementing analytics and report extraction logic.
+- `MetaAdsExtractor`: API-based, implements campaign/ad/adset/insights extraction.
+
+See `BEDROT_Data_Lake_Analysis.md` for class diagrams and technical details.
+
+## Automation & Operational Strategy
+
+- **Cron jobs**: Master cron triggers all ETL stages. No manual duplication—secondary batch files are auto-generated.
+- **Monitoring & Logging**: All major ETL steps are logged for traceability. Failures trigger clear logs for troubleshooting.
+- **Validation & Error Handling**: Validators and robust error handling at every stage ensure data quality and pipeline resilience.
+
+## Changelog
+
+### 2025-06-05: TooLost Extractor Flow Refactor (`2025-06-05-toolost-extractor-flow`)
+- Refactored `toolost_scraper.py` for correct extraction order and improved robustness. See changelog for details.
+
+---
+
+For full diagrams, technical details, and deep-dive documentation, see `BEDROT_Data_Lake_Analysis.md`.
 
 ## Getting Started with MinIO
 
