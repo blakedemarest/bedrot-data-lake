@@ -731,5 +731,3 @@ graph TD
 ```
 
 ---
-
-*This document was generated on 2025-05-30 by CASCADE for BEDROT Productions.*
