@@ -20,7 +20,7 @@ BEDROT_DATA_LAKE/
 ├── raw/
 ├── sandbox/
 ├── src/
-│   ├── .playwright_dk_session/
+│   ├── .playwright_dk_session/ (configurable via PLAYWRIGHT_SESSION_DIR)
 │   ├── distrokid/
 │   │   ├── extractors/
 │   │   └── cleaners/
