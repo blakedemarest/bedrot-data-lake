@@ -1,5 +1,6 @@
 import os
 import logging
+from pathlib import Path
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 from dotenv import load_dotenv
 
@@ -13,7 +14,10 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()]
 )
 
-SESSION_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../.playwright_dk_session'))
+# Persistent session directory for Playwright
+PROJECT_ROOT = os.getenv("PROJECT_ROOT", str(Path(__file__).resolve().parents[3]))
+DEFAULT_SESSION_DIR = str(Path(PROJECT_ROOT) / "src" / ".playwright_dk_session")
+SESSION_DIR = os.getenv("PLAYWRIGHT_SESSION_DIR", DEFAULT_SESSION_DIR)
 LOGIN_URL = "https://distrokid.com/login"
 DASHBOARD_URL = "https://distrokid.com/stats/?data=streams"
 
