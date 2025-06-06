@@ -5,13 +5,16 @@ from pathlib import Path
 from datetime import datetime
 from playwright.async_api import async_playwright
 
-# Shared persistent session directory
-SESSION_DIR = str(Path(__file__).resolve().parent.parent.parent / ".playwright_dk_session")
-# Output directory
-# FIX: Use correct raw zone (PROJECT_ROOT/raw/toolost), not src/landing/toolost
 from dotenv import load_dotenv
 load_dotenv()
-PROJECT_ROOT = os.getenv("PROJECT_ROOT")
+
+# Shared persistent session directory
+PROJECT_ROOT = os.getenv("PROJECT_ROOT", str(Path(__file__).resolve().parents[3]))
+DEFAULT_SESSION_DIR = str(Path(PROJECT_ROOT) / "src" / ".playwright_dk_session")
+SESSION_DIR = os.getenv("PLAYWRIGHT_SESSION_DIR", DEFAULT_SESSION_DIR)
+# Output directory
+# FIX: Use correct raw zone (PROJECT_ROOT/raw/toolost), not src/landing/toolost
+PROJECT_ROOT = os.getenv("PROJECT_ROOT", PROJECT_ROOT)
 OUTPUT_DIR = Path(PROJECT_ROOT) / "raw" / "toolost"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
