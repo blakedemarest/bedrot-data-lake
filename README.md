@@ -201,7 +201,14 @@ For full diagrams, technical details, and deep-dive documentation, see `BEDROT_D
 
 ## Environment Variables
 
-Update `.env` with your preferred credentials before starting MinIO.
+Copy `.env.example` to `.env` and fill in the credentials before running any
+automation. Important entries include:
+
+- `MINIO_ROOT_USER` and `MINIO_ROOT_PASSWORD` – login for the MinIO object
+  store.
+- `PROJECT_ROOT` – absolute path to the repository, used by the cron jobs.
+- `DB_URL` – PostgreSQL connection string for loading curated data (see
+  `knowledge/sql_integration_plan.md`).
 
 ## Data Flow
 
@@ -210,6 +217,24 @@ Update `.env` with your preferred credentials before starting MinIO.
 3. Cleaned in `staging`
 4. Business-ready in `curated`
 5. Archived to `archive` when no longer actively used
+
+## Relational Database Integration
+
+Curated CSV outputs can be loaded into PostgreSQL for relational queries and
+reporting. The process is defined in
+`knowledge/sql_integration_plan.md`. A future utility (`src/utils/sql_loader.py`)
+will automate these loads and append entries to
+`knowledge/sql_ingestion_log.md`. Configure `DB_URL` in your `.env` to point to
+the target database before running the loader.
+
+**Implementation Strategy**
+
+1. Each curated CSV maps to a table; archived files load into a matching table
+   with an `_archive` suffix.
+2. The loader enforces natural keys (`date`, `date_start`, or identifiers) and
+   logs file hashes for lineage.
+3. A `dataset_versions` table tracks snapshots and enables rollback queries.
+4. Cron jobs will invoke the loader after staging-to-curated promotions.
 
 ## Running Tests
 
