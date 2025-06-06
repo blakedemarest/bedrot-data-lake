@@ -338,7 +338,7 @@ graph TD
     Root --> DataFlow["data_lake_flow.dot"]
     Root --> Docker["docker-compose.yml"]
     Root --> Images["image.png, image.svg"]
-    Root --> Knowledge["knowledge/"]
+    Root --> Knowledge["agents/knowledge/"]
     Root --> Landing["landing/"]
     Root --> MinIO["minio/"]
     Root --> Raw["raw/"]
