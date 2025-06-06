@@ -45,7 +45,7 @@ A loader utility (`src/utils/sql_loader.py`) will:
 
 1. Iterate over CSVs in `curated/` and `archive/`.
 2. Use SQLAlchemy (with psycopg2 engine) to batch load into the appropriate table.
-3. Record each ingestion in `knowledge/sql_ingestion_log.md` with timestamp, row count, and file hash.
+3. Record each ingestion in `agents/knowledge/sql_ingestion_log.md` with timestamp, row count, and file hash.
 4. Optionally run `CREATE INDEX` statements for key columns if the table is new.
 
 Pseudo-code outline:
