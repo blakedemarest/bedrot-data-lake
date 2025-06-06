@@ -11,6 +11,8 @@ if not PROJECT_ROOT:
     raise EnvironmentError("PROJECT_ROOT environment variable must be set.")
 OUTPUT_DIR = Path(PROJECT_ROOT) / 'landing' / 'tiktok' / 'analytics'
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+DEFAULT_SESSION_DIR = str(Path(PROJECT_ROOT) / 'src' / '.playwright_dk_session')
+PLAYWRIGHT_SESSION_DIR = os.getenv('PLAYWRIGHT_SESSION_DIR', DEFAULT_SESSION_DIR)
 
 ACCOUNTS = [
     (os.environ.get('ZONE_A0_TIKTOK_EMAIL'), os.environ.get('ZONE_A0_TIKTOK_PASSWORD')),
@@ -83,7 +85,7 @@ def process_account_manual_persistent(playwright):
     print("[INFO] Starting TikTok analytics extraction (persistent context + real browser fingerprint)")
 
     # Use unified persistent user data directory for all Playwright scripts (shared browser profile)
-    user_data_dir = r"c:/Users/Earth/BEDROT PRODUCTIONS/BEDROT DATA LAKE/data_lake/src/.playwright_dk_session"
+    user_data_dir = PLAYWRIGHT_SESSION_DIR
     user_agent = (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
         "AppleWebKit/537.36 (KHTML, like Gecko) "

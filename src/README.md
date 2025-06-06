@@ -13,14 +13,14 @@ The `src` directory contains all source code for data extraction, transformation
 - (Add additional subdirectories as new sources or ETL modules are added)
 
 ## Example Usage
-- All Playwright scripts use `src/.playwright_dk_session` as the master persistent session directory for browser automation.
+- All Playwright scripts use the directory specified by `PLAYWRIGHT_SESSION_DIR` (default `src/.playwright_dk_session`) for browser automation.
 - Run DistroKid extraction:
   ```bash
   python src/distrokid/extractors/dk_auth.py
   ```
 
 ## Notes
-- All Playwright scripts should use `src/.playwright_dk_session` as the persistent context for session reuse and space savings.
+- All Playwright scripts should use `PLAYWRIGHT_SESSION_DIR` for persistent context reuse and space savings.
 - Source code should be modular and documented
 - Sensitive information (credentials, tokens) should be managed via environment variables or a `.env` file
 - Test scripts before running in production
