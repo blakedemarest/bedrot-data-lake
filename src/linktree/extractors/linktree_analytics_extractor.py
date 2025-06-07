@@ -1,3 +1,6 @@
+# Captures Linktree analytics via Playwright and writes JSON responses to the
+# landing zone. Requires manual login on first run.
+
 import os
 import time
 from pathlib import Path

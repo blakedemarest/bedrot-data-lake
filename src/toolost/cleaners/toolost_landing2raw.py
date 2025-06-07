@@ -1,5 +1,6 @@
 # %%
 # ─── Cell 1: Imports & Environment Setup ────────────────────────────────────────
+# Move TooLost downloads from the landing zone to raw after basic validation.
 import os, hashlib, shutil, json, glob
 from pathlib import Path
 from datetime import datetime

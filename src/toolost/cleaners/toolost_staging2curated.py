@@ -1,5 +1,6 @@
 # %%
 # ─── Cell 1: Imports & Environment Setup ────────────────────────────────────────
+# Merge TooLost daily streams into the curated dataset and archive prior versions.
 import os
 from pathlib import Path
 import hashlib, datetime, shutil
