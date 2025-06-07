@@ -1,5 +1,7 @@
 # %%
 # ─── Cell 1: Imports & Environment Setup ────────────────────────────────────────
+# Merge daily DistroKid data into the curated dataset after validation.
+# Relies on PROJECT_ROOT for zone folders.
 import os, hashlib, datetime, shutil
 from pathlib import Path
 import pandas as pd

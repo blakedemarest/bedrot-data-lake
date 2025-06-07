@@ -1,5 +1,6 @@
 # %%
 # ─── Cell 1: Imports & Environment Setup ────────────────────────────────────────
+# Clean TooLost analytics and sales JSON files into tabular form in the staging zone.
 import os, json
 from pathlib import Path
 import pandas as pd

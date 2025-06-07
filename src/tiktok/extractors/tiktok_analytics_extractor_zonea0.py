@@ -1,3 +1,6 @@
+# Scrape analytics for the ZONEA0 TikTok account and save JSON dumps to the
+# landing zone. Requires PROJECT_ROOT and account cookies.
+
 import os
 import time
 from pathlib import Path
