@@ -1,3 +1,6 @@
+# Automate TooLost login and download analytics and sales reports to the raw zone.
+# Requires a persistent Playwright session directory.
+
 import asyncio
 import json
 import os

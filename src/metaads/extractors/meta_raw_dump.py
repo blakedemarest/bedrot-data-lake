@@ -2,6 +2,8 @@
 # If you need to install dependencies, run:
 # pip install facebook-business==19.0.0 python-dotenv pandas tqdm
 
+# Dump campaigns, ad sets, ads, and insights from the Meta Ads API.
+# Creates a timestamped folder in landing/metaads using PROJECT_ROOT variables.
 
 # %%
 # ╔════════════════════════════════════════════════════════════════╗

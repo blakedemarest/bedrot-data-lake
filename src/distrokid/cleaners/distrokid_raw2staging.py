@@ -1,5 +1,7 @@
 # %%
 # ─── Cell 1: Imports & Environment Setup ────────────────────────────────────────
+# Convert raw DistroKid HTML and TSV files into cleaned CSVs in the staging zone.
+# Uses PROJECT_ROOT for zone paths.
 import os, re, json
 from pathlib import Path
 import pandas as pd

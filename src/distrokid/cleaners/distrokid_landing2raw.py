@@ -1,5 +1,8 @@
 # %%
 # ─── Cell 1: Imports & Environment Setup ────────────────────────────────────────
+# Validate DistroKid HTML and TSV files in the landing zone and copy approved
+# files to the raw zone. Requires PROJECT_ROOT and optional LANDING_ZONE/RAW_ZONE
+# environment variables.
 import os, re, json, hashlib, shutil
 from pathlib import Path
 from datetime import datetime

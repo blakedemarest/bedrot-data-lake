@@ -88,6 +88,7 @@ This is the central data lake for BEDROT productions
   - `toolost/`
     - `extractors/` — TooLost data extraction scripts (see `toolost_scraper.py` for robust Playwright-based ETL: analytics is always extracted before notifications/sales report)
     - `cleaners/` — TooLost data cleaning scripts
+    - Each source folder includes a README with examples.
   - `raw/` — Raw ETL helpers/utilities
 - `staging/` — **Data cleaning, validation, and transformation zone**. Where data is standardized, quality-checked, and joined/aggregated. All transformations and schema enforcement occur here. **All output from cleaner scripts (DistroKid, TooLost, Meta Ads, etc.) lands here by default.** Next step: move to `curated` for business use.
 - `tests/` — Automated tests

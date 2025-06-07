@@ -1,5 +1,6 @@
 # %%
 # ─── Cell 1: Imports & Environment Setup ────────────────────────────────────────
+# Aggregate cleaned Meta Ads data and promote finalized tables to the curated zone.
 import os, hashlib, datetime, shutil
 from pathlib import Path
 import pandas as pd
