@@ -1,3 +1,6 @@
+# Scrape analytics for the PIG1987 TikTok account and save JSON dumps to the
+# landing zone. Uses account-specific cookies for authentication.
+
 import os
 import time
 import json

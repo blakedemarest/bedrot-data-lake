@@ -1,5 +1,6 @@
 # %%
 # ─── Cell 1: Imports & Environment Setup ────────────────────────────────────────
+# Normalize Meta Ads JSON dumps and write cleaned tables to the staging zone.
 import os, json
 from pathlib import Path
 import pandas as pd

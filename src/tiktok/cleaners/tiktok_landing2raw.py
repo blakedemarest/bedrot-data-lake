@@ -1,5 +1,7 @@
 # %%
 # ─── Cell 1: Setup ───────────────────────────────────────────────────────────────
+# Unpack and validate TikTok analytics exports from landing and organize them in
+# the raw zone.
 import os, glob, zipfile, tempfile, shutil
 import pandas as pd
 
