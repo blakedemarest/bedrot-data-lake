@@ -1,9 +1,11 @@
 # %%
 # ─── Cell 1: Imports & Environment Setup ────────────────────────────────────────
 # Aggregate cleaned Meta Ads data and promote finalized tables to the curated zone.
-import os, hashlib, datetime, shutil
+import os, datetime, shutil
 from pathlib import Path
 import pandas as pd
+
+from src.common.utils.hash_helpers import df_hash, file_hash
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -43,8 +45,6 @@ merged = merged.sort_values(["date_start","campaign_id","adset_id","ad_id"]).res
 
 # %%
 # ─── Cell 3: Save & archive if dataset changed ─────────────────────────────────
-def df_hash(df):  return hashlib.md5(df.to_csv(index=False).encode()).hexdigest()
-def file_hash(p): return hashlib.md5(p.read_bytes()).hexdigest()
 
 if cur_path.exists() and df_hash(merged) == file_hash(cur_path):
     print("↩︎ No changes – curated already up-to-date.")

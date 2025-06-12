@@ -69,21 +69,29 @@ def _get_marker_path(context, service: str) -> Path:
     return Path(user_data_dir) / f".{service}_cookies_imported"
 
 
+def _load_cookie_file(path: Path) -> List[Dict[str, Any]]:
+    """Return cookies from ``path`` normalizing invalid values."""
+    try:
+        data = json.loads(path.read_text())
+        if isinstance(data, dict):
+            data = data.get("cookies", [])
+        if not isinstance(data, list):
+            return []
+        cookies = []
+        for c in data:
+            if "sameSite" in c and c["sameSite"] not in _VALID_SAMESITE:
+                c["sameSite"] = "Lax"
+            cookies.append(c)
+        return cookies
+    except Exception as exc:  # pragma: no cover – log but continue
+        print(f"[WARN] Skipping cookie file {path}: {exc}")
+        return []
+
+
 def _collect_cookie_dicts(cookie_dir: Path) -> List[Dict[str, Any]]:
     cookies: List[Dict[str, Any]] = []
     for file in cookie_dir.glob("*.json"):
-        try:
-            data = json.loads(file.read_text())
-            if isinstance(data, dict):
-                data = data.get("cookies", [])
-            if not isinstance(data, list):
-                continue
-            for c in data:
-                if "sameSite" in c and c["sameSite"] not in _VALID_SAMESITE:
-                    c["sameSite"] = "Lax"
-                cookies.append(c)
-        except Exception as exc:  # pragma: no cover – log but continue
-            print(f"[WARN] Skipping cookie file {file}: {exc}")
+        cookies.extend(_load_cookie_file(file))
     return cookies
 
 
