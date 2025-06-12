@@ -338,7 +338,7 @@ graph TD
     Root --> DataFlow["data_lake_flow.dot"]
     Root --> Docker["docker-compose.yml"]
     Root --> Images["image.png, image.svg"]
-    Root --> Knowledge["knowledge/"]
+    Root --> Knowledge["agents/knowledge/"]
     Root --> Landing["landing/"]
     Root --> MinIO["minio/"]
     Root --> Raw["raw/"]
@@ -643,6 +643,7 @@ graph TD
     classDef debt fill:#ffcdd2,stroke:#d32f2f
     class TD1,TD2,TD3,TD4 debt
 ```
+ - **TD4 Documentation Gaps:** Added top-of-file comments and per-folder README files to clarify extractors and cleaners.
 
 ### Enhancement Opportunities
 

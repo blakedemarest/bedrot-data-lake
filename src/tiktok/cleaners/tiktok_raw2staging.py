@@ -1,5 +1,6 @@
 # %%
 # ─── Cell 1: Setup ───────────────────────────────────────────────────────────────
+# Clean raw TikTok analytics files and export standardized CSVs to the staging zone.
 import os, glob, zipfile, tempfile, shutil
 import pandas as pd
 

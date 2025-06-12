@@ -40,7 +40,8 @@ BEDROT_DATA_LAKE/
 ├── staging/
 ├── staged/
 ├── tests/
-├── knowledge/
+├── agents/
+│   └── knowledge/
 ```
 
 This is the central data lake for BEDROT productions
@@ -60,7 +61,7 @@ This is the central data lake for BEDROT productions
 - `data_lake_flow.dot` — Pipeline visualization (Graphviz).
 - `docker-compose.yml` — MinIO and other service orchestration.
 - `image.png`, `image.svg` — Project diagrams (see analysis doc for mermaid diagrams).
-- `knowledge/` — AI knowledge base (decisions, patterns, agents).
+- `agents/knowledge/` — AI knowledge base (decisions, patterns, agents).
 - `landing/` — **Landing Zone**: Initial data ingestion. Raw, unaltered, timestamped files from all external sources. Read-only. Next: move to `raw` after validation.
 - `minio/` — MinIO configuration.
 - `raw/` — **Raw Zone**: Immutable, validated, append-only copies of data from landing. Maintains full lineage. Next: processed to `staging`.
@@ -87,6 +88,7 @@ This is the central data lake for BEDROT productions
   - `toolost/`
     - `extractors/` — TooLost data extraction scripts (see `toolost_scraper.py` for robust Playwright-based ETL: analytics is always extracted before notifications/sales report)
     - `cleaners/` — TooLost data cleaning scripts
+    - Each source folder includes a README with examples.
   - `raw/` — Raw ETL helpers/utilities
 - `staging/` — **Data cleaning, validation, and transformation zone**. Where data is standardized, quality-checked, and joined/aggregated. All transformations and schema enforcement occur here. **All output from cleaner scripts (DistroKid, TooLost, Meta Ads, etc.) lands here by default.** Next step: move to `curated` for business use.
 - `tests/` — Automated tests
