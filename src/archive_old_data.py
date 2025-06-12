@@ -1,11 +1,13 @@
 """
-General Cleaner Script for Landing and Raw Zones
-
-Moves older copies of data files (older than 7 days) to the archive zone, appending [ARCHIVED ON (datetime)] to the filename.
-
-- Scans landing and raw zones recursively
-- For files with the same base identity (e.g., same prefix or matching pattern), keeps the newest and archives older ones
-- Archive files are renamed to include the archive date
+/// General Cleaner Script for Landing and Raw Zones.
+///
+/// Moves older copies of data files (older than 7 days) to the archive zone,
+/// appending [ARCHIVED ON (datetime)] to the filename.
+///
+/// - Scans landing and raw zones recursively.
+/// - For files with the same base identity (e.g., same prefix or matching
+///   pattern), keeps the newest and archives older ones.
+/// - Archive files are renamed to include the archive date.
 """
 import os
 import shutil

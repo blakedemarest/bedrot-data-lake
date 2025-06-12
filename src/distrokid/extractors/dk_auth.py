@@ -32,9 +32,10 @@ DK_PASSWORD = os.getenv("DK_PASSWORD")
 
 def login_distrokid():
     """
-    Automates login to DistroKid, including 2FA, and persists session for future use.
-    Credentials are read from environment variables DK_EMAIL and DK_PASSWORD.
-    If 2FA is required, user will be prompted to enter the code manually in the browser.
+    /// Automates login to DistroKid, including 2FA, and persists session for
+    /// future use. Credentials are read from environment variables DK_EMAIL and
+    /// DK_PASSWORD. If 2FA is required, the user will be prompted to enter the
+    /// code manually in the browser.
     """
     if not DK_EMAIL or not DK_PASSWORD:
         logging.error("DK_EMAIL and DK_PASSWORD must be set in environment variables or .env file.")
@@ -134,7 +135,8 @@ def login_distrokid():
 
 def test_login_distrokid():
     """
-    Test to verify if the login session is valid and can access the stats page without manual intervention.
+    /// Test to verify if the login session is valid and can access the stats
+    /// page without manual intervention.
     """
     with sync_playwright() as p:
         try:

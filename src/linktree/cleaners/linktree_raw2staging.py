@@ -1,15 +1,15 @@
 """
-linktree_raw2staging.py
-Raw → Staging cleaner for Linktree NDJSON data.
-
-Guided by `LLM_cleaner_guidelines.md`.
-• Reads every *.ndjson in raw/linktree/
-• Cleans & deduplicates rows
-• Writes a single UTF-8 CSV file to staging/linktree/
-
-Run:
-    python src/linktree/cleaners/linktree_raw2staging.py
-    python src/linktree/cleaners/linktree_raw2staging.py --out /custom/path/file.csv
+/// linktree_raw2staging.py
+/// Raw → Staging cleaner for Linktree NDJSON data.
+///
+/// Guided by `LLM_cleaner_guidelines.md`.
+/// • Reads every *.ndjson in raw/linktree/
+/// • Cleans & deduplicates rows
+/// • Writes a single UTF-8 CSV file to staging/linktree/
+///
+/// Run:
+///     python src/linktree/cleaners/linktree_raw2staging.py
+///     python src/linktree/cleaners/linktree_raw2staging.py --out /custom/path/file.csv
 """
 
 import os
@@ -39,8 +39,8 @@ METRIC_COLS = [
 
 def record_to_row(rec: dict) -> dict | None:
     """
-    Validate & convert a single JSON record.
-    Returns a dict or None (when 'date' is missing).
+    /// Validate & convert a single JSON record.
+    /// Returns a dict or None (when 'date' is missing).
     """
     if "date" not in rec:
         return None
@@ -53,11 +53,13 @@ def record_to_row(rec: dict) -> dict | None:
 def extract_timeseries_rows(obj: dict) -> list[dict]:
     """Given a JSON object from NDJSON, return a list of flattened rows.
 
-    Scenarios handled:
-    1. Object **already** represents a flattened row (has top-level "date"). Return [obj].
-    2. Object is a full GraphQL payload with structure data→getAccountAnalytics→overview→timeseries.
-       Return list of flattened dicts extracted from the timeseries array.
-    3. Any other structure → returns empty list.
+    /// Scenarios handled:
+    /// 1. Object **already** represents a flattened row (has top-level
+    ///    "date"). Return [obj].
+    /// 2. Object is a full GraphQL payload with structure
+    ///    data→getAccountAnalytics→overview→timeseries. Return list of
+    ///    flattened dicts extracted from the timeseries array.
+    /// 3. Any other structure → returns empty list.
     """
     # Case 1 – already flattened
     if "date" in obj:

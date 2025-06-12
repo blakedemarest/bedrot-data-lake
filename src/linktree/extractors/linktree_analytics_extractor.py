@@ -26,7 +26,8 @@ OUTPUT_DIR = Path(PROJECT_ROOT) / 'landing' / 'linktree' / 'analytics'
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 def _click_with_retry(page, selector: str, retries: int = 3, wait_state="visible"):
-    """Attempt to click the FIRST matching element with retries and wait for it to be ready."""
+    """/// Attempt to click the FIRST matching element with retries and wait
+    /// for it to be ready."""
     for attempt in range(retries):
         try:
             locator = page.locator(selector).first
