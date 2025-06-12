@@ -3,6 +3,7 @@ import logging
 from pathlib import Path
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 from dotenv import load_dotenv
+from common.cookies import load_cookies  # <-- unified cookie/session utility
 
 # Load environment variables from .env if present
 load_dotenv()
@@ -42,6 +43,8 @@ def login_distrokid():
                 SESSION_DIR,
                 headless=False
             )
+            # Inject stored cookies (one-time) before opening pages
+            load_cookies(browser, "distrokid")
             page = browser.new_page()
             page.goto(LOGIN_URL)
             logging.info(f"Navigated to {LOGIN_URL}")
@@ -136,6 +139,8 @@ def test_login_distrokid():
                 SESSION_DIR,
                 headless=True
             )
+            # Inject cookies to validate session without login
+            load_cookies(browser, "distrokid")
             page = browser.new_page()
             page.goto(DASHBOARD_URL)
             page.wait_for_selector('body', timeout=10000)

@@ -297,3 +297,15 @@ these reports into curated earnings data.
 - Implement the code updates in the three cleaner scripts.
 - Validate sample earnings data to finalize schema.
 --- END CHANGELOG ENTRY ---
+
+# Change ID
+2025-06-12-LinktreeReadmeFinalization
+
+# What Changed (≤ 50 words)
+Documented Linktree pipeline outputs in [staging/README.md](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/staging/README.md:0:0-0:0) and [curated/README.md](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/curated/README.md:0:0-0:0) after validating cleaners; no code changes.
+
+# Impact
+Improves discoverability & data-catalog accuracy; **no runtime impact**.
+
+# Follow-ups
+Replicate README updates for other new datasets as they come online.
