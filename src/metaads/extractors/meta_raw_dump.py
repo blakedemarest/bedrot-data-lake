@@ -86,8 +86,8 @@ INSIGHT_FIELDS = [
 # ╚════════════════════════════════════════════════════════════════╝
 def fetch_all(edge_method, fields, params=None):
     """
-    Call edge_method (e.g. account.get_campaigns) then auto-page through results.
-    Returns a list of fully-expanded dicts ready for JSON dump.
+    /// Call edge_method (e.g. account.get_campaigns) then auto-page through
+    /// results. Returns a list of fully-expanded dicts ready for JSON dump.
     """
     params   = params or {}
     cursor   = edge_method(fields=fields, params=params)

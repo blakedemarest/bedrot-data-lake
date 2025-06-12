@@ -1,9 +1,9 @@
 """
-linktree_staging2curated.py
-Staging → Curated cleaner for Linktree analytics.
-
-Guided by `LLM_cleaner_guidelines.md`.
-Reads **CSV** from staging, writes **CSV and Parquet** to curated.
+/// linktree_staging2curated.py
+/// Staging → Curated cleaner for Linktree analytics.
+///
+/// Guided by `LLM_cleaner_guidelines.md`.
+/// Reads **CSV** from staging, writes **CSV and Parquet** to curated.
 """
 
 import os, argparse

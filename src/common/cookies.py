@@ -1,13 +1,15 @@
-"""Shared utilities for Playwright cookie/session handling.
-
-This module provides two helpers – ``load_cookies`` and ``load_cookies_async`` – 
-which load one or more cookie JSON files from ``src/<service>/cookies`` into 
-the provided Playwright *persistent* ``browser_context``.  It ensures:
-
-1. **One-time import** per ``user_data_dir`` to avoid duplicate cookies.
-2. **sameSite sanitisation** – invalid values coerced to "Lax" so Playwright
-   will accept the cookie.
-3. **Graceful no-op** when no cookie files are present.
+"""
+/// Shared utilities for Playwright cookie/session handling.
+///
+/// This module provides two helpers – ``load_cookies`` and
+/// ``load_cookies_async`` – which load one or more cookie JSON files from
+/// ``src/<service>/cookies`` into the provided Playwright *persistent*
+/// ``browser_context``. It ensures:
+///
+/// 1. **One-time import** per ``user_data_dir`` to avoid duplicate cookies.
+/// 2. **sameSite sanitisation** – invalid values coerced to "Lax" so Playwright
+///    will accept the cookie.
+/// 3. **Graceful no-op** when no cookie files are present.
 
 Example
 -------
@@ -52,7 +54,7 @@ _VALID_SAMESITE: set[str] = {"Strict", "Lax", "None"}
 
 
 def _resolve_cookie_dir(service: str) -> Path:
-    """Return path to ``src/<service>/cookies`` (create if missing)."""
+    """/// Return path to ``src/<service>/cookies`` (create if missing)."""
     root = Path(__file__).resolve().parents[1]
     cookie_dir = root / service / "cookies"
     cookie_dir.mkdir(parents=True, exist_ok=True)
@@ -60,7 +62,7 @@ def _resolve_cookie_dir(service: str) -> Path:
 
 
 def _get_marker_path(context, service: str) -> Path:
-    """Return a marker-file path scoped to *context*'s user_data_dir."""
+    """/// Return a marker-file path scoped to *context*'s user_data_dir."""
     # The attr name differs between sync / async contexts; fall back to cwd.
     user_data_dir = getattr(context, "_user_data_dir", None)
     if not user_data_dir:
@@ -88,7 +90,7 @@ def _collect_cookie_dicts(cookie_dir: Path) -> List[Dict[str, Any]]:
 
 
 def load_cookies(context, service_name: str) -> None:
-    """Inject cookies into *context* **once** per user_data_dir.
+    """/// Inject cookies into *context* **once** per user_data_dir.
 
     Parameters
     ----------
@@ -118,7 +120,8 @@ def load_cookies(context, service_name: str) -> None:
 
 
 async def load_cookies_async(context, service_name: str) -> None:
-    """Asynchronous variant of ``load_cookies`` for Playwright ``async_api`` contexts."""
+    """/// Asynchronous variant of ``load_cookies`` for Playwright
+    /// ``async_api`` contexts."""
     cookie_dir = _resolve_cookie_dir(service_name)
     marker_path = _get_marker_path(context, service_name)
 
