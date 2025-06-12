@@ -30,6 +30,73 @@ DK_EMAIL = os.getenv("DK_EMAIL")
 DK_PASSWORD = os.getenv("DK_PASSWORD")
 
 
+def _launch_context(p):
+    browser = p.chromium.launch_persistent_context(SESSION_DIR, headless=False)
+    load_cookies(browser, "distrokid")
+    page = browser.new_page()
+    return browser, page
+
+
+def _perform_login(page):
+    try:
+        page.wait_for_selector('input[type="email"]', timeout=5000)
+        logging.info("Login form detected, filling credentials.")
+        page.fill('input[type="email"]', DK_EMAIL)
+        page.fill('input[type="password"]', DK_PASSWORD)
+        page.click('button[type="submit"]')
+        logging.info("Submitted login form. If 2FA is required, please complete it in the browser.")
+    except PlaywrightTimeoutError:
+        logging.info("Login form not detected. Assuming already authenticated.")
+
+
+def _wait_for_dashboard(page):
+    print("Please complete the DistroKid login and 2FA in the browser window.")
+    print("Once you are on your dashboard, the script will automatically download stats pages.")
+    import time
+    while True:
+        if any(x in page.url for x in ["/dashboard", "/mymusic", "/stats"]):
+            logging.info(f"Dashboard detected at {page.url}. Proceeding to download stats.")
+            break
+        time.sleep(2)
+
+
+def _download_stats(page, output_dir: str, dt_str: str):
+    stats_url = "https://distrokid.com/stats/?type=all&data=streams"
+    logging.info(f"Navigating to streams stats page: {stats_url}")
+    page.goto(stats_url)
+    page.wait_for_selector('body', timeout=30000)
+    html = page.content()
+    streams_file = os.path.join(output_dir, f'streams_stats_{dt_str}.html')
+    with open(streams_file, 'w', encoding='utf-8') as f:
+        f.write(html)
+    logging.info(f"Streams stats page HTML saved to {streams_file}")
+
+    am_url = "https://distrokid.com/stats/?type=all&data=applemusic"
+    logging.info(f"Navigating to Apple Music stats page: {am_url}")
+    page.goto(am_url)
+    page.wait_for_selector('body', timeout=30000)
+    am_html = page.content()
+    am_file = os.path.join(output_dir, f'applemusic_stats_{dt_str}.html')
+    with open(am_file, 'w', encoding='utf-8') as f:
+        f.write(am_html)
+    logging.info(f"Apple Music stats page HTML saved to {am_file}")
+
+    try:
+        page.goto("https://distrokid.com/bank/")
+        page.wait_for_selector('a[href="/bank/details/"]', timeout=10000)
+        page.click('a[href="/bank/details/"]')
+        page.wait_for_url("https://distrokid.com/bank/details/")
+        page.wait_for_selector('div[onclick^="downloadBank"]', timeout=10000)
+        tsv_file = os.path.join(output_dir, f'dk_bank_details_{dt_str}.tsv')
+        with page.expect_download() as download_info:
+            page.click('div[onclick^="downloadBank"]')
+        download = download_info.value
+        download.save_as(tsv_file)
+        logging.info(f"DistroKid bank TSV downloaded to {tsv_file}")
+    except Exception as exc:
+        logging.error(f"Failed to download DistroKid bank TSV: {exc}")
+
+
 def login_distrokid():
     """
     /// Automates login to DistroKid, including 2FA, and persists session for
@@ -43,88 +110,21 @@ def login_distrokid():
 
     with sync_playwright() as p:
         try:
-            browser = p.chromium.launch_persistent_context(
-                SESSION_DIR,
-                headless=False
-            )
-            # Inject stored cookies (one-time) before opening pages
-            load_cookies(browser, "distrokid")
-            page = browser.new_page()
+            browser, page = _launch_context(p)
             page.goto(LOGIN_URL)
             logging.info(f"Navigated to {LOGIN_URL}")
 
-            # Check if already logged in (no login form present)
-            try:
-                page.wait_for_selector('input[type="email"]', timeout=5000)
-                # Login form is present, fill credentials
-                logging.info("Login form detected, filling credentials.")
-                page.fill('input[type="email"]', DK_EMAIL)
-                page.fill('input[type="password"]', DK_PASSWORD)
-                page.click('button[type="submit"]')
-                logging.info("Submitted login form. If 2FA is required, please complete it in the browser.")
-            except PlaywrightTimeoutError:
-                # Login form not present, assume already logged in
-                logging.info("Login form not detected. Assuming already authenticated.")
+            _perform_login(page)
+            _wait_for_dashboard(page)
 
-            print("Please complete the DistroKid login and 2FA in the browser window.")
-            print("Once you are on your dashboard, the script will automatically download stats pages.")
-            import time
-            dashboard_detected = False
-            while not dashboard_detected:
-                current_url = page.url
-                # Adjust this check if dashboard URL changes
-                if any(x in current_url for x in ["/dashboard", "/mymusic", "/stats"]):
-                    logging.info(f"Dashboard detected at {current_url}. Proceeding to download stats.")
-                    dashboard_detected = True
-                else:
-                    time.sleep(2)
-            # At this point, we're on the dashboard. Proceed to download stats.
             from datetime import datetime
-            output_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../landing/distrokid/streams'))
+            output_dir = os.path.abspath(
+                os.path.join(os.path.dirname(__file__), "../../../landing/distrokid/streams")
+            )
             os.makedirs(output_dir, exist_ok=True)
-            # Download streams stats
-            stats_url = "https://distrokid.com/stats/?type=all&data=streams"
-            logging.info(f"Navigating to streams stats page: {stats_url}")
-            page.goto(stats_url)
-            page.wait_for_selector('body', timeout=30000)
-            html = page.content()
-            dt_str = datetime.now().strftime('%Y%m%d_%H%M%S')
-            streams_file = os.path.join(output_dir, f'streams_stats_{dt_str}.html')
-            with open(streams_file, 'w', encoding='utf-8') as f:
-                f.write(html)
-            logging.info(f"Streams stats page HTML saved to {streams_file}")
-            # Download Apple Music stats
-            am_url = "https://distrokid.com/stats/?type=all&data=applemusic"
-            logging.info(f"Navigating to Apple Music stats page: {am_url}")
-            page.goto(am_url)
-            page.wait_for_selector('body', timeout=30000)
-            am_html = page.content()
-            am_file = os.path.join(output_dir, f'applemusic_stats_{dt_str}.html')
-            with open(am_file, 'w', encoding='utf-8') as f:
-                f.write(am_html)
-            logging.info(f"Apple Music stats page HTML saved to {am_file}")
-            # ---- Begin Bank TSV Download Enhancement ----
-            print("Stats pages downloaded. Proceeding to download DistroKid bank TSV...")
-            try:
-                # Step 1: Go to bank page
-                page.goto("https://distrokid.com/bank/")
-                page.wait_for_selector('a[href="/bank/details/"]', timeout=10000)
-                # Step 2: Click 'See Excruciating Detail' button
-                page.click('a[href="/bank/details/"]')
-                page.wait_for_url("https://distrokid.com/bank/details/")
-                # Step 3: Wait for download button and download TSV
-                from playwright.sync_api import TimeoutError
-                page.wait_for_selector('div[onclick^="downloadBank"]', timeout=10000)
-                import time as _time
-                tsv_file = os.path.join(output_dir, f'dk_bank_details_{dt_str}.tsv')
-                with page.expect_download() as download_info:
-                    page.click('div[onclick^="downloadBank"]')
-                download = download_info.value
-                download.save_as(tsv_file)
-                logging.info(f"DistroKid bank TSV downloaded to {tsv_file}")
-            except Exception as bank_exc:
-                logging.error(f"Failed to download DistroKid bank TSV: {bank_exc}")
-            # ---- End Bank TSV Download Enhancement ----
+            dt_str = datetime.now().strftime("%Y%m%d_%H%M%S")
+            _download_stats(page, output_dir, dt_str)
+
             print("All downloads complete. You may now close the browser window.")
             browser.close()
             logging.info("Browser closed automatically after all downloads. Workflow complete.")
