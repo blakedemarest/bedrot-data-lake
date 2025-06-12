@@ -22,6 +22,7 @@ The curated zone contains business-ready datasets that are optimized for analyti
 - `marketing/campaign_analytics/q2_2024/campaign_summary.parquet`
 - `daily_streams_distrokid.csv` (from DistroKid HTML, cleaned/validated)
 - `daily_streams_toolost.csv` (from TooLost JSON, cleaned/validated)
+- `linktree_analytics_curated_YYYYMMDD_HHMMSS.csv` (daily Linktree platform analytics, cleaned/validated, CSV-only)
 
 ## Next Step
 Data is consumed by analytics tools, dashboards, and ML models.

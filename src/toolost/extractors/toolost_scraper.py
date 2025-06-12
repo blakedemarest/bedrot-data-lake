@@ -6,6 +6,7 @@ from datetime import datetime
 from playwright.async_api import async_playwright
 
 from dotenv import load_dotenv
+from common.cookies import load_cookies_async  # cookie/session utility
 load_dotenv()
 
 # Shared persistent session directory
@@ -24,11 +25,14 @@ APPLE_API = "https://toolost.com/api/portal/analytics/apple/?release=&date=thisY
 
 async def main():
     async with async_playwright() as p:
+        # Launch a persistent browser context so TooLost stays logged in between runs
         browser = await p.chromium.launch_persistent_context(
             SESSION_DIR,
             headless=False,
             viewport={"width": 1280, "height": 900},
         )
+        # Ensure previously exported cookies are injected (one-time per SESSION_DIR)
+        await load_cookies_async(browser, "toolost")
         page = await browser.new_page()
         # 1. Launch Login Page
         LOGIN_URL = "https://toolost.com/login"
@@ -38,7 +42,7 @@ async def main():
 
         # Wait for manual authentication
         print("[TOOLOST] Please log in to TooLost and complete any 2FA in the opened browser window.")
-        # Wait for a known post-login DOM element (sidebar, dashboard, or user menu)
+        # Wait loop until authenticated dashboard element is visible
         while True:
             try:
                 # Wait for a sidebar, dashboard header, or user menu that only appears when logged in

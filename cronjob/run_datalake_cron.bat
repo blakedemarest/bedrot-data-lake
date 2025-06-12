@@ -21,6 +21,8 @@ for /f "usebackq tokens=1,2 delims==" %%i in ("%~dp0..\.env") do set %%i=%%j
 
 REM Change to project root directory
 cd /d "%PROJECT_ROOT%"
+REM Expose src/ on PYTHONPATH so 'from common...' works in all child scripts
+set "PYTHONPATH=%PROJECT_ROOT%\src;%PYTHONPATH%"
 
 REM === Modular ETL: Loop through platforms and run extractors/cleaners automatically ===
 for /d %%P in (src\*) do (
