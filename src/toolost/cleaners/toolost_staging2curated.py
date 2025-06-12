@@ -3,9 +3,11 @@
 # Merge TooLost daily streams into the curated dataset and archive prior versions.
 import os
 from pathlib import Path
-import hashlib, datetime, shutil
+import datetime, shutil
 from dotenv import load_dotenv
 import pandas as pd
+
+from src.common.utils.hash_helpers import df_hash, file_hash
 
 load_dotenv()
 PROJECT_ROOT = Path(os.getenv("PROJECT_ROOT"))
@@ -44,8 +46,6 @@ new_curated = (new_curated
 
 # %%
 # ─── Cell 3: Save & Archive if Changed ─────────────────────────────────────────
-def file_hash(p: Path) -> str: return hashlib.md5(p.read_bytes()).hexdigest()
-def df_hash(df) -> str:        return hashlib.md5(df.to_csv(index=False).encode()).hexdigest()
 
 if curated_path.exists() and file_hash(curated_path) == df_hash(new_curated):
     print("↩︎ No changes – curated already up-to-date.")
