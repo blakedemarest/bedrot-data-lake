@@ -20,7 +20,7 @@ folders  = [d for d in raw_meta.iterdir() if d.is_dir()]
 assert folders, f"No raw dumps found in {raw_meta}"
 
 def stack(folders, fname):
-    """Load a JSON file type from every folder, concat, and deduplicate."""
+    """/// Load a JSON file type from every folder, concat, and deduplicate."""
     dfs = [pd.read_json(f / fname, dtype_backend="pyarrow") for f in folders if (f / fname).exists()]
     if not dfs:
         return pd.DataFrame()
