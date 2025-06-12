@@ -1,3 +1,6 @@
+# Automates DistroKid login and downloads stats pages to the landing zone.
+# Uses Playwright with credentials from environment variables.
+
 import os
 import logging
 from pathlib import Path

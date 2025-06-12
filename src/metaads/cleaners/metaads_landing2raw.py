@@ -1,5 +1,6 @@
 # %%
 # ─── Cell 1: Imports & Environment Setup ────────────────────────────────────────
+# Validate Meta Ads dumps in the landing zone and move complete folders to raw.
 import os, shutil, hashlib, json
 from pathlib import Path
 from datetime import datetime
