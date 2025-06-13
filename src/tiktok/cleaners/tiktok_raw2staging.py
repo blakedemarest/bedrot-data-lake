@@ -1,105 +1,191 @@
-# %%
-# ─── Cell 1: Setup ───────────────────────────────────────────────────────────────
-# Clean raw TikTok analytics files and export standardized CSVs to the staging zone.
-import os, glob, zipfile, tempfile, shutil
+"""
+TikTok Raw→Staging cleaner for analytics data.
+
+Reads NDJSON files from raw zone, normalizes schema, and outputs
+consolidated CSV to staging zone with incremental loading.
+
+Guided by LLM_cleaner_guidelines.md
+"""
+
+# %% Imports & Constants
+import argparse
+import json
+import os
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional
+
 import pandas as pd
 
-# 1️⃣ Load PROJECT_ROOT from your environment
-PROJECT_ROOT = os.getenv("PROJECT_ROOT")
-if not PROJECT_ROOT:
-    raise EnvironmentError("PROJECT_ROOT is not set in environment")
+PLATFORM = "tiktok"
+PROJECT_ROOT = Path(os.environ["PROJECT_ROOT"])
+RAW_DIR = PROJECT_ROOT / "raw" / PLATFORM
+STAGING_DIR = PROJECT_ROOT / "staging"
 
-# 2️⃣ Define raw and staging directories
-raw_dir     = os.path.join(PROJECT_ROOT, "raw",     "tiktok")
-staging_dir = os.path.join(PROJECT_ROOT, "staging")
+# Ensure directories exist
+RAW_DIR.mkdir(parents=True, exist_ok=True)
+STAGING_DIR.mkdir(parents=True, exist_ok=True)
 
-# 3️⃣ Ensure both raw/tiktok and staging exist
-os.makedirs(raw_dir, exist_ok=True)
-os.makedirs(staging_dir, exist_ok=True)
+print(f"[INFO] PROJECT_ROOT: {PROJECT_ROOT}")
+print(f"[INFO] RAW_DIR: {RAW_DIR}")
+print(f"[INFO] STAGING_DIR: {STAGING_DIR}")
 
-print("✔ PROJECT_ROOT:", PROJECT_ROOT)
-print("✔ raw_dir:", raw_dir)
-print("✔ staging_dir:", staging_dir)
+# %% Helper Functions
 
-
-# %%
-# ─── Cell 2: Load Existing Staging Data ─────────────────────────────────────────
-staging_file = os.path.join(staging_dir, "tiktok.csv")
-
-if os.path.exists(staging_file):
-    staging_df = pd.read_csv(staging_file, parse_dates=["Date"])
-    print(f"✔ Loaded existing staging ({len(staging_df)} rows)")
-else:
-    staging_df = pd.DataFrame(columns=["Artist","Date","Video Views","Profile Views","Likes","Comments","Shares","Year"])
-    print("ℹ No existing staging file; starting fresh")
-
-
-# %%
-# ─── Cell 3: Load Latest Raw Snapshots per Artist ───────────────────────────────
-raw_files = glob.glob(os.path.join(raw_dir, "*.csv"))
-if not raw_files:
-    raise FileNotFoundError(f"No CSVs found in raw directory: {raw_dir}")
-
-# pick newest file per artist
-latest_raw = {}
-for fpath in raw_files:
-    base   = os.path.splitext(os.path.basename(fpath))[0]
-    artist = base.split("_")[-1]   # e.g. "zone.a0" or "pig1987"
-    mtime  = os.path.getmtime(fpath)
-    if artist not in latest_raw or mtime > latest_raw[artist][1]:
-        latest_raw[artist] = (fpath, mtime)
-
-# load each and tag
-frames = []
-for artist, (fpath, _) in latest_raw.items():
-    df = pd.read_csv(fpath, parse_dates=["Date"])
-    df["Artist"] = artist
-    frames.append(df)
-
-raw_df = pd.concat(frames, ignore_index=True)
-print("✔ Loaded latest raw snapshots:")
-for artist, (fpath, _) in latest_raw.items():
-    print(f"   • {artist}: {os.path.basename(fpath)} ({len(pd.read_csv(fpath))} rows)")
-print(f"→ Combined raw_df: {len(raw_df)} rows across {raw_df['Artist'].nunique()} artists")
+def load_ndjson_files() -> Dict[str, Path]:
+    """Find the latest NDJSON file per artist in raw directory."""
+    ndjson_files = list(RAW_DIR.glob("*.ndjson"))
+    if not ndjson_files:
+        raise FileNotFoundError(f"No NDJSON files found in {RAW_DIR}")
+    
+    latest_per_artist = {}
+    for file_path in ndjson_files:
+        # Extract artist from filename pattern: tiktok_analytics_YYYYMMDD_artist_timestamp.ndjson
+        parts = file_path.stem.split("_")
+        if len(parts) >= 4:
+            artist = parts[-2]  # second to last part should be artist
+            mtime = file_path.stat().st_mtime
+            
+            if artist not in latest_per_artist or mtime > latest_per_artist[artist][1]:
+                latest_per_artist[artist] = (file_path, mtime)
+    
+    return {artist: path for artist, (path, _) in latest_per_artist.items()}
 
 
-# %%
-# ─── Cell 4: Append New Data Without Overwriting  ────────────────────────
-if staging_df.empty:
-    # First run ever
-    combined = raw_df.copy()
-    print(f"ℹ No existing staging; using all {len(combined)} rows")
-else:
-    # figure out what’s new per artist
-    last_dates = staging_df.groupby("Artist")["Date"].max().to_dict()
-    new_list   = []
-    for artist, grp in raw_df.groupby("Artist"):
-        cutoff = last_dates.get(artist, pd.Timestamp.min)
-        new    = grp[grp["Date"] > cutoff]
-        print(f"ℹ {artist}: {len(new)} new rows since {cutoff.date()}")
-        if not new.empty:
-            # align to staging schema exactly
-            new = new.reindex(columns=staging_df.columns)
-            new_list.append(new)
-    if new_list:
-        new_rows = pd.concat(new_list, ignore_index=True)
-        combined = pd.concat([staging_df, new_rows], ignore_index=True)
-        # dedupe on (Artist, Date)
-        combined = combined.drop_duplicates(subset=["Artist","Date"], keep="last")
-        combined = combined.sort_values(["Artist","Date"]).reset_index(drop=True)
-        print(f"✔ Appended {len(new_rows)} rows → combined now {len(combined)} total")
+def record_to_row(record: Dict) -> Dict:
+    """Convert raw JSON record to staging row format."""
+    return {
+        "Artist": record.get("artist", ""),
+        "Date": pd.to_datetime(record.get("date"), errors="coerce").date(),
+        "Video Views": pd.to_numeric(record.get("video_views", 0), errors="coerce"),
+        "Profile Views": pd.to_numeric(record.get("profile_views", 0), errors="coerce"),
+        "Likes": pd.to_numeric(record.get("likes", 0), errors="coerce"),
+        "Comments": pd.to_numeric(record.get("comments", 0), errors="coerce"),
+        "Shares": pd.to_numeric(record.get("shares", 0), errors="coerce"),
+        "Year": pd.to_numeric(record.get("year"), errors="coerce")
+    }
+
+
+def load_raw_data(files: Dict[str, Path]) -> pd.DataFrame:
+    """Load and process NDJSON files into DataFrame."""
+    all_rows = []
+    
+    for artist, file_path in files.items():
+        print(f"[STAGING] Loading {artist}: {file_path.name}")
+        
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                for line_num, line in enumerate(f, 1):
+                    try:
+                        record = json.loads(line.strip())
+                        row = record_to_row(record)
+                        all_rows.append(row)
+                    except json.JSONDecodeError as e:
+                        print(f"[ERROR] {file_path.name}:{line_num}: Invalid JSON - {e}")
+                        continue
+                    except Exception as e:
+                        print(f"[ERROR] {file_path.name}:{line_num}: Processing error - {e}")
+                        continue
+            
+            print(f"[STAGING] Processed {artist}: {len([r for r in all_rows if r['Artist'] == artist])} records")
+            
+        except Exception as e:
+            print(f"[ERROR] Failed to load {file_path.name}: {e}")
+            continue
+    
+    if not all_rows:
+        raise RuntimeError("No valid records loaded from raw files")
+    
+    df = pd.DataFrame(all_rows)
+    
+    # Ensure proper data types
+    df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+    numeric_cols = ["Video Views", "Profile Views", "Likes", "Comments", "Shares", "Year"]
+    for col in numeric_cols:
+        df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0).astype(int)
+    
+    print(f"[STAGING] Total loaded: {len(df)} rows across {df['Artist'].nunique()} artists")
+    return df
+
+
+def load_existing_staging() -> pd.DataFrame:
+    """Load existing staging CSV if it exists."""
+    staging_file = STAGING_DIR / "tiktok.csv"
+    
+    if staging_file.exists():
+        df = pd.read_csv(staging_file)
+        df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
+        print(f"[STAGING] Loaded existing staging: {len(df)} rows")
+        return df
     else:
-        combined = staging_df.copy()
-        print("ℹ No new rows to append; staging unchanged")
+        print("[STAGING] No existing staging file found")
+        return pd.DataFrame(columns=["Artist", "Date", "Video Views", "Profile Views", "Likes", "Comments", "Shares", "Year"])
+
+# %% Core Processing Logic
+
+def process_raw_to_staging(output_path: Optional[Path] = None) -> int:
+    """Process raw NDJSON files and create/update staging CSV."""
+    # Load raw data
+    raw_files = load_ndjson_files() 
+    raw_df = load_raw_data(raw_files)
+    
+    # Load existing staging data
+    staging_df = load_existing_staging()
+    
+    if staging_df.empty:
+        # First run - use all raw data
+        combined_df = raw_df.copy()
+        print(f"[STAGING] First run: using all {len(combined_df)} raw records")
+    else:
+        # Incremental update - find new records per artist
+        last_dates = staging_df.groupby("Artist")["Date"].max().to_dict()
+        new_rows = []
+        
+        for artist, group in raw_df.groupby("Artist"):
+            cutoff = last_dates.get(artist, pd.Timestamp.min)
+            new_records = group[group["Date"] > cutoff]
+            
+            if not new_records.empty:
+                print(f"[STAGING] {artist}: {len(new_records)} new records since {cutoff.date()}")
+                new_rows.append(new_records)
+            else:
+                print(f"[STAGING] {artist}: no new records")
+        
+        if new_rows:
+            new_df = pd.concat(new_rows, ignore_index=True)
+            combined_df = pd.concat([staging_df, new_df], ignore_index=True)
+            
+            # Remove duplicates and sort
+            combined_df = combined_df.drop_duplicates(subset=["Artist", "Date"], keep="last")
+            combined_df = combined_df.sort_values(["Artist", "Date"]).reset_index(drop=True)
+            
+            print(f"[STAGING] Added {len(new_df)} new records → {len(combined_df)} total")
+        else:
+            combined_df = staging_df.copy()
+            print("[STAGING] No new records to add")
+    
+    # Write staging file
+    staging_file = output_path or (STAGING_DIR / "tiktok.csv")
+    combined_df.to_csv(staging_file, index=False, encoding="utf-8")
+    print(f"[STAGING] Written to: {staging_file}")
+    
+    return len(combined_df)
+
+# %% CLI Entry Point
+
+def main() -> None:
+    """Main CLI entry point."""
+    parser = argparse.ArgumentParser(description="TikTok Raw→Staging cleaner")
+    parser.add_argument("--out", type=Path, help="Custom output CSV path")
+    args = parser.parse_args()
+    
+    try:
+        count = process_raw_to_staging(args.out)
+        print(f"[STAGING] Completed: {count} records in staging")
+    except Exception as e:
+        print(f"[ERROR] Processing failed: {e}")
+        raise
 
 
-# %%
-# ─── Cell 5: Write Combined Data to Staging ─────────────────────────────────────
-combined.to_csv(staging_file, index=False)
-print(f"✔ Staging updated: {staging_file}")
-
-
-# %%
-
-
-
+if __name__ == "__main__":
+    main()

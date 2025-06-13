@@ -1,129 +1,198 @@
-# %%
-# ─── Cell 1: Setup ───────────────────────────────────────────────────────────────
-# Unpack and validate TikTok analytics exports from landing and organize them in
-# the raw zone.
-import os, glob, zipfile, tempfile, shutil
+"""
+TikTok Landing→Raw cleaner for analytics data.
+
+Processes ZIP files containing CSV exports from TikTok analytics dashboard.
+Extracts, validates, and converts CSV data to NDJSON format in raw zone.
+
+Guided by LLM_cleaner_guidelines.md
+"""
+
+# %% Imports & Constants
+import argparse
+import json
+import os
+import zipfile
+import tempfile
+import shutil
+from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional
+
 import pandas as pd
 
-# 1️⃣ Load PROJECT_ROOT from your environment
-PROJECT_ROOT = os.getenv("PROJECT_ROOT")
-if not PROJECT_ROOT:
-    raise EnvironmentError("PROJECT_ROOT is not set in environment")
+PLATFORM = "tiktok"
+PROJECT_ROOT = Path(os.environ["PROJECT_ROOT"])
+LANDING_DIR = PROJECT_ROOT / "landing" / PLATFORM / "analytics"
+RAW_DIR = PROJECT_ROOT / "raw" / PLATFORM
 
-# 2️⃣ Define landing & raw directories
-landing_dir = os.path.join(PROJECT_ROOT, "landing", "tiktok", "analytics")
-raw_dir     = os.path.join(PROJECT_ROOT, "raw",     "tiktok")
+# Ensure directories exist
+RAW_DIR.mkdir(parents=True, exist_ok=True)
 
-# 3️⃣ Ensure the raw/tiktok folder exists
-os.makedirs(raw_dir, exist_ok=True)
+print(f"[INFO] PROJECT_ROOT: {PROJECT_ROOT}")
+print(f"[INFO] LANDING_DIR: {LANDING_DIR}")
+print(f"[INFO] RAW_DIR: {RAW_DIR}")
 
-print("✔️  PROJECT_ROOT:", PROJECT_ROOT)
-print("✔️  landing_dir:", landing_dir)
-print("✔️  raw_dir:", raw_dir)
+# %% Helper Functions
 
-
-# %%
-# ─── Cell 2: Locate Latest ZIP per Artist ────────────────────────────────────────
-all_zips = glob.glob(os.path.join(landing_dir, "*.zip"))
-if not all_zips:
-    raise FileNotFoundError(f"No .zip files found under {landing_dir!r}")
-
-# Map artist → newest ZIP
-latest_per_artist = {}
-for zp in all_zips:
-    base   = os.path.splitext(os.path.basename(zp))[0]
-    artist = base.split("_")[-1]  # token after last underscore
-    if (artist not in latest_per_artist
-        or os.path.getmtime(zp) > os.path.getmtime(latest_per_artist[artist])):
-        latest_per_artist[artist] = zp
-
-print("Found artists:", list(latest_per_artist.keys()))
-for artist, zp in latest_per_artist.items():
-    print(f" • {artist}: {os.path.basename(zp)}")
+def find_latest_zips(landing_dir: Path) -> Dict[str, Path]:
+    """Find the latest ZIP file per artist in landing directory."""
+    all_zips = list(landing_dir.glob("*.zip"))
+    if not all_zips:
+        raise FileNotFoundError(f"No .zip files found in {landing_dir}")
+    
+    latest_per_artist = {}
+    for zip_path in all_zips:
+        base = zip_path.stem
+        artist = base.split("_")[-1]  # token after last underscore
+        mtime = zip_path.stat().st_mtime
+        
+        if artist not in latest_per_artist or mtime > latest_per_artist[artist][1]:
+            latest_per_artist[artist] = (zip_path, mtime)
+    
+    # Return just the paths
+    return {artist: path for artist, (path, _) in latest_per_artist.items()}
 
 
-# %%
-# ─── Cell 3: Process & Promote Each Artist’s Latest ZIP with Year Rollover ─────
-processed = []
-START_YEAR = 2024
+def transform_csv_to_records(df: pd.DataFrame, artist: str) -> List[Dict]:
+    """Transform CSV DataFrame to list of JSON records."""
+    records = []
+    for _, row in df.iterrows():
+        record = {
+            "artist": artist,
+            "date": row["Date"].strftime("%Y-%m-%d"),
+            "year": int(row["Year"]),
+            "video_views": int(row.get("Video Views", 0)),
+            "profile_views": int(row.get("Profile Views", 0)),
+            "likes": int(row.get("Likes", 0)),
+            "comments": int(row.get("Comments", 0)),
+            "shares": int(row.get("Shares", 0)),
+            "processed_at": datetime.now().isoformat()
+        }
+        records.append(record)
+    return records
 
-for artist, latest_zip in latest_per_artist.items():
-    print(f"\n➡️  Processing artist: {artist!r}")
 
-    # a) Extract ZIP to temp
-    temp_dir = tempfile.mkdtemp(prefix=f"tiktok_{artist}_")
-    with zipfile.ZipFile(latest_zip, "r") as z:
-        z.extractall(temp_dir)
+def process_artist_zip(zip_path: Path, artist: str, start_year: int = 2024) -> Optional[List[Dict]]:
+    """Process a single artist's ZIP file and return records."""
+    print(f"[RAW] Processing artist: {artist}")
+    
+    temp_dir = None
+    try:
+        # Extract ZIP to temp directory
+        temp_dir = Path(tempfile.mkdtemp(prefix=f"tiktok_{artist}_"))
+        with zipfile.ZipFile(zip_path, "r") as z:
+            z.extractall(temp_dir)
+        
+        # Find and load the single CSV
+        csvs = list(temp_dir.glob("*.csv"))
+        if len(csvs) != 1:
+            print(f"[ERROR] Expected 1 CSV in {zip_path.name}, found {len(csvs)}")
+            return None
+        
+        csv_path = csvs[0]
+        df = pd.read_csv(csv_path)
+        print(f"[RAW] Loaded: {csv_path.name} ({len(df)} rows)")
+        
+        # Apply year rollover logic
+        dates = []
+        current_year = start_year
+        for md in df['Date']:
+            dt = pd.to_datetime(f"{md} {current_year}", format="%B %d %Y", errors='coerce')
+            if pd.isna(dt):
+                print(f"[ERROR] Failed to parse date: {md}")
+                continue
+            if dates and dt <= dates[-1]:
+                current_year += 1
+                dt = pd.to_datetime(f"{md} {current_year}", format="%B %d %Y")
+            dates.append(dt)
+        
+        if len(dates) != len(df):
+            print(f"[ERROR] Date parsing failed for some rows")
+            return None
+            
+        df['Date'] = dates
+        df['Year'] = df['Date'].dt.year
+        print(f"[RAW] Date rollover: {start_year} → {df['Year'].max()}")
+        
+        # Validate for missing values
+        missing = df.isna().sum()
+        missing_cols = missing[missing > 0]
+        if not missing_cols.empty:
+            print(f"[ERROR] Missing values detected: {missing_cols.to_dict()}")
+            return None
+        
+        # Transform to records
+        records = transform_csv_to_records(df, artist)
+        print(f"[RAW] Transformed to {len(records)} JSON records")
+        return records
+        
+    except Exception as e:
+        print(f"[ERROR] Processing {zip_path.name}: {e}")
+        return None
+    finally:
+        if temp_dir and temp_dir.exists():
+            shutil.rmtree(temp_dir)
 
-    # b) Identify & load the single CSV
-    csvs = glob.glob(os.path.join(temp_dir, "*.csv"))
-    if len(csvs) != 1:
-        print(f"⚠️  Expected 1 CSV in {os.path.basename(latest_zip)}, found {len(csvs)} → skipping")
-        shutil.rmtree(temp_dir)
-        continue
+# %% Core Processing Logic
 
-    csv_path = csvs[0]
-    print("   ▶️  Loaded:", os.path.basename(csv_path))
-    df = pd.read_csv(csv_path)
-
-    # ─── Dynamic Year Rollover ───────────────────────────────────────────────────
-    dates = []
-    current_year = START_YEAR
-    for md in df['Date']:
-        # parse month-day into a datetime of the current_year
-        dt = pd.to_datetime(f"{md} {current_year}", format="%B %d %Y", errors='raise')
-        # if this dt is before the previous, we've crossed into the next year
-        if dates and dt <= dates[-1]:
-            current_year += 1
-            dt = pd.to_datetime(f"{md} {current_year}", format="%B %d %Y")
-        dates.append(dt)
-
-    df['Date'] = dates
-    df['Year'] = df['Date'].dt.year
-    print(f"   • Parsed 'Date' with rollover starting {START_YEAR}, max year = {df['Year'].max()}")
-
-    # c) Validate
-    print("   • Summary stats:")
-    print(df.describe(include="all"))
-    missing = df.isna().sum()
-    missing_cols = missing[missing > 0]
-    if missing_cols.empty:
-        print("   ✅ No missing values.")
+def process_landing_files(file_path: Optional[Path] = None) -> int:
+    """Process TikTok landing files and write NDJSON to raw zone."""
+    if file_path:
+        # Process single file
+        artist = file_path.stem.split("_")[-1]
+        latest_zips = {artist: file_path}
     else:
-        print("   ⚠️  Missing values detected:")
-        print(missing_cols)
+        # Find all latest ZIPs
+        latest_zips = find_latest_zips(LANDING_DIR)
+    
+    if not latest_zips:
+        raise RuntimeError(f"No ZIP files found in {LANDING_DIR}")
+    
+    print(f"[RAW] Found {len(latest_zips)} artists: {list(latest_zips.keys())}")
+    
+    processed_count = 0
+    for artist, zip_path in latest_zips.items():
+        try:
+            records = process_artist_zip(zip_path, artist)
+            if records:
+                # Write NDJSON output
+                timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+                output_name = f"{zip_path.stem}_{timestamp}.ndjson"
+                output_path = RAW_DIR / output_name
+                
+                with open(output_path, 'w', encoding='utf-8') as f:
+                    for record in records:
+                        json.dump(record, f)
+                        f.write('\n')
+                
+                print(f"[RAW] Written {len(records)} records → {output_name}")
+                processed_count += 1
+            
+        except Exception as e:
+            print(f"[ERROR] Failed to process {artist}: {e}")
+            continue
+    
+    if processed_count == 0:
+        raise RuntimeError("No files were successfully processed")
+    
+    print(f"[RAW] Successfully processed {processed_count} artists")
+    return processed_count
 
-    # d) Promote if clean
-    if missing_cols.empty:
-        zip_base  = os.path.splitext(os.path.basename(latest_zip))[0]
-        dest_name = f"{zip_base}.csv"
-        dest_path = os.path.join(raw_dir, dest_name)
-        # write out the cleaned CSV
-        df.to_csv(dest_path, index=False)
-        print(f"   ✅ Written cleaned CSV to raw as {dest_name!r}")
-        processed.append(artist)
-    else:
-        print("   ⛔ Promotion skipped due to validation errors.")
+# %% CLI Entry Point
 
-    # e) Cleanup
-    shutil.rmtree(temp_dir)
-    print("   🧹 Cleaned up temporary files.")
-
-print("\n🎉 Done. Artists successfully promoted:", processed)
+def main() -> None:
+    """Main CLI entry point."""
+    parser = argparse.ArgumentParser(description="TikTok Landing→Raw cleaner")
+    parser.add_argument("--file", type=Path, help="Process specific ZIP file")
+    args = parser.parse_args()
+    
+    try:
+        count = process_landing_files(args.file)
+        print(f"[RAW] Completed: {count} artists processed")
+    except Exception as e:
+        print(f"[ERROR] Processing failed: {e}")
+        raise
 
 
-# %% [markdown]
-# # ─── Cell 4: Idempotency Note ────────────────────────────────────────────────────
-# # This flow always picks only the latest ZIP per artist in landing\tiktok\analytics.
-# # To prevent overwriting an existing clean CSV in raw\tiktok, wrap the write in:
-# #
-# #     if not os.path.exists(dest_path):
-# #         df.to_csv(dest_path, index=False)
-# #     else:
-# #         print(f"ℹ️  {dest_name} already exists in raw/")
-# 
-
-# %% [markdown]
-# 
-
-
+if __name__ == "__main__":
+    main()
