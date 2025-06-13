@@ -119,7 +119,20 @@ classDiagram
 
 ---
 
-## 7. References
+## 7. Upcoming Service Integrations
+| ID | Service | Scope | Task |
+|----|---------|-------|------|
+| **S-1** | Spotify for Artists | Extractor / Cleaner | • Scaffold Playwright extractor template  <br>• Create `spotify_landing2raw.py`, `spotify_raw2staging.py`, `spotify_staging2curated.py`  <br>• Add entries to `run_datalake_cron.bat` |
+| **S-2** | Mailchimp | API Collector / Cleaner | • Generate OAuth token loader  <br>• Draft campaign-level landing fetcher  <br>• Cleaner scripts mirroring Linktree pattern |
+| **S-3** | Instagram | GraphQL Scraper | • Investigate Meta Graph API quotas  <br>• Scaffold extractor  <br>• Implement analytics cleaner |
+| **S-4** | YouTube Studio | Analytics API | • Enable YouTube Data API v3 creds  <br>• Extractor for daily video metrics  <br>• Cleaner scripts  <br>• Append to cron |
+
+<small>*Folders for all four services (`landing`/`raw`/`staging`/`curated` + `src/<service>` sub-structure) were created on **2025-06-13**.  Next steps are code scaffolds & credential management.*</small>
+
+---
+
+## 8. References
+* `Service_Integration_Guide.md` (naming & directory conventions)
 * `BEDROT_Data_Lake_Analysis.md` (architecture diagrams)
 * `README.md` (folder semantics)
 * `CHANGELOG.md` (historical context)
