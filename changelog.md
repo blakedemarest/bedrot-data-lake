@@ -309,3 +309,93 @@ Improves discoverability & data-catalog accuracy; **no runtime impact**.
 
 # Follow-ups
 Replicate README updates for other new datasets as they come online.
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-13-ServiceDirsAndTodoUpdate
+
+# What Changed (≤ 50 words)
+Created standard `src/<service>/{extractors,cleaners,cookies}` directories for Spotify, Mailchimp, Instagram, YouTube.  
+Updated [CODEBASE_TODO.md](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/CODEBASE_TODO.md:0:0-0:0) with “Upcoming Service Integrations” section (IDs S-1…S-4), outlining next-step tasks for each service.
+
+# Impact
+• Directory scaffolds unblock extractor/cleaner development.  
+• TODO now tracks integration roadmap.  
+(no code execution changes)
+
+# Follow-ups
+• Scaffold Spotify extractor & cleaner templates.  
+• Add cron entries for new services after scripts exist.  
+• Set up credential management for each API/Scraper.
+
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-13-tiktok_staging2curated
+
+# What Changed (≤ 50 words)
+Added [src/tiktok/cleaners/tiktok_staging2curated.py](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/src/tiktok/cleaners/tiktok_staging2curated.py:0:0-0:0) to aggregate all TikTok metrics by `artist`, `zone`, and `date`, producing curated CSV (Parquet optional).
+
+# Impact
+New curated dataset; cron now produces TikTok analytics ready for reporting.
+
+# Follow-ups
+Add unit tests; integrate into README datasets table.
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-13-tiktok_csv_only
+
+# What Changed (≤ 50 words)
+Modified [tiktok_staging2curated.py](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/src/tiktok/cleaners/tiktok_staging2curated.py:0:0-0:0) to default to `staging/tiktok/tiktok.csv`; removed Parquet dependency and improved error handling.
+
+# Impact
+Cleaner runs without Parquet; simplifies pipeline.
+
+# Follow-ups
+Deprecate Parquet paths in older docs; update cron docs.
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-13-service_zone_dirs
+
+# What Changed (≤ 50 words)
+Created landing/raw/staging/curated directories for new services (Spotify, Mailchimp, Instagram, YouTube).
+
+# Impact
+Standard zone layout in place; unblock future extractors.
+
+# Follow-ups
+Define path helpers; update cron to include new services when scripts exist.
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-13-src_service_scaffold
+
+# What Changed (≤ 50 words)
+Added `src/<service>/{extractors,cleaners,cookies}` scaffolds for Spotify, Mailchimp, Instagram, YouTube, following Service_Integration_Guide.md.
+
+# Impact
+Developers now have canonical locations for code; lint & tests won’t fail on missing paths.
+
+# Follow-ups
+Generate minimal `__init__.py` and `.gitkeep`; scaffold initial extractor templates.
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-13-todo_service_section
+
+# What Changed (≤ 50 words)
+Appended “Upcoming Service Integrations” section (IDs S-1…S-4) to [CODEBASE_TODO.md](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/CODEBASE_TODO.md:0:0-0:0), detailing tasks for each new service.
+
+# Impact
+Roadmap visible to contributors; improves planning and PR linkage.
+
+# Follow-ups
+Open GitHub issues per ID; reference in future PRs.
+--- END CHANGELOG ENTRY ---
