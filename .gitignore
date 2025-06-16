@@ -140,6 +140,17 @@ env/
 venv/
 ENV/
 
+# Playwright/ETL session cookies (do not commit browser sessions)
+src/spotify/cookies/
+src/mailchimp/cookies/
+src/instagram/cookies/
+src/youtube/cookies/
+src/linktree/cookies/
+src/distrokid/cookies/
+src/toolost/cookies/
+src/metaads/cookies/
+src/tiktok/cookies/
+
 # Spyder project settings
 .spyproject
 
