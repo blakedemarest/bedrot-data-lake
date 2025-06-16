@@ -399,3 +399,39 @@ Roadmap visible to contributors; improves planning and PR linkage.
 # Follow-ups
 Open GitHub issues per ID; reference in future PRs.
 --- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-16-spotify-extractor-multiartist
+
+# What Changed (≤ 50 words)
+Spotify Audience extractor now loops over both a0 and pig1987 artists, robustly applies the 12-month filter, and saves a CSV per artist. Updated [.gitignore](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/.gitignore:0:0-0:0) to exclude all ETL session/cookie folders for every service.
+
+# Impact
+Multi-artist data extraction for Spotify is now automated and robust. No session/cookie files will be committed.
+
+# Follow-ups
+- Add to batch cron for regular runs.
+- Scaffold Spotify staging→curated cleaner.
+- Consider similar multi-artist logic for other platforms.
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-16-spotify_staging2curated
+
+# What Changed (≤ 50 words)
+Created [spotify_staging2curated.py](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/src/spotify/cleaners/spotify_staging2curated.py:0:0-0:0) cleaner in [src/spotify/cleaners/](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/src/spotify/cleaners:0:0-0:0) per [LLM_cleaner_guidelines.md](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/src/LLM_cleaner_guidelines.md:0:0-0:0). Aggregates and deduplicates all staging CSVs, outputs a single curated CSV. No manual cron edit needed—script is auto-discovered and run by the batch cron.
+
+# Impact
+Spotify staging→curated pipeline is now automated and standardized.
+
+# Follow-ups
+- Verify output in `curated/spotify/audience`
+- Add business rules or metrics as needed
+- Document in project-level README
+--- END CHANGELOG ENTRY ---
+
+git add .
+git commit -m "2025-06-16-spotify_staging2curated: Add cleaner for staging→curated, auto-run by cron"
+git push
