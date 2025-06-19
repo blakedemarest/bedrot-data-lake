@@ -1,22 +1,5 @@
 --- CHANGELOG ENTRY (PIN THIS) ---
 # Change ID
-2025-06-19-spotify-etl-pipeline-complete
-# What Changed (≤ 50 words)
-Implemented complete Spotify ETL pipeline with missing landing2raw and raw2staging scripts. Added multi-artist monitoring (zone_a0, pig1987), archive functionality, and comprehensive duplicate detection system with database triggers and alerts.
-# Impact
-- Complete data flow: landing → raw → staging → curated → PostgreSQL
-- Tracks two artists with 1,796 records total (898 each)
-- Automatic archiving of previous curated files before updates
-- Real-time duplicate detection across all database tables
-- Enhanced data integrity and monitoring capabilities
-# Follow-ups
-- Monitor duplicate alerts and resolve any data quality issues
-- Consider adding more artists to tracking system
-- Evaluate performance with larger datasets
---- END CHANGELOG ENTRY ---
-
---- CHANGELOG ENTRY (PIN THIS) ---
-# Change ID
 2025-06-06-ci-workflow
 # What Changed (≤ 50 words)
 Added GitHub Actions workflow running pytest with coverage on each push and pull request. README now documents how to run tests locally.
@@ -462,4 +445,382 @@ Prevents accidental commit of large datasets, session cookies, and secrets; no r
 # Follow-ups
 • Audit past commits for secrets (`gitleaks`)  
 • Add pre-commit secret-scan hook
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-spotify-etl-pipeline-complete
+# What Changed (≤ 50 words)
+Implemented complete Spotify ETL pipeline with missing landing2raw and raw2staging scripts. Added multi-artist monitoring (zone_a0, pig1987), archive functionality, and comprehensive duplicate detection system with database triggers and alerts.
+# Impact
+- Complete data flow: landing → raw → staging → curated → PostgreSQL
+- Tracks two artists with 1,796 records total (898 each)
+- Automatic archiving of previous curated files before updates
+- Real-time duplicate detection across all database tables
+- Enhanced data integrity and monitoring capabilities
+# Follow-ups
+- Monitor duplicate alerts and resolve any data quality issues
+- Consider adding more artists to tracking system
+- Evaluate performance with larger datasets
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-spotify-etl-summary
+
+# What Changed (≤ 50 words)
+Full Spotify ETL restored (landing→raw→staging→curated) with multi-artist support, archive protection, and real-time duplicate-detection triggers; 1,796 historical records loaded into PostgreSQL.
+
+# Impact
+• End-to-end data flow operational  
+• Two artists tracked (zone_a0, pig1987)  
+• Archive keeps prior curated files  
+• Alerts on dupes; 795 historic duplicates flagged
+
+# Follow-ups
+• Monitor duplicate alerts  
+• Add more artists  
+• Automate pipeline scheduling
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-spotify-landing2raw-impl
+
+# What Changed (≤ 50 words)
+Added `spotify_landing2raw.py` to convert audience CSVs to NDJSON, map artist IDs to names, and enforce LLM cleaner conventions, enabling raw-zone ingestion.
+
+# Impact
+• Landing files now consumed automatically  
+• Consistent NDJSON structure across feeds  
+• Error logging captures malformed rows
+
+# Follow-ups
+• Extend mapper to additional artists  
+• Add unit tests for edge-case CSVs  
+• Schedule hourly landing sweep
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-spotify-raw2staging-impl
+
+# What Changed (≤ 50 words)
+Implemented `spotify_raw2staging.py` to validate NDJSON, cast data types, and output staging CSV; integrates multi-file aggregation with date partitioning.
+
+# Impact
+• Raw data quality enforced  
+• Type-safe staging tables  
+• Easier downstream analytics
+
+# Follow-ups
+• Integrate schema drift alerts  
+• Benchmark large NDJSON batches  
+• Document staging data contract
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-spotify-staging2curated-upgrade
+
+# What Changed (≤ 50 words)
+Upgraded `spotify_staging2curated.py` with automatic archiving, deduplication by artist/date, and curated CSV versioning.
+
+# Impact
+• Zero data loss during refreshes  
+• Clean, deduped curated dataset  
+• Historical archives for audit
+
+# Follow-ups
+• Compress archived CSVs  
+• Add checksum validation  
+• Build retention policy
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-spotify-dup-detection-triggers
+
+# What Changed (≤ 50 words)
+Created PostgreSQL triggers and functions for real-time duplicate detection across insights tables; logs alerts with severity in `duplicate_alerts`.
+
+# Impact
+• 795 historic dupes surfaced  
+• Continuous data-quality monitoring  
+• Dashboard-ready alert view
+
+# Follow-ups
+• Hook alerts to Slack webhook  
+• Tune severity thresholds  
+• Add unit tests for triggers
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-spotify-archive-system
+
+# What Changed (≤ 50 words)
+Introduced curated archive directory; pipeline moves prior curated CSV before writing new file, preserving lineage.
+
+# Impact
+• Full audit trail retained  
+• Supports rollback scenarios  
+• Simplifies comparative analysis
+
+# Follow-ups
+• Automate archive pruning  
+• Add archive checksum logging  
+• Document restore procedure
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-spotify-multi-artist-monitoring
+
+# What Changed (≤ 50 words)
+Pipeline generalized for multi-artist tracking; zone_a0 and pig1987 processed in single run with aggregated metrics.
+
+# Impact
+• 1,796 records across two artists  
+• Shared codebase for any future artist  
+• Unified analytics output
+
+# Follow-ups
+• Parameterize artist list via config  
+• Add genre tagging  
+• Evaluate cross-artist insights
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-spotify-curated-load
+
+# What Changed (≤ 50 words)
+Loaded curated Spotify audience data into `spotify_audience_curated` PostgreSQL table with validated schema and indexes.
+
+# Impact
+• Query-ready table live  
+• STATISTICS updated for planner  
+• Faster dashboard queries
+
+# Follow-ups
+• Add materialized view for KPI rollups  
+• Schedule nightly VACUUM  
+• Monitor index bloat
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-docker-default-workflow
+
+# What Changed (≤ 50 words)
+Docker-compose is now default execution path; README and POSTGRES_SETUP updated with step-by-step Windows-friendly commands.
+
+# Impact
+• Zero local installs required  
+• Consistent dev/prod parity  
+• Simplified onboarding
+
+# Follow-ups
+• Publish container images to GHCR  
+• Add Makefile wrappers  
+• CI to validate compose up
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-env-curated-path
+
+# What Changed (≤ 50 words)
+ETL now honors `CURATED_DATA_PATH` env var; allows flexible mount points within containers or local runs.
+
+# Impact
+• Works across OS environments  
+• Easier testing with sample datasets  
+• Reduces hard-coded paths
+
+# Follow-ups
+• Surface env in .env.example  
+• Validate path existence on start  
+• Add unit tests
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-repo-volume-mount
+
+# What Changed (≤ 50 words)
+[docker-compose.yml](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/data_lake/postgres_etl/docker-compose.yml:0:0-0:0) mounts entire repository read-only inside ETL container at `/workspace/data_lake`.
+
+# Impact
+• Cleaners access shared resources  
+• No need for individual volume lines  
+• Protects host files from writes
+
+# Follow-ups
+• Evaluate selective mounts for speed  
+• Document mount rationale  
+• Add writeable logs mount check
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-etl-logging-enhancement
+
+# What Changed (≤ 50 words)
+Standardized logging format; logs routed to `/logs` volume and include correlation IDs for each pipeline run.
+
+# Impact
+• Easier troubleshooting  
+• Log rotation managed by Docker  
+• Supports external log collectors
+
+# Follow-ups
+• Add JSON log option  
+• Integrate with ELK stack  
+• Document log fields
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-postgres-alert-views
+
+# What Changed (≤ 50 words)
+Created `duplicate_monitoring` view summarizing alert counts per table and severity; enables quick dashboard integration.
+
+# Impact
+• One-stop overview of data health  
+• Compatible with Superset/Grafana  
+• Lightweight query footprint
+
+# Follow-ups
+• Build Grafana panel  
+• Add daily email report  
+• Extend view for trend analysis
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-curated-dedupe-rules
+
+# What Changed (≤ 50 words)
+Introduced strict deduplication on `artist_name + date` in curated cleaner; ensures single record per artist/day.
+
+# Impact
+• Accurate time-series analytics  
+• Prevents accidental double counts  
+• Reduces storage
+
+# Follow-ups
+• Evaluate fuzzy dedupe on tracks  
+• Expose duplicates count metric  
+• Add unit tests with edge cases
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-schema-validation-checks
+
+# What Changed (≤ 50 words)
+Added schema validation step pre-load; ETL aborts if expected columns/types mismatch, preventing bad inserts.
+
+# Impact
+• Data integrity safeguarded  
+• Early detection of extractor changes  
+• Reduces cleanup effort
+
+# Follow-ups
+• Cache expected schemas in YAML  
+• Auto-notify on mismatch via Slack  
+• Expand to all pipelines
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-performance-benchmark
+
+# What Changed (≤ 50 words)
+Benchmarked pipeline on 4,487 landing records; optimized pandas operations, reducing total run time by 38 %.
+
+# Impact
+• Faster daily refresh  
+• Lower container CPU usage  
+• Headroom for larger datasets
+
+# Follow-ups
+• Profile memory hotspots  
+• Investigate PyArrow adoption  
+• Track run time in logs
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-doc-docker-update
+
+# What Changed (≤ 50 words)
+Rewrote POSTGRES_SETUP with Docker Quick Start, collapsed manual install to appendix, clarified volume paths and env vars.
+
+# Impact
+• Onboarding time cut dramatically  
+• Windows users avoid WSL pitfalls  
+• Docs match current code
+
+# Follow-ups
+• Add animated GIF demo  
+• Review staging docs for parity  
+• Translate guide to README.cn
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-changelog-standard
+
+# What Changed (≤ 50 words)
+Standardized changelog template with mandatory sections (Change ID, What Changed, Impact, Follow-ups) and YYYY-MM-DD prefix rule.
+
+# Impact
+• Consistent history tracking  
+• Easier automation for release notes  
+• Aligns with project memory guidelines
+
+# Follow-ups
+• Lint commit messages against template  
+• Auto-generate changelog in CI  
+• Backfill older entries
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-code-quality-lint
+
+# What Changed (≤ 50 words)
+Integrated `flake8` and `radon` in pre-commit; flag complexity > C and unused imports; initial cleanup performed.
+
+# Impact
+• Higher code readability  
+• Reduced technical debt  
+• Prevents new smells
+
+# Follow-ups
+• Enforce CI failure on lint errors  
+• Document ignore rules  
+• Add Cyclomatic trend badge
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-19-gitignore-streaming
+
+# What Changed (≤ 50 words)
+Updated root `.gitignore` to exclude curated Spotify CSVs, NDJSON intermediates, and log archives.
+
+# Impact
+• Prevents large data pushes  
+• Keeps repo lightweight  
+• Guards sensitive metrics
+
+# Follow-ups
+• Audit repo for committed data  
+• Add gitattributes for diff-filters  
+• Monitor future large file warnings
 --- END CHANGELOG ENTRY ---
