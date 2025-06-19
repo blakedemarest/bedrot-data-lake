@@ -1,5 +1,22 @@
 --- CHANGELOG ENTRY (PIN THIS) ---
 # Change ID
+2025-06-19-spotify-etl-pipeline-complete
+# What Changed (≤ 50 words)
+Implemented complete Spotify ETL pipeline with missing landing2raw and raw2staging scripts. Added multi-artist monitoring (zone_a0, pig1987), archive functionality, and comprehensive duplicate detection system with database triggers and alerts.
+# Impact
+- Complete data flow: landing → raw → staging → curated → PostgreSQL
+- Tracks two artists with 1,796 records total (898 each)
+- Automatic archiving of previous curated files before updates
+- Real-time duplicate detection across all database tables
+- Enhanced data integrity and monitoring capabilities
+# Follow-ups
+- Monitor duplicate alerts and resolve any data quality issues
+- Consider adding more artists to tracking system
+- Evaluate performance with larger datasets
+--- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
 2025-06-06-ci-workflow
 # What Changed (≤ 50 words)
 Added GitHub Actions workflow running pytest with coverage on each push and pull request. README now documents how to run tests locally.
@@ -432,6 +449,17 @@ Spotify staging→curated pipeline is now automated and standardized.
 - Document in project-level README
 --- END CHANGELOG ENTRY ---
 
-git add .
-git commit -m "2025-06-16-spotify_staging2curated: Add cleaner for staging→curated, auto-run by cron"
-git push
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-17-gitignore-creation
+
+# What Changed (≤ 50 words)
+Added repository-root [.gitignore](cci:7://file:///c:/Users/Earth/BEDROT%20PRODUCTIONS/BEDROT%20DATA%20LAKE/.gitignore:0:0-0:0) to exclude byte-code, IDE artifacts, data-lake zones, logs, cookies, Playwright sessions, and secret files.
+
+# Impact
+Prevents accidental commit of large datasets, session cookies, and secrets; no runtime code changes.
+
+# Follow-ups
+• Audit past commits for secrets (`gitleaks`)  
+• Add pre-commit secret-scan hook
+--- END CHANGELOG ENTRY ---

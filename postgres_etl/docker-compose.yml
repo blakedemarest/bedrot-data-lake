@@ -1,0 +1,72 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: bedrot_postgres
+    environment:
+      POSTGRES_DB: bedrot_analytics
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_ADMIN_PASSWORD}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    networks:
+      - bedrot_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d bedrot_analytics"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  etl_runner:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bedrot_etl
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: bedrot_analytics
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_ADMIN_USER: postgres
+      POSTGRES_ADMIN_PASSWORD: ${POSTGRES_ADMIN_PASSWORD}
+      CURATED_DATA_PATH: /workspace/data_lake/curated
+    volumes:
+      - ../:/workspace/data_lake:ro
+      - ./logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - bedrot_network
+    profiles:
+      - etl  # Only start with docker-compose --profile etl up
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: bedrot_pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@bedrot.com
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin123}
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    networks:
+      - bedrot_network
+    profiles:
+      - admin  # Only start with docker-compose --profile admin up
+
+volumes:
+  postgres_data:
+  pgadmin_data:
+
+networks:
+  bedrot_network:
+    driver: bridge

@@ -38,8 +38,7 @@ async def _wait_for_login(page):
     while True:
         try:
             await page.wait_for_selector(
-                "nav, aside, .ant-layout-sider, .dashboard, [data-testid*=user-menu]",
-                timeout=2000,
+                "nav, aside, .ant-layout-sider, .dashboard, [data-testid*=user-menu]"
             )
             break
         except Exception:
@@ -50,7 +49,7 @@ async def _wait_for_login(page):
 async def _goto_analytics(page):
     await page.goto(TOOLOST_URL)
     try:
-        await page.wait_for_selector("main, .ant-layout-content, .analytics, .dashboard", timeout=10000)
+        await page.wait_for_selector("main, .ant-layout-content, .analytics, .dashboard")
     except Exception:
         await asyncio.sleep(3)
 
@@ -81,13 +80,13 @@ async def _save_if_available(key, api_results, responses, path: Path):
 
 async def _select_this_year(page):
     try:
-        await page.wait_for_selector("[class*=ant-picker], [data-testid*=date], [role=button]", timeout=15000, state="visible")
-        await page.click("[class*=ant-picker], [data-testid*=date], [role=button]", timeout=5000)
+        await page.wait_for_selector("[class*=ant-picker], [data-testid*=date], [role=button]", state="visible")
+        await page.click("[class*=ant-picker], [data-testid*=date], [role=button]")
         await asyncio.sleep(1)
         try:
-            await page.click("text=This Year", timeout=3000)
+            await page.click("text=This Year")
         except Exception:
-            await page.click("text=Year", timeout=3000)
+            await page.click("text=Year")
         await asyncio.sleep(2)
     except Exception:
         print("[TOOLOST] Date picker not found.")
@@ -96,7 +95,7 @@ async def _select_this_year(page):
 async def _switch_to_apple(page):
     try:
         await page.click("[role=button]:has-text('Spotify'), [data-testid*=platform], .ant-select-selector")
-        await page.wait_for_selector("div.d-flex.align-center.flex-row", timeout=5000)
+        await page.wait_for_selector("div.d-flex.align-center.flex-row")
         for option in await page.query_selector_all("div.d-flex.align-center.flex-row"):
             if (await option.inner_text()).strip() == "Apple":
                 await option.click()
@@ -151,7 +150,7 @@ async def main():
         await _save_if_available("apple", api_results, responses, OUTPUT_DIR / f"toolost_apple_{now}.json")
 
         await _download_sales_report(page)
-        print("Data collection complete. You may now close the browser window.")
+        print("Data collection complete. Closing browser...")
         await browser.close()
 
 

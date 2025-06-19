@@ -7,6 +7,7 @@
 """
 
 import os, argparse
+from shutil import move
 from datetime import datetime
 from pathlib import Path
 import pandas as pd
@@ -24,10 +25,11 @@ def curate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
         df = df.drop(columns="__typename")
 
     # Re-calculate CTR if missing / NaN
-    with pd.option_context("mode.use_inf_as_na", True):
-        ctr = df["totalClicks"] / df["totalViews"].replace({0: pd.NA})
-        df["clickThroughRate"] = df["clickThroughRate"].fillna(ctr)
-        df["clickThroughRate"] = df["clickThroughRate"].round(4)
+    # Convert inf values to NaN manually instead of using deprecated option
+    ctr = df["totalClicks"] / df["totalViews"].replace({0: pd.NA})
+    ctr = ctr.replace([float('inf'), float('-inf')], pd.NA)
+    df["clickThroughRate"] = df["clickThroughRate"].fillna(ctr)
+    df["clickThroughRate"] = df["clickThroughRate"].round(4)
 
     # Keep last record per date
     df = (
@@ -69,12 +71,29 @@ def main():
     print(f"[CURATED] CSV → {csv_path.name}  ({len(df_cur)} rows)")
 
     # Parquet (optional)
+    pq_path = CURATED_DIR / f"{stem}.parquet"
     try:
         pq_path = CURATED_DIR / f"{stem}.parquet"
         df_cur.to_parquet(pq_path, index=False)
         print(f"[CURATED] Parquet → {pq_path.name}")
     except Exception as e:
         print(f"[ERROR] Parquet write failed: {e} (CSV still produced)")
+
+    # ---- Deduplication & Archiving ----
+    ARCHIVE_DIR = PROJECT_ROOT / "archive" / PLATFORM
+    ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+
+    # Move older CSV files
+    for f in CURATED_DIR.glob("linktree_analytics_curated_*.csv"):
+        if f.name != csv_path.name:
+            move(str(f), ARCHIVE_DIR / f.name)
+
+    # Move older Parquet files
+    for f in CURATED_DIR.glob("linktree_analytics_curated_*.parquet"):
+        if pq_path.exists() and f.name != pq_path.name:
+            move(str(f), ARCHIVE_DIR / f.name)
+
+    print(f"[CLEANUP] Archived older curated files → {ARCHIVE_DIR.relative_to(PROJECT_ROOT)}")
 
 if __name__ == "__main__":
     main()
