@@ -60,21 +60,28 @@ def _click(page, selector: str, desc: str | None = None, retries: int = 3) -> No
     """Click the first element matching *selector* with basic retry."""
     for attempt in range(1, retries + 1):
         try:
-            page.locator(selector).first.wait_for(state="visible", timeout=5000)
-            page.locator(selector).first.click(force=True)
+            locator = page.locator(selector).first
+            # Wait for element to be both attached and visible
+            locator.wait_for(state="attached")
+            locator.wait_for(state="visible")
+            # Scroll into view if needed
+            locator.scroll_into_view_if_needed()
+            # Small delay for any animations
+            time.sleep(0.5)
+            locator.click(force=True)
             if desc:
                 print(f"[INFO] Clicked {desc} → {selector}")
             return
         except Exception as exc:
             print(f"[WARN] Attempt {attempt}/{retries} to click {selector} failed: {exc}")
-            time.sleep(1)
+            time.sleep(2)  # Longer wait between retries
     raise RuntimeError(f"Failed to click element: {selector}")
 
 
 def _wait_for_audience_nav(page):
     """Ensure the Audience nav link is present – indicates authenticated state."""
     try:
-        page.wait_for_selector(AUDIENCE_NAV_SELECTOR, timeout=20_000)
+        page.wait_for_selector(AUDIENCE_NAV_SELECTOR)
         print("[INFO] Audience nav link detected – authentication complete.")
     except PWTimeout:
         raise RuntimeError("Audience nav link not found – are you logged in?")
@@ -102,17 +109,69 @@ def _apply_12_month_filter(page):
     _click(page, FILTER_CHIP_SELECTOR, desc="Filters chip")
 
     # Wait for the option to appear (attached first, then visible)
-    page.wait_for_selector(FILTER_12M_LABEL, timeout=15_000, state="attached")
+    page.wait_for_selector(FILTER_12M_LABEL, state="attached")
+    # Give time for animations
+    time.sleep(2)
+    
     # Some times the option becomes visible slightly later
     _click(page, FILTER_12M_LABEL, desc="12-month label", retries=5)
-    # Attempt to confirm selection, but proceed if dialog auto-closes
-    try:
-        _click(page, FILTER_DONE_SELECTOR, desc="Done button", retries=3)
-    except RuntimeError:
-        print("[WARN] 'Done' button not clickable – proceeding if CSV button is visible.")
-
-    # Ensure download button is visible before returning
-    page.wait_for_selector(CSV_DOWNLOAD_BUTTON, timeout=10_000)
+    
+    # Wait for page state to update after selection
+    time.sleep(2)
+    
+    # Try multiple strategies for the Done button
+    done_clicked = False
+    
+    # Strategy 1: Look for exact Done button
+    for attempt in range(3):
+        try:
+            if page.locator("button:has-text('Done')").first.is_visible():
+                page.locator("button:has-text('Done')").first.click()
+                print("[INFO] Clicked Done button (strategy 1)")
+                done_clicked = True
+                break
+        except Exception as e:
+            print(f"[DEBUG] Done button strategy 1 attempt {attempt + 1} failed: {e}")
+            time.sleep(1)
+    
+    # Strategy 2: Look for span with Done text
+    if not done_clicked:
+        for attempt in range(3):
+            try:
+                if page.locator("span:has-text('Done')").first.is_visible():
+                    page.locator("span:has-text('Done')").first.click()
+                    print("[INFO] Clicked Done button (strategy 2)")
+                    done_clicked = True
+                    break
+            except Exception as e:
+                print(f"[DEBUG] Done button strategy 2 attempt {attempt + 1} failed: {e}")
+                time.sleep(1)
+    
+    # Strategy 3: Press Escape key to close dialog
+    if not done_clicked:
+        try:
+            page.keyboard.press("Escape")
+            print("[INFO] Pressed Escape to close filter dialog")
+            done_clicked = True
+        except Exception as e:
+            print(f"[DEBUG] Escape key strategy failed: {e}")
+    
+    if not done_clicked:
+        print("[WARN] Could not close filter dialog, but proceeding to check for CSV button")
+    
+    # Wait for filter to be applied and CSV button to be available
+    for attempt in range(10):
+        try:
+            if page.locator(CSV_DOWNLOAD_BUTTON).first.is_visible():
+                print("[INFO] CSV download button is visible - filter likely applied")
+                break
+        except Exception:
+            pass
+        time.sleep(1)
+        print(f"[DEBUG] Waiting for CSV button, attempt {attempt + 1}/10")
+    
+    # Final check
+    page.wait_for_selector(CSV_DOWNLOAD_BUTTON)
     print("[INFO] 12-month filter applied (CSV button visible).")
 
 
@@ -122,7 +181,7 @@ def _download_csv(page, artist_id: str) -> Path:
     suggested_name = f"spotify_audience_{artist_id}_{timestamp}.csv"
     dest_path = LANDING_DIR / suggested_name
 
-    with page.expect_download(timeout=30_000) as dl_info:
+    with page.expect_download() as dl_info:
         _click(page, CSV_DOWNLOAD_BUTTON, desc="CSV download button")
     download = dl_info.value
     download.save_as(dest_path)

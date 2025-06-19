@@ -72,6 +72,67 @@ def transform_csv_to_records(df: pd.DataFrame, artist: str) -> List[Dict]:
     return records
 
 
+def process_artist_csv(csv_path: Path, artist: str, start_year: int = 2024) -> Optional[List[Dict]]:
+    """Process a single artist's CSV file directly and return records."""
+    print(f"[RAW] Processing artist: {artist}")
+    
+    try:
+        df = pd.read_csv(csv_path)
+        print(f"[RAW] Loaded: {csv_path.name} ({len(df)} rows)")
+        
+        if len(df) == 0:
+            print(f"[WARN] {csv_path.name} is empty")
+            return None
+        
+        # Check if dates need processing or are already in proper format
+        if 'Date' in df.columns:
+            # Try to parse dates as-is first
+            test_dates = pd.to_datetime(df['Date'].head(), errors='coerce')
+            if not test_dates.isna().all():
+                # Dates are already in proper format
+                df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+                df['Year'] = df['Date'].dt.year
+                print(f"[RAW] Using existing date format")
+            else:
+                # Apply year rollover logic for month-day format
+                dates = []
+                current_year = start_year
+                for md in df['Date']:
+                    dt = pd.to_datetime(f"{md} {current_year}", format="%B %d %Y", errors='coerce')
+                    if pd.isna(dt):
+                        print(f"[WARN] Failed to parse date: {md}")
+                        continue
+                    if dates and dt <= dates[-1]:
+                        current_year += 1
+                        dt = pd.to_datetime(f"{md} {current_year}", format="%B %d %Y")
+                    dates.append(dt)
+                
+                if len(dates) != len(df):
+                    print(f"[WARN] Date parsing failed for some rows, using available data")
+                    # Truncate DataFrame to match parsed dates
+                    df = df.head(len(dates))
+                    
+                df['Date'] = dates
+                df['Year'] = df['Date'].dt.year
+                print(f"[RAW] Date rollover: {start_year} → {df['Year'].max()}")
+        
+        # Validate for missing values
+        missing = df.isna().sum()
+        missing_cols = missing[missing > 0]
+        if len(missing_cols) > 0:
+            print(f"[WARN] Missing values detected: {dict(missing_cols)}")
+        
+        # Transform to records
+        records = transform_csv_to_records(df, artist)
+        print(f"[RAW] Transformed to {len(records)} JSON records")
+        
+        return records
+        
+    except Exception as e:
+        print(f"[ERROR] Failed to process {csv_path.name}: {e}")
+        return None
+
+
 def process_artist_zip(zip_path: Path, artist: str, start_year: int = 2024) -> Optional[List[Dict]]:
     """Process a single artist's ZIP file and return records."""
     print(f"[RAW] Processing artist: {artist}")
@@ -142,22 +203,26 @@ def process_landing_files(file_path: Optional[Path] = None) -> int:
         artist = file_path.stem.split("_")[-1]
         latest_zips = {artist: file_path}
     else:
-        # Find all latest ZIPs
-        latest_zips = find_latest_zips(LANDING_DIR)
+        # Find all latest files (CSV or ZIP)
+        latest_zips = find_latest_files(LANDING_DIR)
     
     if not latest_zips:
-        raise RuntimeError(f"No ZIP files found in {LANDING_DIR}")
+        print(f"[WARN] No files found in {LANDING_DIR}")
+        return 0
     
     print(f"[RAW] Found {len(latest_zips)} artists: {list(latest_zips.keys())}")
     
     processed_count = 0
-    for artist, zip_path in latest_zips.items():
+    for artist, file_path in latest_zips.items():
         try:
-            records = process_artist_zip(zip_path, artist)
+            if file_path.suffix == '.csv':
+                records = process_artist_csv(file_path, artist)
+            else:  # .zip file
+                records = process_artist_zip(file_path, artist)
             if records:
                 # Write NDJSON output
                 timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-                output_name = f"{zip_path.stem}_{timestamp}.ndjson"
+                output_name = f"{file_path.stem}_{timestamp}.ndjson"
                 output_path = RAW_DIR / output_name
                 
                 with open(output_path, 'w', encoding='utf-8') as f:

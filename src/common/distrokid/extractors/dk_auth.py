@@ -39,7 +39,7 @@ def _launch_context(p):
 
 def _perform_login(page):
     try:
-        page.wait_for_selector('input[type="email"]', timeout=5000)
+        page.wait_for_selector('input[type="email"]')
         logging.info("Login form detected, filling credentials.")
         page.fill('input[type="email"]', DK_EMAIL)
         page.fill('input[type="password"]', DK_PASSWORD)
@@ -64,7 +64,7 @@ def _download_stats(page, output_dir: str, dt_str: str):
     stats_url = "https://distrokid.com/stats/?type=all&data=streams"
     logging.info(f"Navigating to streams stats page: {stats_url}")
     page.goto(stats_url)
-    page.wait_for_selector('body', timeout=30000)
+    page.wait_for_selector('body')
     html = page.content()
     streams_file = os.path.join(output_dir, f'streams_stats_{dt_str}.html')
     with open(streams_file, 'w', encoding='utf-8') as f:
@@ -74,7 +74,7 @@ def _download_stats(page, output_dir: str, dt_str: str):
     am_url = "https://distrokid.com/stats/?type=all&data=applemusic"
     logging.info(f"Navigating to Apple Music stats page: {am_url}")
     page.goto(am_url)
-    page.wait_for_selector('body', timeout=30000)
+    page.wait_for_selector('body')
     am_html = page.content()
     am_file = os.path.join(output_dir, f'applemusic_stats_{dt_str}.html')
     with open(am_file, 'w', encoding='utf-8') as f:
@@ -83,10 +83,10 @@ def _download_stats(page, output_dir: str, dt_str: str):
 
     try:
         page.goto("https://distrokid.com/bank/")
-        page.wait_for_selector('a[href="/bank/details/"]', timeout=10000)
+        page.wait_for_selector('a[href="/bank/details/"]')
         page.click('a[href="/bank/details/"]')
         page.wait_for_url("https://distrokid.com/bank/details/")
-        page.wait_for_selector('div[onclick^="downloadBank"]', timeout=10000)
+        page.wait_for_selector('div[onclick^="downloadBank"]')
         tsv_file = os.path.join(output_dir, f'dk_bank_details_{dt_str}.tsv')
         with page.expect_download() as download_info:
             page.click('div[onclick^="downloadBank"]')
@@ -125,9 +125,9 @@ def login_distrokid():
             dt_str = datetime.now().strftime("%Y%m%d_%H%M%S")
             _download_stats(page, output_dir, dt_str)
 
-            print("All downloads complete. You may now close the browser window.")
+            print("All downloads complete. Closing browser...")
             browser.close()
-            logging.info("Browser closed automatically after all downloads. Workflow complete.")
+            logging.info("Browser closed automatically after successful data capture.")
             return True
         except Exception as e:
             logging.exception(f"An unexpected error occurred: {e}")
@@ -148,7 +148,7 @@ def test_login_distrokid():
             load_cookies(browser, "distrokid")
             page = browser.new_page()
             page.goto(DASHBOARD_URL)
-            page.wait_for_selector('body', timeout=10000)
+            page.wait_for_selector('body')
             if "login" in page.url:
                 logging.warning("Session is not valid, redirected to login page.")
                 result = False

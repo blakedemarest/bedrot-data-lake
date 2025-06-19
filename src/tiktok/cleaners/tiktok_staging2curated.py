@@ -10,6 +10,7 @@ Guided by LLM_cleaner_guidelines.md
 # %% Imports & Constants
 import argparse
 import os
+from shutil import move
 from datetime import datetime
 from pathlib import Path
 from typing import List, Optional
@@ -120,7 +121,16 @@ def process_staging_to_curated(input_file: Optional[Path] = None) -> int:
     # Write curated CSV
     curated_df.to_csv(output_path, index=False, encoding="utf-8")
     print(f"[CURATED] Written: {output_name} ({len(curated_df)} rows)")
-    
+
+    # ---- Deduplication & Archiving ----
+    ARCHIVE_DIR = PROJECT_ROOT / "archive" / PLATFORM
+    ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+
+    for f in CURATED_DIR.glob("tiktok_analytics_curated_*.csv"):
+        if f.name != output_name:
+            move(str(f), ARCHIVE_DIR / f.name)
+    print(f"[CLEANUP] Archived older curated files → {ARCHIVE_DIR.relative_to(PROJECT_ROOT)}")
+
     return len(curated_df)
 
 # %% CLI Entry Point

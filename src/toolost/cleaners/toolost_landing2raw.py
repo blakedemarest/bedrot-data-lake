@@ -59,14 +59,33 @@ for file in sorted(landing_dir.glob("*.json")):
         continue
 
     tgt = raw_dir / file.name
-    if tgt.exists() and hashlib.md5(tgt.read_bytes()).hexdigest() == hashlib.md5(file.read_bytes()).hexdigest():
-        print(f"↩︎ {file.name:40} already in raw (hash match)")
-        continue
-
-    if tgt.exists():  # name clash but different hash → version it
-        ts  = datetime.now().strftime("%Y%m%dT%H%M%S")
-        tgt = raw_dir / f"{file.stem}__{ts}{file.suffix}"
-
+    file_hash = hashlib.md5(file.read_bytes()).hexdigest()
+    
+    # Check if file already exists in raw
+    if tgt.exists():
+        existing_hash = hashlib.md5(tgt.read_bytes()).hexdigest()
+        if file_hash == existing_hash:
+            # Check timestamps to provide better info
+            file_time = datetime.fromtimestamp(file.stat().st_mtime)
+            existing_time = datetime.fromtimestamp(tgt.stat().st_mtime)
+            
+            print(f"↩︎ {file.name:40} already in raw (hash match)")
+            print(f"   Landing file: {file_time} | Raw file: {existing_time}")
+            
+            # If the landing file is significantly newer, it might indicate stale data
+            time_diff = file_time - existing_time
+            if time_diff.days > 1:
+                print(f"   ⚠️  WARNING: Landing file is {time_diff.days} days newer but content is identical")
+                print(f"   This may indicate the TooLost API is returning cached/stale data")
+            
+            continue
+        else:
+            # Different hash → version it
+            ts = datetime.now().strftime("%Y%m%dT%H%M%S")
+            tgt = raw_dir / f"{file.stem}__{ts}{file.suffix}"
+            print(f"🔄 {file.name:40} content changed, versioning as {tgt.name}")
+    
+    # Copy new or changed file
     shutil.copy2(file, tgt)
     print(f"✅ {file.name:40} → {tgt.name}")
     promoted.append(tgt.name)
