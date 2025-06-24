@@ -23,7 +23,13 @@
       "Bash(find:*)",
       "Bash(.venv/bin/python:*)",
       "Bash(docker cp:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "mcp__context7__resolve-library-id",
+      "mcp__context7__get-library-docs",
+      "Bash(.venv/Scripts/python.exe:*)",
+      "Bash(rm:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }
