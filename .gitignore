@@ -75,6 +75,8 @@ venv/
 landing/*
 raw/*
 
+
+curated_csvs/*
 # Allow .gitkeep and README.md so folders and docs are preserved
 !landing/.gitkeep
 !raw/.gitkeep
