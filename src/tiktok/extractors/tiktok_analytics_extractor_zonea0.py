@@ -82,6 +82,13 @@ ANALYTICS_URL = 'https://www.tiktok.com/tiktokstudio/analytics'
 #     context.close()
 #     browser.close()
 
+import os
+import sys
+# Add the src directory to the Python path
+src_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
+if src_dir not in sys.path:
+    sys.path.append(src_dir)
+
 from common.extractors.tiktok_shared import run_extraction
 
 
