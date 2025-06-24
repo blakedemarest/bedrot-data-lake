@@ -62,7 +62,8 @@ def record_to_row(record: Dict) -> Dict:
         "Likes": pd.to_numeric(record.get("likes", 0), errors="coerce"),
         "Comments": pd.to_numeric(record.get("comments", 0), errors="coerce"),
         "Shares": pd.to_numeric(record.get("shares", 0), errors="coerce"),
-        "Year": pd.to_numeric(record.get("year"), errors="coerce")
+        "Year": pd.to_numeric(record.get("year"), errors="coerce"),
+        "Followers": pd.to_numeric(record.get("followers", 0), errors="coerce")  # NEW: Current follower count
     }
 
 
@@ -100,7 +101,7 @@ def load_raw_data(files: Dict[str, Path]) -> pd.DataFrame:
     
     # Ensure proper data types
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
-    numeric_cols = ["Video Views", "Profile Views", "Likes", "Comments", "Shares", "Year"]
+    numeric_cols = ["Video Views", "Profile Views", "Likes", "Comments", "Shares", "Year", "Followers"]
     for col in numeric_cols:
         df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0).astype(int)
     
@@ -119,7 +120,7 @@ def load_existing_staging() -> pd.DataFrame:
         return df
     else:
         print("[STAGING] No existing staging file found")
-        return pd.DataFrame(columns=["Artist", "Date", "Video Views", "Profile Views", "Likes", "Comments", "Shares", "Year"])
+        return pd.DataFrame(columns=["Artist", "Date", "Video Views", "Profile Views", "Likes", "Comments", "Shares", "Year", "Followers"])
 
 # %% Core Processing Logic
 

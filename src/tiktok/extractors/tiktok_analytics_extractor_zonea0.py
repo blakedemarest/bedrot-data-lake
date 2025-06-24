@@ -88,16 +88,21 @@ from common.extractors.tiktok_shared import run_extraction
 def process_account_manual_persistent(playwright):
     """Wrapper maintaining original API while delegating to shared logic."""
     user_data_dir = PLAYWRIGHT_SESSION_DIR
-    cookies_path = os.path.join(PROJECT_ROOT, "tiktok_cookies.json")
-    marker_path = os.path.join(user_data_dir, ".tiktok_cookies_imported")
-    run_extraction(
+    cookies_path = os.path.join(
+        PROJECT_ROOT, "src", "tiktok", "cookies", "tiktok_cookies_zonea0.json"
+    )
+    marker_path = os.path.join(user_data_dir, ".tiktok_cookies_zonea0_imported")
+    result = run_extraction(
         playwright,
         user_data_dir=user_data_dir,
-        analytics_url="https://www.tiktok.com/tiktokstudio/analytics",
+        analytics_url=ANALYTICS_URL,
         output_dir=OUTPUT_DIR,
         cookies_path=cookies_path,
         marker_path=marker_path,
+        capture_followers=True,
+        artist_name="zone.a0",
     )
+    return result
 
 
 # Only run the manual approach for now (for manual login/testing)

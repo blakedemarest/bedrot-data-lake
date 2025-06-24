@@ -53,9 +53,39 @@ def find_latest_zips(landing_dir: Path) -> Dict[str, Path]:
     return {artist: path for artist, (path, _) in latest_per_artist.items()}
 
 
-def transform_csv_to_records(df: pd.DataFrame, artist: str) -> List[Dict]:
-    """Transform CSV DataFrame to list of JSON records."""
+def load_follower_data(artist: str) -> Optional[Dict]:
+    """Load the latest follower data JSON file for an artist."""
+    # Look for follower JSON files in landing directory
+    follower_pattern = f"{artist}_followers_*.json"
+    follower_files = list(LANDING_DIR.glob(follower_pattern))
+    
+    if not follower_files:
+        print(f"[FOLLOWER] No follower data found for {artist}")
+        return None
+    
+    # Get the most recent follower file
+    latest_follower_file = max(follower_files, key=lambda f: f.stat().st_mtime)
+    
+    try:
+        with open(latest_follower_file, 'r') as f:
+            follower_data = json.load(f)
+        print(f"[FOLLOWER] Loaded follower data from {latest_follower_file.name}")
+        return follower_data
+    except Exception as e:
+        print(f"[ERROR] Failed to load follower data from {latest_follower_file}: {e}")
+        return None
+
+
+def transform_csv_to_records(df: pd.DataFrame, artist: str, follower_data: Optional[Dict] = None) -> List[Dict]:
+    """Transform CSV DataFrame to list of JSON records with optional follower data."""
     records = []
+    
+    # Extract follower count from follower_data if available
+    follower_count = 0
+    if follower_data and 'count' in follower_data:
+        follower_count = follower_data['count']
+        print(f"[TRANSFORM] Using follower count: {follower_count} for {artist}")
+    
     for _, row in df.iterrows():
         record = {
             "artist": artist,
@@ -66,6 +96,7 @@ def transform_csv_to_records(df: pd.DataFrame, artist: str) -> List[Dict]:
             "likes": int(row.get("Likes", 0)),
             "comments": int(row.get("Comments", 0)),
             "shares": int(row.get("Shares", 0)),
+            "followers": follower_count,  # NEW: Current follower count
             "processed_at": datetime.now().isoformat()
         }
         records.append(record)
@@ -75,6 +106,9 @@ def transform_csv_to_records(df: pd.DataFrame, artist: str) -> List[Dict]:
 def process_artist_csv(csv_path: Path, artist: str, start_year: int = 2024) -> Optional[List[Dict]]:
     """Process a single artist's CSV file directly and return records."""
     print(f"[RAW] Processing artist: {artist}")
+    
+    # Load follower data for this artist
+    follower_data = load_follower_data(artist)
     
     try:
         df = pd.read_csv(csv_path)
@@ -122,8 +156,8 @@ def process_artist_csv(csv_path: Path, artist: str, start_year: int = 2024) -> O
         if len(missing_cols) > 0:
             print(f"[WARN] Missing values detected: {dict(missing_cols)}")
         
-        # Transform to records
-        records = transform_csv_to_records(df, artist)
+        # Transform to records with follower data
+        records = transform_csv_to_records(df, artist, follower_data)
         print(f"[RAW] Transformed to {len(records)} JSON records")
         
         return records
@@ -136,6 +170,9 @@ def process_artist_csv(csv_path: Path, artist: str, start_year: int = 2024) -> O
 def process_artist_zip(zip_path: Path, artist: str, start_year: int = 2024) -> Optional[List[Dict]]:
     """Process a single artist's ZIP file and return records."""
     print(f"[RAW] Processing artist: {artist}")
+    
+    # Load follower data for this artist
+    follower_data = load_follower_data(artist)
     
     temp_dir = None
     try:
@@ -182,8 +219,8 @@ def process_artist_zip(zip_path: Path, artist: str, start_year: int = 2024) -> O
             print(f"[ERROR] Missing values detected: {missing_cols.to_dict()}")
             return None
         
-        # Transform to records
-        records = transform_csv_to_records(df, artist)
+        # Transform to records with follower data
+        records = transform_csv_to_records(df, artist, follower_data)
         print(f"[RAW] Transformed to {len(records)} JSON records")
         return records
         
@@ -195,6 +232,25 @@ def process_artist_zip(zip_path: Path, artist: str, start_year: int = 2024) -> O
             shutil.rmtree(temp_dir)
 
 # %% Core Processing Logic
+
+def find_latest_files(landing_dir: Path) -> Dict[str, Path]:
+    """Find the latest file (ZIP or CSV) per artist in landing directory."""
+    all_files = list(landing_dir.glob("*.zip")) + list(landing_dir.glob("*.csv"))
+    if not all_files:
+        raise FileNotFoundError(f"No .zip or .csv files found in {landing_dir}")
+    
+    latest_per_artist = {}
+    for file_path in all_files:
+        base = file_path.stem
+        artist = base.split("_")[-1]  # token after last underscore
+        mtime = file_path.stat().st_mtime
+        
+        if artist not in latest_per_artist or mtime > latest_per_artist[artist][1]:
+            latest_per_artist[artist] = (file_path, mtime)
+    
+    # Return just the paths
+    return {artist: path for artist, (path, _) in latest_per_artist.items()}
+
 
 def process_landing_files(file_path: Optional[Path] = None) -> int:
     """Process TikTok landing files and write NDJSON to raw zone."""
