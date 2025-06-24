@@ -48,6 +48,26 @@ def load_staging_data(input_file: Optional[Path] = None) -> pd.DataFrame:
     return df
 
 
+def calculate_new_followers(df: pd.DataFrame) -> pd.DataFrame:
+    """Calculate new_followers column based on daily follower changes."""
+    df = df.copy()
+    df["new_followers"] = 0  # Initialize
+    
+    # Calculate new followers per artist
+    for artist in df["artist"].unique():
+        artist_mask = df["artist"] == artist
+        artist_data = df[artist_mask].sort_values("date")
+        
+        if len(artist_data) > 1 and "Followers" in artist_data.columns:
+            # Calculate difference between consecutive days
+            follower_diff = artist_data["Followers"].diff()
+            # Only count positive changes as new followers
+            new_followers = follower_diff.where(follower_diff > 0, 0)
+            df.loc[artist_mask, "new_followers"] = new_followers.values
+    
+    return df
+
+
 def curate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     """Apply business rules and prepare curated dataset."""
     # Rename columns to standard format
@@ -71,14 +91,23 @@ def curate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
     # Define grouping keys and metric columns
     group_keys = ["artist", "zone", "date"]
     metric_cols = ["Video Views", "Profile Views", "Likes", "Comments", "Shares"]
-    other_cols = [c for c in df.columns if c not in group_keys + metric_cols]
+    follower_cols = ["Followers"]  # Handle followers separately
+    other_cols = [c for c in df.columns if c not in group_keys + metric_cols + follower_cols]
     
     # Build aggregation dictionary
     agg_dict = {}
+    
+    # Sum engagement metrics
     for col in metric_cols:
         if col in df.columns:
             agg_dict[col] = "sum"
     
+    # Use last value for follower count
+    for col in follower_cols:
+        if col in df.columns:
+            agg_dict[col] = "last"
+    
+    # Use last value for other columns
     for col in other_cols:
         if col in df.columns:
             agg_dict[col] = "last"
@@ -91,16 +120,33 @@ def curate_dataframe(df: pd.DataFrame) -> pd.DataFrame:
           .reset_index(drop=True)
     )
     
-    # Calculate derived metrics
+    # Calculate new_followers based on daily changes
+    df_curated = calculate_new_followers(df_curated)
+    
+    # Calculate engagement rate
     df_curated["engagement_rate"] = (
         (df_curated.get("Likes", 0) + df_curated.get("Comments", 0) + df_curated.get("Shares", 0)) / 
         df_curated.get("Video Views", 1).replace(0, 1)
     ).round(4)
     
+    # Ensure column order matches existing schema + new columns
+    desired_order = [
+        "artist", "zone", "date", "Video Views", "Profile Views", 
+        "Likes", "Comments", "Shares", "Year", "engagement_rate",
+        "Followers", "new_followers"  # NEW: Add these two columns
+    ]
+    
+    # Reorder columns, keeping any extras at the end
+    available_cols = [col for col in desired_order if col in df_curated.columns]
+    extra_cols = [col for col in df_curated.columns if col not in desired_order]
+    final_columns = available_cols + extra_cols
+    
+    df_curated = df_curated[final_columns]
+    
     # Sort final output
     df_curated = df_curated.sort_values(["artist", "date"]).reset_index(drop=True)
     
-    print(f"[CURATED] Aggregated to {len(df_curated)} rows")
+    print(f"[CURATED] Aggregated to {len(df_curated)} rows with followers tracking")
     return df_curated
 
 # %% Core Processing Logic

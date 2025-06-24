@@ -1,0 +1,53 @@
+# Docker Compose Override for BEDROT Data Dashboard Integration
+# This file extends the main docker-compose.yml to mount the data_dashboard folder
+
+services:
+  etl_runner:
+    volumes:
+      # Keep existing mounts
+      - ../:/workspace/data_lake:ro
+      - ./logs:/app/logs
+      # Add data_dashboard mount
+      - ../../data_dashboard:/workspace/data_dashboard:rw
+    environment:
+      # Add dashboard-specific environment variables
+      DASHBOARD_PATH: /workspace/data_dashboard
+      PYTHONPATH: /workspace/data_dashboard:/workspace/data_lake:${PYTHONPATH:-}
+    
+  # Add a dedicated dashboard service that can run alongside ETL
+  dashboard:
+    build:
+      context: ../postgres_etl
+      dockerfile: Dockerfile
+    container_name: bedrot_dashboard
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: bedrot_analytics
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PYTHONPATH: /workspace/data_dashboard:/workspace/data_lake
+    volumes:
+      # Mount both data_lake and data_dashboard
+      - ../:/workspace/data_lake:ro
+      - ../../data_dashboard:/workspace/data_dashboard:rw
+      # Mount logs for debugging
+      - ../postgres_etl/logs:/app/logs
+    working_dir: /workspace/data_dashboard
+    command: >
+      sh -c "
+        echo 'Installing dashboard dependencies...' &&
+        pip install streamlit plotly &&
+        echo 'Starting Streamlit dashboard...' &&
+        streamlit run dashboard.py --server.address 0.0.0.0 --server.port 8501
+      "
+    ports:
+      - "8501:8501"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - bedrot_network
+    profiles:
+      - dashboard
+    restart: unless-stopped

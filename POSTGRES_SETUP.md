@@ -92,7 +92,7 @@ sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'your_password';"
 
 1. **Navigate to the postgres_etl directory**
    ```bash
-   cd "/mnt/c/Users/Earth/BEDROT PRODUCTIONS/BEDROT DATA LAKE/data_lake/postgres_etl"
+   cd "/mnt/c/Users/Earth/BEDROT PRODUCTIONS/bedrot-data-ecosystem/data_lake/postgres_etl"
    ```
 
 2. **Create environment configuration**
@@ -116,7 +116,7 @@ sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'your_password';"
    POSTGRES_ADMIN_PASSWORD=YourPostgresPassword
    
    # ETL Configuration
-   CURATED_DATA_PATH=/mnt/c/Users/Earth/BEDROT PRODUCTIONS/BEDROT DATA LAKE/data_lake/curated
+   CURATED_DATA_PATH=/mnt/c/Users/Earth/BEDROT PRODUCTIONS/bedrot-data-ecosystem/data_lake/curated
    BATCH_SIZE=1000
    LOG_LEVEL=INFO
    ```
@@ -237,9 +237,9 @@ LIMIT 10;
 
 ```bash
 # Create a Windows batch file
-cat > "/mnt/c/Users/Earth/BEDROT PRODUCTIONS/BEDROT DATA LAKE/data_lake/run_etl.bat" << 'EOF'
+cat > "/mnt/c/Users/Earth/BEDROT PRODUCTIONS/bedrot-data-ecosystem/data_lake/run_etl.bat" << 'EOF'
 @echo off
-cd /d "C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake\postgres_etl"
+cd /d "C:\Users\Earth\BEDROT PRODUCTIONS\bedrot-data-ecosystem\data_lake\postgres_etl"
 wsl python3 etl_pipeline.py
 pause
 EOF

@@ -30,14 +30,17 @@ def process_account_manual_persistent(playwright):
         PROJECT_ROOT, "src", "tiktok", "cookies", "tiktok_cookies_pig1987.json"
     )
     marker_path = os.path.join(user_data_dir, ".tiktok_cookies_pig1987_imported")
-    run_extraction(
+    result = run_extraction(
         playwright,
         user_data_dir=user_data_dir,
         analytics_url=ANALYTICS_URL,
         output_dir=OUTPUT_DIR,
         cookies_path=cookies_path,
         marker_path=marker_path,
+        capture_followers=True,
+        artist_name="pig1987",
     )
+    return result
 
 def main():
     with sync_playwright() as playwright:
