@@ -824,3 +824,35 @@ Updated root `.gitignore` to exclude curated Spotify CSVs, NDJSON intermediates,
 • Add gitattributes for diff-filters  
 • Monitor future large file warnings
 --- END CHANGELOG ENTRY ---
+
+# Change ID
+2025-06-24-EnvironmentPathsUpdate
+
+# What Changed (≤ 50 words)
+Removed dashboards folder, updated environment variables in .env and .env.example to reference new "bedrot-data-ecosystem" directory name instead of "BEDROT DATA LAKE", and fixed paths in POSTGRES_SETUP.md documentation.
+
+# Impact
+All critical paths updated to reflect the new directory structure. Environment variables properly updated to maintain compatibility with re-organized project structure. Source code already uses environment variables so no code changes needed.
+
+# Follow-ups
+- Update legacy sandbox Jupyter notebooks as they're used
+- Verify application builds without dashboard dependencies
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-25-flatten-curated-structure
+
+# What Changed (≤ 50 words)
+Flattened the `curated` directory by removing all subfolders and updated all `staging2curated` scripts in `src/` to write cleaned CSVs directly into the flat `curated/` folder.
+
+# Impact
+- Cleaner pipeline scripts now target a single directory.  
+- Removed subfolder logic under `curated/`.  
+- No new dependencies.  
+- Tests for file-path validation may require updates.
+
+# Follow-ups
+- Update ETL documentation to reflect the flat `curated/` structure.  
+- Add or update unit tests for staging-to-curated path logic.  
+- Archive existing subfoldered CSVs according to new convention.
+--- END CHANGELOG ENTRY ---
