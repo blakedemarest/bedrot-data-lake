@@ -14,7 +14,7 @@ DATA_LAKE_PATH = Path(__file__).parent.parent
 ECOSYSTEM_ROOT = DATA_LAKE_PATH.parent
 WAREHOUSE_PATH = ECOSYSTEM_ROOT / "data-warehouse"
 DB_PATH = WAREHOUSE_PATH / "bedrot_analytics.db"
-CURATED_CSV_PATH = DATA_LAKE_PATH / "curated_csvs"
+CURATED_CSV_PATH = DATA_LAKE_PATH / "curated"
 
 def get_connection():
     """Get database connection with optimized settings."""

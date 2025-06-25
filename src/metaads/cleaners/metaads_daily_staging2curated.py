@@ -15,7 +15,7 @@ import argparse
 load_dotenv()
 PROJECT_ROOT = Path(os.environ["PROJECT_ROOT"])
 STAGING_DIR = PROJECT_ROOT / "staging" / "metaads"
-CURATED_DIR = PROJECT_ROOT / "curated" / "metaads"
+CURATED_DIR = PROJECT_ROOT / "curated"
 ARCHIVE_DIR = PROJECT_ROOT / "archive" / "metaads"
 
 # Ensure directories exist
