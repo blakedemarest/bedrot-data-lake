@@ -123,8 +123,6 @@ logs/
 # Environment variables
 .env
 
-# MinIO data directory if stored locally
-minio/data/
 
 # Jupyter Lab
 .jupyter/
@@ -152,6 +150,12 @@ src/distrokid/cookies/
 src/toolost/cookies/
 src/metaads/cookies/
 src/tiktok/cookies/
+src/**/cookies/
+src/common/**/cookies/
+
+# Explicitly ignore all cookie files regardless of location
+**/*cookies*.json
+**/*.cookies.json
 
 # Spyder project settings
 .spyproject
@@ -176,3 +180,8 @@ cython_debug/
 
 #Windsurf Rules
 .windsurf
+
+# Local settings files that might contain sensitive data
+**/*.local.json
+.claude/
+**/.claude/
