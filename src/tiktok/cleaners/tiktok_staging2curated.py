@@ -20,7 +20,7 @@ import pandas as pd
 PLATFORM = "tiktok"
 PROJECT_ROOT = Path(os.environ["PROJECT_ROOT"])
 STAGING_DIR = PROJECT_ROOT / "staging"
-CURATED_DIR = PROJECT_ROOT / "curated" / PLATFORM
+CURATED_DIR = PROJECT_ROOT / "curated"
 
 # Ensure directories exist
 CURATED_DIR.mkdir(parents=True, exist_ok=True)

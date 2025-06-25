@@ -32,7 +32,7 @@ import pandas as pd
 PROJECT_ROOT = Path(os.environ["PROJECT_ROOT"])
 
 STAGING_DIR = PROJECT_ROOT / "staging" / "spotify" / "audience"
-CURATED_DIR = PROJECT_ROOT / "curated" / "spotify" / "audience"
+CURATED_DIR = PROJECT_ROOT / "curated"
 ARCHIVE_DIR = PROJECT_ROOT / "archive" / "spotify" / "audience"
 
 # Ensure all directories exist

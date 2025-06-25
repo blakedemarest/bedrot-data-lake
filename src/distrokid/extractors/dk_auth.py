@@ -6,7 +6,7 @@ import logging
 from pathlib import Path
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 from dotenv import load_dotenv
-from common.cookies import load_cookies  # <-- unified cookie/session utility
+from src.common.cookies import load_cookies  # <-- unified cookie/session utility
 
 # Load environment variables from .env if present
 load_dotenv()

@@ -15,7 +15,7 @@ import pandas as pd
 PLATFORM      = "linktree"
 PROJECT_ROOT  = Path(os.environ["PROJECT_ROOT"])
 STAGING_DIR   = PROJECT_ROOT / "staging" / PLATFORM
-CURATED_DIR   = PROJECT_ROOT / "curated" / PLATFORM
+CURATED_DIR   = PROJECT_ROOT / "curated"
 
 for _d in (STAGING_DIR, CURATED_DIR):
     _d.mkdir(parents=True, exist_ok=True)
