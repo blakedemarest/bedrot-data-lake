@@ -205,6 +205,16 @@ For full diagrams, technical details, and deep-dive documentation, see `BEDROT_D
 
 Update `.env` with your preferred credentials before starting MinIO.
 
+## Setup
+
+Use the provided script to create and activate a virtual environment with all
+project dependencies:
+
+```bash
+./setup.sh
+source .venv/bin/activate
+```
+
 ## Data Flow
 
 1. Data lands in the `landing` zone
@@ -218,7 +228,8 @@ Update `.env` with your preferred credentials before starting MinIO.
 This project uses **pytest** for the test suite. To run tests locally with coverage:
 
 ```bash
-pip install -r requirements.txt
+./setup.sh
+source .venv/bin/activate
 pytest -q --cov=src
 ```
 

@@ -1,0 +1,1344 @@
+{
+  "test_follower_data_loading": {
+    "file": "test_enhanced_schema.py",
+    "args": [],
+    "docstring": "Test loading follower JSON data.",
+    "language": "python"
+  },
+  "test_enhanced_raw_schema": {
+    "file": "test_enhanced_schema.py",
+    "args": [],
+    "docstring": "Test the enhanced raw NDJSON schema.",
+    "language": "python"
+  },
+  "test_staging_schema": {
+    "file": "test_enhanced_schema.py",
+    "args": [],
+    "docstring": "Test the enhanced staging schema.",
+    "language": "python"
+  },
+  "test_curated_schema": {
+    "file": "test_enhanced_schema.py",
+    "args": [],
+    "docstring": "Test the final enhanced curated schema.",
+    "language": "python"
+  },
+  "main": {
+    "file": "src/spotify/cleaners/spotify_raw2staging.py",
+    "args": [],
+    "docstring": "CLI entry point.",
+    "language": "python"
+  },
+  "get_all_files": {
+    "file": "src/archive_old_data.py",
+    "args": [
+      "zone"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "group_files": {
+    "file": "src/archive_old_data.py",
+    "args": [
+      "files"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "archive_old_copies": {
+    "file": "src/archive_old_data.py",
+    "args": [
+      "zone"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_launch_browser": {
+    "file": "src/toolost/extractors/toolost_scraper.py",
+    "args": [
+      "p"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_wait_for_login": {
+    "file": "src/toolost/extractors/toolost_scraper.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_goto_analytics": {
+    "file": "src/toolost/extractors/toolost_scraper.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_setup_response_capture": {
+    "file": "src/toolost/extractors/toolost_scraper.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_save_if_available": {
+    "file": "src/toolost/extractors/toolost_scraper.py",
+    "args": [
+      "key",
+      "api_results",
+      "responses",
+      "path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_select_this_year": {
+    "file": "src/toolost/extractors/toolost_scraper.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_switch_to_apple": {
+    "file": "src/toolost/extractors/toolost_scraper.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_download_sales_report": {
+    "file": "src/toolost/extractors/toolost_scraper.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "handle_response": {
+    "file": "src/linktree/extractors/linktree_analytics_extractor.py",
+    "args": [
+      "response"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_is_date": {
+    "file": "src/toolost/cleaners/toolost_landing2raw.py",
+    "args": [
+      "s"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "validate_spotify": {
+    "file": "src/toolost/cleaners/toolost_landing2raw.py",
+    "args": [
+      "obj"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "validate_apple": {
+    "file": "src/toolost/cleaners/toolost_landing2raw.py",
+    "args": [
+      "obj"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "validate_toolost_json": {
+    "file": "src/toolost/cleaners/toolost_landing2raw.py",
+    "args": [
+      "path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "__init__": {
+    "file": "src/metaads/extractors/meta_daily_campaigns_extractor.py",
+    "args": [
+      "self",
+      "db_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "log": {
+    "file": "src/tiktok/test_enhanced_pipeline.py",
+    "args": [
+      "self",
+      "message"
+    ],
+    "docstring": "Log test message.",
+    "language": "python"
+  },
+  "backup_file": {
+    "file": "src/tiktok/migrate_reach_to_views.py",
+    "args": [
+      "self",
+      "file_path"
+    ],
+    "docstring": "Create backup of file before migration.",
+    "language": "python"
+  },
+  "find_tiktok_files": {
+    "file": "src/tiktok/migrate_reach_to_views.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Find all TikTok-related CSV files that need migration.",
+    "language": "python"
+  },
+  "analyze_file": {
+    "file": "src/tiktok/migrate_reach_to_views.py",
+    "args": [
+      "self",
+      "file_path"
+    ],
+    "docstring": "Analyze a CSV file to determine migration needs.",
+    "language": "python"
+  },
+  "migrate_file": {
+    "file": "src/tiktok/migrate_reach_to_views.py",
+    "args": [
+      "self",
+      "file_path",
+      "analysis"
+    ],
+    "docstring": "Migrate a single CSV file.",
+    "language": "python"
+  },
+  "run_migration": {
+    "file": "src/tiktok/migrate_reach_to_views.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Run the complete migration process.",
+    "language": "python"
+  },
+  "demonstrate_schema": {
+    "file": "src/tiktok/demo_new_schema.py",
+    "args": [],
+    "docstring": "Show the enhanced schema with examples.",
+    "language": "python"
+  },
+  "run_command": {
+    "file": "src/tiktok/test_enhanced_pipeline.py",
+    "args": [
+      "self",
+      "command",
+      "description"
+    ],
+    "docstring": "Run a command and capture results.",
+    "language": "python"
+  },
+  "test_extractor_with_followers": {
+    "file": "src/tiktok/test_enhanced_pipeline.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Test the enhanced extractor with follower capture.",
+    "language": "python"
+  },
+  "test_pipeline_stage": {
+    "file": "src/tiktok/test_enhanced_pipeline.py",
+    "args": [
+      "self",
+      "script_path",
+      "stage_name"
+    ],
+    "docstring": "Test a single pipeline stage.",
+    "language": "python"
+  },
+  "test_data_flow": {
+    "file": "src/tiktok/test_enhanced_pipeline.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Test that data flows correctly through all pipeline stages.",
+    "language": "python"
+  },
+  "validate_curated_output": {
+    "file": "src/tiktok/test_enhanced_pipeline.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Validate the final curated output contains expected schema.",
+    "language": "python"
+  },
+  "run_full_test": {
+    "file": "src/tiktok/test_enhanced_pipeline.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Run the complete end-to-end test.",
+    "language": "python"
+  },
+  "load_cookies": {
+    "file": "src/common/cookies.py",
+    "args": [
+      "context",
+      "service_name"
+    ],
+    "docstring": "/// Inject cookies into *context* **once** per user_data_dir.\n\nParameters\n----------\ncontext\n    A Playwright ``BrowserContext`` (usually persistent).\nservice_name\n    Name of the ETL service \u2013 must match sub-directory under ``src``.",
+    "language": "python"
+  },
+  "analyze_for_follower_data": {
+    "file": "src/tiktok/test_follower_network_discovery.py",
+    "args": [
+      "self",
+      "capture",
+      "json_data"
+    ],
+    "docstring": "Analyze JSON response for potential follower count data.",
+    "language": "python"
+  },
+  "discover_profile_apis": {
+    "file": "src/tiktok/test_follower_network_discovery.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Navigate to profile page and capture network traffic.",
+    "language": "python"
+  },
+  "discover_studio_apis": {
+    "file": "src/tiktok/test_follower_network_discovery.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Navigate to TikTok Studio and capture network traffic.",
+    "language": "python"
+  },
+  "save_results": {
+    "file": "src/tiktok/test_follower_network_discovery.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Save captured network data to files for analysis.",
+    "language": "python"
+  },
+  "find_numeric_fields": {
+    "file": "src/tiktok/test_follower_network_discovery.py",
+    "args": [
+      "obj",
+      "path"
+    ],
+    "docstring": "Recursively find numeric fields that could be follower counts.",
+    "language": "python"
+  },
+  "process_account_manual_persistent": {
+    "file": "src/tiktok/extractors/tiktok_analytics_extractor_pig1987.py",
+    "args": [
+      "playwright"
+    ],
+    "docstring": "Wrapper maintaining original API while delegating to shared logic.",
+    "language": "python"
+  },
+  "load_ndjson_files": {
+    "file": "src/tiktok/cleaners/tiktok_raw2staging.py",
+    "args": [],
+    "docstring": "Find the latest NDJSON file per artist in raw directory.",
+    "language": "python"
+  },
+  "record_to_row": {
+    "file": "src/spotify/cleaners/spotify_raw2staging.py",
+    "args": [
+      "record"
+    ],
+    "docstring": "Convert a raw NDJSON record to a staging row.",
+    "language": "python"
+  },
+  "load_raw_data": {
+    "file": "src/tiktok/cleaners/tiktok_raw2staging.py",
+    "args": [
+      "files"
+    ],
+    "docstring": "Load and process NDJSON files into DataFrame.",
+    "language": "python"
+  },
+  "load_existing_staging": {
+    "file": "src/tiktok/cleaners/tiktok_raw2staging.py",
+    "args": [],
+    "docstring": "Load existing staging CSV if it exists.",
+    "language": "python"
+  },
+  "process_raw_to_staging": {
+    "file": "src/tiktok/cleaners/tiktok_raw2staging.py",
+    "args": [
+      "output_path"
+    ],
+    "docstring": "Process raw NDJSON files and create/update staging CSV.",
+    "language": "python"
+  },
+  "find_latest_zips": {
+    "file": "src/tiktok/cleaners/tiktok_landing2raw.py",
+    "args": [
+      "landing_dir"
+    ],
+    "docstring": "Find the latest ZIP file per artist in landing directory.",
+    "language": "python"
+  },
+  "load_follower_data": {
+    "file": "src/tiktok/cleaners/tiktok_landing2raw.py",
+    "args": [
+      "artist"
+    ],
+    "docstring": "Load the latest follower data JSON file for an artist.",
+    "language": "python"
+  },
+  "transform_csv_to_records": {
+    "file": "src/tiktok/cleaners/tiktok_landing2raw.py",
+    "args": [
+      "df",
+      "artist",
+      "follower_data"
+    ],
+    "docstring": "Transform CSV DataFrame to list of JSON records with optional follower data.",
+    "language": "python"
+  },
+  "process_artist_csv": {
+    "file": "src/tiktok/cleaners/tiktok_landing2raw.py",
+    "args": [
+      "csv_path",
+      "artist",
+      "start_year"
+    ],
+    "docstring": "Process a single artist's CSV file directly and return records.",
+    "language": "python"
+  },
+  "process_artist_zip": {
+    "file": "src/tiktok/cleaners/tiktok_landing2raw.py",
+    "args": [
+      "zip_path",
+      "artist",
+      "start_year"
+    ],
+    "docstring": "Process a single artist's ZIP file and return records.",
+    "language": "python"
+  },
+  "find_latest_files": {
+    "file": "src/tiktok/cleaners/tiktok_landing2raw.py",
+    "args": [
+      "landing_dir"
+    ],
+    "docstring": "Find the latest file (ZIP or CSV) per artist in landing directory.",
+    "language": "python"
+  },
+  "process_landing_files": {
+    "file": "src/tiktok/cleaners/tiktok_landing2raw.py",
+    "args": [
+      "file_path"
+    ],
+    "docstring": "Process TikTok landing files and write NDJSON to raw zone.",
+    "language": "python"
+  },
+  "load_staging_data": {
+    "file": "src/metaads/cleaners/metaads_daily_staging2curated.py",
+    "args": [],
+    "docstring": "Load latest staging data from metaads_daily_campaigns_staging files",
+    "language": "python"
+  },
+  "calculate_new_followers": {
+    "file": "src/tiktok/cleaners/tiktok_staging2curated.py",
+    "args": [
+      "df"
+    ],
+    "docstring": "Calculate new_followers column based on daily follower changes.",
+    "language": "python"
+  },
+  "curate_dataframe": {
+    "file": "src/spotify/cleaners/spotify_staging2curated.py",
+    "args": [
+      "df"
+    ],
+    "docstring": "Apply business rules and return curated dataframe.",
+    "language": "python"
+  },
+  "process_staging_to_curated": {
+    "file": "src/tiktok/cleaners/tiktok_staging2curated.py",
+    "args": [
+      "input_file"
+    ],
+    "docstring": "Process staging data and create curated output.",
+    "language": "python"
+  },
+  "_resolve_cookie_dir": {
+    "file": "src/common/cookies.py",
+    "args": [
+      "service"
+    ],
+    "docstring": "/// Return path to ``src/<service>/cookies`` (create if missing).",
+    "language": "python"
+  },
+  "_get_marker_path": {
+    "file": "src/common/cookies.py",
+    "args": [
+      "context",
+      "service"
+    ],
+    "docstring": "/// Return a marker-file path scoped to *context*'s user_data_dir.",
+    "language": "python"
+  },
+  "_load_cookie_file": {
+    "file": "src/common/cookies.py",
+    "args": [
+      "path"
+    ],
+    "docstring": "Return cookies from ``path`` normalizing invalid values.",
+    "language": "python"
+  },
+  "_collect_cookie_dicts": {
+    "file": "src/common/cookies.py",
+    "args": [
+      "cookie_dir"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "load_cookies_async": {
+    "file": "src/common/cookies.py",
+    "args": [
+      "context",
+      "service_name"
+    ],
+    "docstring": "/// Asynchronous variant of ``load_cookies`` for Playwright\n/// ``async_api`` contexts.",
+    "language": "python"
+  },
+  "df_hash": {
+    "file": "src/common/utils/hash_helpers.py",
+    "args": [
+      "df"
+    ],
+    "docstring": "Return MD5 hash of DataFrame contents.",
+    "language": "python"
+  },
+  "file_hash": {
+    "file": "src/common/utils/hash_helpers.py",
+    "args": [
+      "path"
+    ],
+    "docstring": "Return MD5 hash of file bytes.",
+    "language": "python"
+  },
+  "_import_cookies": {
+    "file": "src/common/extractors/tiktok_shared.py",
+    "args": [
+      "context",
+      "cookies_path",
+      "marker_path"
+    ],
+    "docstring": "Import cookies once per user data directory.",
+    "language": "python"
+  },
+  "_extract_follower_from_json": {
+    "file": "src/common/extractors/tiktok_shared.py",
+    "args": [
+      "json_data"
+    ],
+    "docstring": "Extract follower count from API JSON response.",
+    "language": "python"
+  },
+  "_capture_follower_data": {
+    "file": "src/common/extractors/tiktok_shared.py",
+    "args": [
+      "page",
+      "artist_name",
+      "output_dir"
+    ],
+    "docstring": "Capture follower count via network interception.",
+    "language": "python"
+  },
+  "_wait_for_analytics_page": {
+    "file": "src/common/extractors/tiktok_shared.py",
+    "args": [
+      "context",
+      "analytics_prefix"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "run_extraction": {
+    "file": "src/common/extractors/tiktok_shared.py",
+    "args": [
+      "playwright",
+      "user_data_dir",
+      "analytics_url",
+      "output_dir",
+      "cookies_path",
+      "marker_path",
+      "capture_followers",
+      "artist_name"
+    ],
+    "docstring": "Run the shared TikTok analytics extraction routine with follower capture.",
+    "language": "python"
+  },
+  "search_for_follower_count": {
+    "file": "src/common/extractors/tiktok_shared.py",
+    "args": [
+      "obj",
+      "path"
+    ],
+    "docstring": "Recursively search for follower count in nested JSON.",
+    "language": "python"
+  },
+  "on_new_page": {
+    "file": "src/common/extractors/tiktok_shared.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "test_extractor_structure": {
+    "file": "src/metaads/extractors/test_meta_extractor.py",
+    "args": [],
+    "docstring": "Test that the extractor has the correct structure and field definitions",
+    "language": "python"
+  },
+  "test_pixel_events_extraction": {
+    "file": "src/metaads/extractors/test_meta_extractor.py",
+    "args": [],
+    "docstring": "Test pixel events extraction logic",
+    "language": "python"
+  },
+  "test_campaign_activity_tracker": {
+    "file": "src/metaads/extractors/test_meta_extractor.py",
+    "args": [],
+    "docstring": "Test campaign activity tracking logic",
+    "language": "python"
+  },
+  "test_output_format": {
+    "file": "src/metaads/extractors/test_meta_extractor.py",
+    "args": [],
+    "docstring": "Test expected output format",
+    "language": "python"
+  },
+  "extract_pixel_events": {
+    "file": "src/metaads/extractors/meta_daily_campaigns_extractor.py",
+    "args": [
+      "actions"
+    ],
+    "docstring": "Extract and aggregate Meta Pixel events from actions data",
+    "language": "python"
+  },
+  "_init_db": {
+    "file": "src/metaads/extractors/meta_daily_campaigns_extractor.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Initialize SQLite database for campaign activity tracking",
+    "language": "python"
+  },
+  "get_active_campaigns": {
+    "file": "src/metaads/extractors/meta_daily_campaigns_extractor.py",
+    "args": [
+      "self"
+    ],
+    "docstring": "Get list of campaigns that should be queried (not inactive for 7+ days)",
+    "language": "python"
+  },
+  "update_campaign_activity": {
+    "file": "src/metaads/extractors/meta_daily_campaigns_extractor.py",
+    "args": [
+      "self",
+      "campaign_id",
+      "has_data",
+      "date"
+    ],
+    "docstring": "Update campaign activity status",
+    "language": "python"
+  },
+  "fetch_all": {
+    "file": "src/metaads/extractors/meta_raw_dump.py",
+    "args": [
+      "edge_method",
+      "fields",
+      "params"
+    ],
+    "docstring": "/// Call edge_method (e.g. account.get_campaigns) then auto-page through\n/// results. Returns a list of fully-expanded dicts ready for JSON dump.",
+    "language": "python"
+  },
+  "retry_api_call": {
+    "file": "src/metaads/extractors/meta_daily_campaigns_extractor.py",
+    "args": [
+      "func",
+      "max_retries",
+      "delay"
+    ],
+    "docstring": "Retry API calls with exponential backoff for rate limits",
+    "language": "python"
+  },
+  "fetch_campaign_daily_insights": {
+    "file": "src/metaads/extractors/meta_daily_campaigns_extractor.py",
+    "args": [
+      "campaign_id",
+      "date_start",
+      "date_end"
+    ],
+    "docstring": "Fetch daily insights for a specific campaign using working API patterns",
+    "language": "python"
+  },
+  "get_all_campaigns": {
+    "file": "src/metaads/extractors/meta_daily_campaigns_extractor.py",
+    "args": [],
+    "docstring": "Get all campaigns from the ad account using working API patterns",
+    "language": "python"
+  },
+  "_fetch": {
+    "file": "src/metaads/extractors/meta_daily_campaigns_extractor.py",
+    "args": [],
+    "docstring": "",
+    "language": "python"
+  },
+  "create_campaigns_metadata": {
+    "file": "src/metaads/cleaners/metaads_daily_staging2curated.py",
+    "args": [
+      "df"
+    ],
+    "docstring": "Create campaigns metadata CSV (metaads_campaigns_daily.csv)",
+    "language": "python"
+  },
+  "create_performance_log": {
+    "file": "src/metaads/cleaners/metaads_daily_staging2curated.py",
+    "args": [
+      "df"
+    ],
+    "docstring": "Create daily performance log with 28-day rolling history",
+    "language": "python"
+  },
+  "archive_existing_files": {
+    "file": "src/metaads/cleaners/metaads_daily_staging2curated.py",
+    "args": [],
+    "docstring": "Archive existing curated files with timestamp",
+    "language": "python"
+  },
+  "curate_dataframes": {
+    "file": "src/metaads/cleaners/metaads_daily_staging2curated.py",
+    "args": [
+      "staging_df"
+    ],
+    "docstring": "Apply business rules and create both curated datasets",
+    "language": "python"
+  },
+  "stack": {
+    "file": "src/metaads/cleaners/metaads_raw2staging.py",
+    "args": [
+      "folders",
+      "fname"
+    ],
+    "docstring": "/// Load a JSON file type from every folder, concat, and deduplicate.",
+    "language": "python"
+  },
+  "process_raw_files": {
+    "file": "src/metaads/cleaners/metaads_daily_raw2staging.py",
+    "args": [],
+    "docstring": "Process all raw NDJSON files and build staging DataFrame",
+    "language": "python"
+  },
+  "folder_hash": {
+    "file": "src/metaads/cleaners/metaads_landing2raw.py",
+    "args": [
+      "folder"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "is_valid": {
+    "file": "src/metaads/cleaners/metaads_landing2raw.py",
+    "args": [
+      "folder"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "transform_daily_campaign_record": {
+    "file": "src/metaads/cleaners/metaads_daily_landing2raw.py",
+    "args": [
+      "row"
+    ],
+    "docstring": "Transform daily campaign CSV row to standardized raw format",
+    "language": "python"
+  },
+  "process_daily_campaign_file": {
+    "file": "src/metaads/cleaners/metaads_daily_landing2raw.py",
+    "args": [
+      "file_path"
+    ],
+    "docstring": "Process single daily campaign CSV file",
+    "language": "python"
+  },
+  "_launch_context": {
+    "file": "src/distrokid/extractors/dk_auth.py",
+    "args": [
+      "p"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_perform_login": {
+    "file": "src/distrokid/extractors/dk_auth.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_wait_for_dashboard": {
+    "file": "src/distrokid/extractors/dk_auth.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_download_stats": {
+    "file": "src/distrokid/extractors/dk_auth.py",
+    "args": [
+      "page",
+      "output_dir",
+      "dt_str"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "login_distrokid": {
+    "file": "src/distrokid/extractors/dk_auth.py",
+    "args": [],
+    "docstring": "/// Automates login to DistroKid, including 2FA, and persists session for\n/// future use. Credentials are read from environment variables DK_EMAIL and\n/// DK_PASSWORD. If 2FA is required, the user will be prompted to enter the\n/// code manually in the browser.",
+    "language": "python"
+  },
+  "test_login_distrokid": {
+    "file": "src/distrokid/extractors/dk_auth.py",
+    "args": [],
+    "docstring": "/// Test to verify if the login session is valid and can access the stats\n/// page without manual intervention.",
+    "language": "python"
+  },
+  "_html_ok": {
+    "file": "src/distrokid/cleaners/distrokid_landing2raw.py",
+    "args": [
+      "path",
+      "pattern"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "validate_streams_html": {
+    "file": "src/distrokid/cleaners/distrokid_landing2raw.py",
+    "args": [
+      "p"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "validate_apple_html": {
+    "file": "src/distrokid/cleaners/distrokid_landing2raw.py",
+    "args": [
+      "p"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "validate_tsv": {
+    "file": "src/distrokid/cleaners/distrokid_landing2raw.py",
+    "args": [
+      "p"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_copy_if_new": {
+    "file": "src/distrokid/cleaners/distrokid_landing2raw.py",
+    "args": [
+      "src",
+      "dst_dir"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "fhash": {
+    "file": "src/distrokid/cleaners/distrokid_staging2curated.py",
+    "args": [
+      "p"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "dfhash": {
+    "file": "src/distrokid/cleaners/distrokid_staging2curated.py",
+    "args": [
+      "df"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_click_with_retry": {
+    "file": "src/linktree/extractors/linktree_analytics_extractor.py",
+    "args": [
+      "page",
+      "selector",
+      "retries",
+      "wait_state"
+    ],
+    "docstring": "/// Attempt to click the FIRST matching element with retries and wait\n/// for it to be ready.",
+    "language": "python"
+  },
+  "_setup_browser": {
+    "file": "src/linktree/extractors/linktree_analytics_extractor.py",
+    "args": [
+      "p"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_await_dashboard": {
+    "file": "src/linktree/extractors/linktree_analytics_extractor.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_select_last_365_days": {
+    "file": "src/linktree/extractors/linktree_analytics_extractor.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "transform_response": {
+    "file": "src/linktree/cleaners/linktree_landing2raw.py",
+    "args": [
+      "payload"
+    ],
+    "docstring": "Flatten GraphQL responses - handle multiple possible structures.",
+    "language": "python"
+  },
+  "process_file": {
+    "file": "src/linktree/cleaners/linktree_landing2raw.py",
+    "args": [
+      "in_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "load_staging": {
+    "file": "src/linktree/cleaners/linktree_staging2curated.py",
+    "args": [
+      "files"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "extract_timeseries_rows": {
+    "file": "src/linktree/cleaners/linktree_raw2staging.py",
+    "args": [
+      "obj"
+    ],
+    "docstring": "Given a JSON object from NDJSON, return a list of flattened rows.\n\n/// Scenarios handled:\n/// 1. Object **already** represents a flattened row (has top-level\n///    \"date\"). Return [obj].\n/// 2. Object is a full GraphQL payload with structure\n///    data\u2192getAccountAnalytics\u2192overview\u2192timeseries. Return list of\n///    flattened dicts extracted from the timeseries array.\n/// 3. Any other structure \u2192 returns empty list.",
+    "language": "python"
+  },
+  "build_dataframe": {
+    "file": "src/linktree/cleaners/linktree_raw2staging.py",
+    "args": [
+      "files"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "_click": {
+    "file": "src/spotify/extractors/spotify_audience_extractor.py",
+    "args": [
+      "page",
+      "selector",
+      "desc",
+      "retries"
+    ],
+    "docstring": "Click the first element matching *selector* with basic retry.",
+    "language": "python"
+  },
+  "_wait_for_audience_nav": {
+    "file": "src/spotify/extractors/spotify_audience_extractor.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "Ensure the Audience nav link is present \u2013 indicates authenticated state.",
+    "language": "python"
+  },
+  "_login_if_needed": {
+    "file": "src/spotify/extractors/spotify_audience_extractor.py",
+    "args": [
+      "page",
+      "artist_url"
+    ],
+    "docstring": "Navigate to *artist_url* and wait for login (incl. 2FA) if necessary.",
+    "language": "python"
+  },
+  "_apply_12_month_filter": {
+    "file": "src/spotify/extractors/spotify_audience_extractor.py",
+    "args": [
+      "page"
+    ],
+    "docstring": "Open the filter chip, pick 12-month option, click Done.",
+    "language": "python"
+  },
+  "_download_csv": {
+    "file": "src/spotify/extractors/spotify_audience_extractor.py",
+    "args": [
+      "page",
+      "artist_id"
+    ],
+    "docstring": "Trigger CSV download and return path of saved file.",
+    "language": "python"
+  },
+  "_load_staging_files": {
+    "file": "src/spotify/cleaners/spotify_staging2curated.py",
+    "args": [
+      "paths"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "archive_existing_curated": {
+    "file": "src/spotify/cleaners/spotify_staging2curated.py",
+    "args": [],
+    "docstring": "Archive any existing curated CSV files before creating new one.",
+    "language": "python"
+  },
+  "run": {
+    "file": "src/spotify/cleaners/spotify_raw2staging.py",
+    "args": [
+      "output_path"
+    ],
+    "docstring": "Main processing function.",
+    "language": "python"
+  },
+  "process_csv_file": {
+    "file": "src/spotify/cleaners/spotify_landing2raw.py",
+    "args": [
+      "csv_path"
+    ],
+    "docstring": "Process a single CSV file from landing to raw.",
+    "language": "python"
+  },
+  "extract_artist_info": {
+    "file": "src/spotify/cleaners/spotify_landing2raw.py",
+    "args": [
+      "filename"
+    ],
+    "docstring": "Extract artist ID and friendly name from filename.",
+    "language": "python"
+  },
+  "transform_csv_record": {
+    "file": "src/spotify/cleaners/spotify_landing2raw.py",
+    "args": [
+      "row",
+      "artist_id",
+      "artist_name",
+      "source_file"
+    ],
+    "docstring": "Transform a single CSV row into a raw record.",
+    "language": "python"
+  },
+  "validate_and_clean_dataframe": {
+    "file": "src/spotify/cleaners/spotify_raw2staging.py",
+    "args": [
+      "df"
+    ],
+    "docstring": "Validate and clean the staging dataframe.",
+    "language": "python"
+  },
+  "process_ndjson_file": {
+    "file": "src/spotify/cleaners/spotify_raw2staging.py",
+    "args": [
+      "ndjson_path"
+    ],
+    "docstring": "Process a single NDJSON file and return list of records.",
+    "language": "python"
+  },
+  "get_module": {
+    "file": "tests/distrokid/test_placeholder.py",
+    "args": [
+      "tmp_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "test_group_files": {
+    "file": "tests/test_archive_old_data.py",
+    "args": [
+      "tmp_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "sample_dataframe": {
+    "file": "tests/conftest.py",
+    "args": [],
+    "docstring": "",
+    "language": "python"
+  },
+  "project_root": {
+    "file": "tests/conftest.py",
+    "args": [
+      "tmp_path",
+      "monkeypatch"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "test_placeholder": {
+    "file": "tests/linktree/test_placeholder.py",
+    "args": [],
+    "docstring": "",
+    "language": "python"
+  },
+  "get_staging_module": {
+    "file": "tests/metaads/test_placeholder.py",
+    "args": [
+      "tmp_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "test_df_hash_matches_file_hash": {
+    "file": "tests/metaads/test_placeholder.py",
+    "args": [
+      "tmp_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "get_raw_module": {
+    "file": "tests/metaads/test_placeholder.py",
+    "args": [
+      "tmp_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "test_stack_deduplicates_on_id": {
+    "file": "tests/metaads/test_placeholder.py",
+    "args": [
+      "tmp_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "test_validate_streams_html": {
+    "file": "tests/distrokid/test_placeholder.py",
+    "args": [
+      "tmp_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "test_validate_apple_html": {
+    "file": "tests/distrokid/test_placeholder.py",
+    "args": [
+      "tmp_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "test_validate_tsv": {
+    "file": "tests/distrokid/test_placeholder.py",
+    "args": [
+      "tmp_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "test_copy_if_new": {
+    "file": "tests/distrokid/test_placeholder.py",
+    "args": [
+      "tmp_path"
+    ],
+    "docstring": "",
+    "language": "python"
+  },
+  "get_connection": {
+    "file": "etl/etl_streaming_performance.py",
+    "args": [],
+    "docstring": "Get database connection with optimized settings.",
+    "language": "python"
+  },
+  "get_artist_map": {
+    "file": "etl/etl_streaming_performance.py",
+    "args": [
+      "conn"
+    ],
+    "docstring": "Get artist name to ID mapping.",
+    "language": "python"
+  },
+  "get_platform_map": {
+    "file": "etl/etl_streaming_performance.py",
+    "args": [
+      "conn"
+    ],
+    "docstring": "Get platform name to ID mapping.",
+    "language": "python"
+  },
+  "normalize_artist_name": {
+    "file": "etl/etl_streaming_performance.py",
+    "args": [
+      "artist_name"
+    ],
+    "docstring": "Normalize artist name with proper handling of variations and collaborations.",
+    "language": "python"
+  },
+  "extract_tiktok_performance_data": {
+    "file": "etl/etl_social_media_performance.py",
+    "args": [],
+    "docstring": "Extract social media performance from TikTok analytics data.",
+    "language": "python"
+  },
+  "load_social_media_performance": {
+    "file": "etl/etl_social_media_performance.py",
+    "args": [
+      "conn",
+      "performance_data",
+      "artist_map",
+      "platform_map"
+    ],
+    "docstring": "Load social media performance data into database.",
+    "language": "python"
+  },
+  "run_social_media_etl": {
+    "file": "etl/etl_social_media_performance.py",
+    "args": [],
+    "docstring": "Run complete social media performance ETL pipeline.",
+    "language": "python"
+  },
+  "extract_artists_from_csvs": {
+    "file": "etl/etl_master_data.py",
+    "args": [],
+    "docstring": "Extract unique artist names from all CSV sources.",
+    "language": "python"
+  },
+  "extract_tracks_from_csvs": {
+    "file": "etl/etl_master_data.py",
+    "args": [],
+    "docstring": "Extract unique tracks with metadata from CSV sources.",
+    "language": "python"
+  },
+  "load_artists": {
+    "file": "etl/etl_master_data.py",
+    "args": [
+      "conn",
+      "artists"
+    ],
+    "docstring": "Load artists into database and return name -> id mapping.",
+    "language": "python"
+  },
+  "load_tracks": {
+    "file": "etl/etl_master_data.py",
+    "args": [
+      "conn",
+      "tracks",
+      "artist_map"
+    ],
+    "docstring": "Load tracks into database and return (artist, title) -> id mapping.",
+    "language": "python"
+  },
+  "update_spotify_artist_ids": {
+    "file": "etl/etl_master_data.py",
+    "args": [
+      "conn",
+      "artist_map"
+    ],
+    "docstring": "Update Spotify artist IDs from Spotify audience data.",
+    "language": "python"
+  },
+  "run_master_data_etl": {
+    "file": "etl/etl_master_data.py",
+    "args": [],
+    "docstring": "Run complete master data ETL pipeline.",
+    "language": "python"
+  },
+  "show_master_data_summary": {
+    "file": "etl/etl_master_data.py",
+    "args": [],
+    "docstring": "Display summary of loaded master data.",
+    "language": "python"
+  },
+  "get_track_map": {
+    "file": "etl/etl_financial_data.py",
+    "args": [
+      "conn"
+    ],
+    "docstring": "Get track title to ID mapping.",
+    "language": "python"
+  },
+  "extract_distrokid_financial_data": {
+    "file": "etl/etl_financial_data.py",
+    "args": [],
+    "docstring": "Extract financial transactions from DistroKid bank details.",
+    "language": "python"
+  },
+  "extract_capitol_one_financial_data": {
+    "file": "etl/etl_financial_data.py",
+    "args": [],
+    "docstring": "Extract financial transactions from Capitol One banking data.",
+    "language": "python"
+  },
+  "load_financial_transactions": {
+    "file": "etl/etl_financial_data.py",
+    "args": [
+      "conn",
+      "transactions",
+      "artist_map",
+      "platform_map",
+      "track_map"
+    ],
+    "docstring": "Load financial transactions into database.",
+    "language": "python"
+  },
+  "run_financial_etl": {
+    "file": "etl/etl_financial_data.py",
+    "args": [],
+    "docstring": "Run complete financial data ETL pipeline.",
+    "language": "python"
+  },
+  "run_complete_etl_pipeline": {
+    "file": "etl/run_all_etl.py",
+    "args": [],
+    "docstring": "Run all ETL pipelines in proper dependency order.",
+    "language": "python"
+  },
+  "show_final_database_summary": {
+    "file": "etl/run_all_etl.py",
+    "args": [],
+    "docstring": "Show final summary of loaded data.",
+    "language": "python"
+  },
+  "extract_spotify_performance_data": {
+    "file": "etl/etl_streaming_performance.py",
+    "args": [],
+    "docstring": "Extract streaming performance from Spotify audience data.",
+    "language": "python"
+  },
+  "load_streaming_performance": {
+    "file": "etl/etl_streaming_performance.py",
+    "args": [
+      "conn",
+      "performance_data",
+      "artist_map",
+      "platform_map"
+    ],
+    "docstring": "Load streaming performance data into database.",
+    "language": "python"
+  },
+  "run_streaming_performance_etl": {
+    "file": "etl/etl_streaming_performance.py",
+    "args": [],
+    "docstring": "Run complete streaming performance ETL pipeline.",
+    "language": "python"
+  }
+}
