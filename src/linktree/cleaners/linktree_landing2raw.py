@@ -12,8 +12,12 @@ from pathlib import Path
 PLATFORM = "linktree"
 PROJECT_ROOT = Path(os.environ["PROJECT_ROOT"])
 
-LANDING_DIR = PROJECT_ROOT / "landing" / PLATFORM
-RAW_DIR     = PROJECT_ROOT / "raw"      / PLATFORM
+# Use environment variables for zone names
+LANDING_ZONE = os.environ.get("LANDING_ZONE", "landing")
+RAW_ZONE = os.environ.get("RAW_ZONE", "raw")
+
+LANDING_DIR = PROJECT_ROOT / LANDING_ZONE / PLATFORM
+RAW_DIR     = PROJECT_ROOT / RAW_ZONE / PLATFORM
 
 for _dir in (LANDING_DIR, RAW_DIR):
     _dir.mkdir(parents=True, exist_ok=True)
@@ -93,7 +97,7 @@ def main():
     files = (
         [Path(args.file)]
         if args.file else
-        sorted(LANDING_DIR.glob("*.json"))
+        sorted((LANDING_DIR / "analytics").glob("*.json"))
     )
 
     total_rows = 0

@@ -22,8 +22,12 @@ import pandas as pd
 PLATFORM = "linktree"
 PROJECT_ROOT = Path(os.environ["PROJECT_ROOT"])
 
-RAW_DIR = PROJECT_ROOT / "raw" / PLATFORM / "analytics"  # ← must match landing2raw output
-STAGING_DIR = PROJECT_ROOT / "staging" / PLATFORM
+# Use environment variables for zone names
+RAW_ZONE = os.environ.get("RAW_ZONE", "raw")
+STAGING_ZONE = os.environ.get("STAGING_ZONE", "staging")
+
+RAW_DIR = PROJECT_ROOT / RAW_ZONE / PLATFORM / "analytics"  # ← must match landing2raw output
+STAGING_DIR = PROJECT_ROOT / STAGING_ZONE / PLATFORM
 
 for _d in (RAW_DIR, STAGING_DIR):
     _d.mkdir(parents=True, exist_ok=True)

@@ -122,6 +122,9 @@ logs/
 
 # Environment variables
 .env
+.env.*
+.env.backup*
+*.env.backup*
 
 
 # Jupyter Lab
