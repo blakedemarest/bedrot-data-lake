@@ -14,8 +14,14 @@ import pandas as pd
 
 PLATFORM      = "linktree"
 PROJECT_ROOT  = Path(os.environ["PROJECT_ROOT"])
-STAGING_DIR   = PROJECT_ROOT / "staging" / PLATFORM
-CURATED_DIR   = PROJECT_ROOT / "curated"
+
+# Use environment variables for zone names
+STAGING_ZONE = os.environ.get("STAGING_ZONE", "staging")
+CURATED_ZONE = os.environ.get("CURATED_ZONE", "curated")
+ARCHIVE_ZONE = os.environ.get("ARCHIVE_ZONE", "archive")
+
+STAGING_DIR   = PROJECT_ROOT / STAGING_ZONE / PLATFORM
+CURATED_DIR   = PROJECT_ROOT / CURATED_ZONE
 
 for _d in (STAGING_DIR, CURATED_DIR):
     _d.mkdir(parents=True, exist_ok=True)
@@ -62,38 +68,21 @@ def main():
     df_raw = load_staging(files)
     df_cur = curate_dataframe(df_raw)
 
-    ts   = datetime.now().strftime("%Y%m%d_%H%M%S")
-    stem = f"linktree_analytics_curated_{ts}"
+    # Archive existing file if it exists
+    ARCHIVE_DIR = PROJECT_ROOT / ARCHIVE_ZONE / PLATFORM
+    ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
+    
+    existing_file = CURATED_DIR / "linktree_analytics.csv"
+    if existing_file.exists():
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        archive_name = f"linktree_analytics_archived_{ts}.csv"
+        move(str(existing_file), ARCHIVE_DIR / archive_name)
+        print(f"[ARCHIVE] Moved existing file to {ARCHIVE_DIR.relative_to(PROJECT_ROOT)}/{archive_name}")
 
-    # CSV
-    csv_path = CURATED_DIR / f"{stem}.csv"
+    # Write new CSV with fixed name
+    csv_path = CURATED_DIR / "linktree_analytics.csv"
     df_cur.to_csv(csv_path, index=False, encoding="utf-8")
     print(f"[CURATED] CSV → {csv_path.name}  ({len(df_cur)} rows)")
-
-    # Parquet (optional)
-    pq_path = CURATED_DIR / f"{stem}.parquet"
-    try:
-        pq_path = CURATED_DIR / f"{stem}.parquet"
-        df_cur.to_parquet(pq_path, index=False)
-        print(f"[CURATED] Parquet → {pq_path.name}")
-    except Exception as e:
-        print(f"[ERROR] Parquet write failed: {e} (CSV still produced)")
-
-    # ---- Deduplication & Archiving ----
-    ARCHIVE_DIR = PROJECT_ROOT / "archive" / PLATFORM
-    ARCHIVE_DIR.mkdir(parents=True, exist_ok=True)
-
-    # Move older CSV files
-    for f in CURATED_DIR.glob("linktree_analytics_curated_*.csv"):
-        if f.name != csv_path.name:
-            move(str(f), ARCHIVE_DIR / f.name)
-
-    # Move older Parquet files
-    for f in CURATED_DIR.glob("linktree_analytics_curated_*.parquet"):
-        if pq_path.exists() and f.name != pq_path.name:
-            move(str(f), ARCHIVE_DIR / f.name)
-
-    print(f"[CLEANUP] Archived older curated files → {ARCHIVE_DIR.relative_to(PROJECT_ROOT)}")
 
 if __name__ == "__main__":
     main()

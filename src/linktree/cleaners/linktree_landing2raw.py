@@ -42,7 +42,7 @@ def transform_response(payload: dict) -> list[dict]:
             "clickThroughRate":  r.get("clickThroughRate"),
             "__typename":        r.get("__typename")
         } for r in ts_rows]
-    except (KeyError, TypeError):
+    except (KeyError, TypeError) as e:
         pass
     
     # Try alternative structures or extract any data arrays found
@@ -67,7 +67,10 @@ def transform_response(payload: dict) -> list[dict]:
     return [{"raw_payload": payload, "needs_analysis": True}]
 
 def process_file(in_path: Path) -> int:
-    out_path = RAW_DIR / f"{in_path.stem}.ndjson"
+    # Ensure analytics subdirectory exists in raw
+    analytics_dir = RAW_DIR / "analytics"
+    analytics_dir.mkdir(parents=True, exist_ok=True)
+    out_path = analytics_dir / f"{in_path.stem}.ndjson"
     written  = 0
     try:
         with in_path.open("r", encoding="utf-8") as f:
