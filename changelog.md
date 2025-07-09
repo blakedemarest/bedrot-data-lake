@@ -856,3 +856,23 @@ Flattened the `curated` directory by removing all subfolders and updated all `st
 - Add or update unit tests for staging-to-curated path logic.  
 - Archive existing subfoldered CSVs according to new convention.
 --- END CHANGELOG ENTRY ---
+
+--- CHANGELOG ENTRY (PIN THIS) ---
+# Change ID
+2025-06-25-distrokid-restructure
+
+# What Changed
+Relocated the DistroKid code from `src/common/distrokid/` to `src/distrokid/`, updated the import in `dk_auth.py`, removed all broken references, and confirmed it’s auto-discovered by the data-lake pipeline.
+
+# Impact
+- Pipeline now includes DistroKid alongside other platforms  
+- Import paths fully functional  
+- No new dependencies  
+- May require updating any path-validation tests
+
+# Follow-ups
+- Remove the old `src/common/distrokid/` directory  
+- Update the project README and run_datalake docs  
+- Add or adjust unit tests for DistroKid path handling  
+--- END CHANGELOG ENTRY ---
+

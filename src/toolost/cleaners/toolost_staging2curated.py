@@ -7,7 +7,7 @@ import datetime, shutil
 from dotenv import load_dotenv
 import pandas as pd
 
-from src.common.utils.hash_helpers import df_hash, file_hash
+from common.utils.hash_helpers import df_hash, file_hash
 
 load_dotenv()
 PROJECT_ROOT = Path(os.getenv("PROJECT_ROOT"))

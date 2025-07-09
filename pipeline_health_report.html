@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BEDROT Pipeline Health Report</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1, h2 { color: #333; }
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 4px; font-weight: bold; color: white; }
+        .status-healthy { background: #28a745; }
+        .status-warning { background: #ffc107; color: #333; }
+        .status-critical { background: #dc3545; }
+        .status-failed { background: #6c757d; }
+        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0; }
+        .service-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; }
+        .service-card.critical { border-color: #dc3545; background: #f8d7da; }
+        .service-card.warning { border-color: #ffc107; background: #fff3cd; }
+        .service-card.healthy { border-color: #28a745; background: #d4edda; }
+        .metric { margin: 10px 0; }
+        .metric-label { font-weight: bold; color: #666; }
+        .action-item { margin: 5px 0; padding: 8px; background: #e9ecef; border-radius: 4px; }
+        .urgent { background: #f8d7da; border-left: 4px solid #dc3545; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { padding: 10px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #f8f9fa; font-weight: bold; }
+        .timestamp { color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>BEDROT Pipeline Health Report</h1>
+        <p class="timestamp">Generated: 2025-07-09 07:34:58</p>
+        
+        <div style="margin: 20px 0; padding: 15px; background: ##f8d7da; border-radius: 8px;">
+            <h2 style="margin: 0;">Overall Status: <span class="status-badge status-critical">CRITICAL</span></h2>
+            <p style="margin: 10px 0 0 0;">Auto-Remediation: <strong>Disabled</strong></p>
+        </div>
+        
+        <h2>Service Health Overview</h2>
+        <div class="service-grid">
+
+            <div class="service-card warning">
+                <h3>SPOTIFY <span class="status-badge status-warning">70%</span></h3>
+                <div class="metric">
+                    <span class="metric-label">Priority:</span> HIGH
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Cookie Status:</span> valid
+                     (expires in 8 days)
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Data Age:</span> 
+                    5 days
+                </div>
+                <div class="metric"><span class="metric-label">Bottlenecks:</span> 1</div>
+            </div>
+
+            <div class="service-card critical">
+                <h3>TIKTOK <span class="status-badge status-critical">40%</span></h3>
+                <div class="metric">
+                    <span class="metric-label">Priority:</span> HIGH
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Cookie Status:</span> multiple
+                    
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Data Age:</span> 
+                    14 days
+                </div>
+                <div class="metric"><span class="metric-label">Bottlenecks:</span> 2</div>
+            </div>
+
+            <div class="service-card critical">
+                <h3>DISTROKID <span class="status-badge status-critical">55%</span></h3>
+                <div class="metric">
+                    <span class="metric-label">Priority:</span> MEDIUM
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Cookie Status:</span> valid
+                     (expires in 3 days)
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Data Age:</span> 
+                    5 days
+                </div>
+                <div class="metric"><span class="metric-label">Bottlenecks:</span> 2</div>
+            </div>
+
+            <div class="service-card critical">
+                <h3>TOOLOST <span class="status-badge status-critical">55%</span></h3>
+                <div class="metric">
+                    <span class="metric-label">Priority:</span> CRITICAL
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Cookie Status:</span> valid
+                     (expires in 7 days)
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Data Age:</span> 
+                    0 days
+                </div>
+                <div class="metric"><span class="metric-label">Bottlenecks:</span> 3</div>
+            </div>
+
+            <div class="service-card critical">
+                <h3>LINKTREE <span class="status-badge status-critical">55%</span></h3>
+                <div class="metric">
+                    <span class="metric-label">Priority:</span> MEDIUM
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Cookie Status:</span> valid
+                     (expires in 3 days)
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Data Age:</span> 
+                    7 days
+                </div>
+                <div class="metric"><span class="metric-label">Bottlenecks:</span> 2</div>
+            </div>
+
+            <div class="service-card failed">
+                <h3>METAADS <span class="status-badge status-failed">28%</span></h3>
+                <div class="metric">
+                    <span class="metric-label">Priority:</span> LOW
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Cookie Status:</span> missing
+                    
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Data Age:</span> 
+                    14 days
+                </div>
+                <div class="metric"><span class="metric-label">Bottlenecks:</span> 1</div>
+            </div>
+
+        </div>
+        
+        <h2>Action Items</h2>
+<h3>Urgent Actions Required</h3><div class="action-item urgent"><strong>[tiktok]</strong> ⚠️ URGENT: Run tiktok extractor (last data: 14 days ago)</div><div class="action-item urgent"><strong>[tiktok]</strong> Run cleaners for tiktok</div><div class="action-item urgent"><strong>[distrokid]</strong> Consider refreshing distrokid cookies (expires in 3 days)</div><div class="action-item urgent"><strong>[distrokid]</strong> Run distrokid extractor (last data: 5 days ago)</div><div class="action-item urgent"><strong>[distrokid]</strong> Run cleaners for distrokid</div><div class="action-item urgent"><strong>[toolost]</strong> Run cleaners for toolost</div><div class="action-item urgent"><strong>[linktree]</strong> Consider refreshing linktree cookies (expires in 3 days)</div><div class="action-item urgent"><strong>[linktree]</strong> Run linktree extractor (last data: 7 days ago)</div><div class="action-item urgent"><strong>[linktree]</strong> Run cleaners for linktree</div><div class="action-item urgent"><strong>[metaads]</strong> Run manual authentication for metaads</div><div class="action-item urgent"><strong>[metaads]</strong> ⚠️ URGENT: Run metaads extractor (last data: 14 days ago)</div><div class="action-item urgent"><strong>[metaads]</strong> Run cleaners for metaads</div><h3>Recommended Actions</h3><div class="action-item"><strong>[spotify]</strong> Run spotify extractor (last data: 5 days ago)</div><div class="action-item"><strong>[spotify]</strong> Run cleaners for spotify</div>
+        <h2>Auto-Remediation Log</h2>
+        <table>
+            <tr>
+                <th>Service</th>
+                <th>Action</th>
+                <th>Status</th>
+                <th>Message</th>
+            </tr>
+</table>
+    </div>
+</body>
+</html>

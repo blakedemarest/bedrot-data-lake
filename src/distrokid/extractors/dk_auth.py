@@ -125,6 +125,35 @@ def login_distrokid():
             dt_str = datetime.now().strftime("%Y%m%d_%H%M%S")
             _download_stats(page, output_dir, dt_str)
 
+            print("Saving updated cookies...")
+            # Save updated cookies
+            cookies = browser.cookies()
+            import json
+            cookie_dir = Path(PROJECT_ROOT) / "src" / "distrokid" / "cookies"
+            cookie_dir.mkdir(parents=True, exist_ok=True)
+            cookie_file = cookie_dir / "distrokid_cookies.json"
+            
+            # Filter cookies to only include DistroKid-related ones
+            distrokid_cookies = []
+            for cookie in cookies:
+                if 'distrokid' in cookie.get('domain', ''):
+                    distrokid_cookies.append(cookie)
+            
+            if distrokid_cookies:
+                # Backup existing file if it exists
+                if cookie_file.exists():
+                    backup_file = cookie_dir / "distrokid_cookies.backup.json"
+                    import shutil
+                    shutil.copy2(cookie_file, backup_file)
+                    logging.info("Backed up existing cookies.")
+                
+                # Write new cookies
+                with open(cookie_file, 'w') as f:
+                    json.dump(distrokid_cookies, f, indent=2)
+                logging.info(f"Saved {len(distrokid_cookies)} DistroKid cookies to {cookie_file}")
+            else:
+                logging.warning("No DistroKid cookies found to save.")
+
             print("All downloads complete. Closing browser...")
             browser.close()
             logging.info("Browser closed automatically after successful data capture.")

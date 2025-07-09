@@ -15,10 +15,25 @@ STAGING = PROJECT_ROOT / os.getenv("STAGING_ZONE", "staging")
 
 # %%
 # ─── Cell 2: Locate Latest Spotify & Apple JSONs in RAW ─────────────────────────
-raw_dir = RAW / "toolost" / "streams"
-spotify_files = sorted(raw_dir.glob("toolost_spotify_*.json"), key=lambda p: p.stat().st_mtime, reverse=True)
-apple_files   = sorted(raw_dir.glob("toolost_apple_*.json")  , key=lambda p: p.stat().st_mtime, reverse=True)
-assert spotify_files and apple_files, "No TooLost JSON files found in raw/toolost/streams."
+# Check both possible locations for TooLost files
+locations = [
+    RAW / "toolost" / "streams",  # Original location
+    RAW / "toolost"                # New location
+]
+
+spotify_files = []
+apple_files = []
+
+for location in locations:
+    if location.exists():
+        spotify_files.extend(sorted(location.glob("toolost_spotify_*.json"), key=lambda p: p.stat().st_mtime, reverse=True))
+        apple_files.extend(sorted(location.glob("toolost_apple_*.json"), key=lambda p: p.stat().st_mtime, reverse=True))
+
+# Sort all files by modification time
+spotify_files = sorted(spotify_files, key=lambda p: p.stat().st_mtime, reverse=True)
+apple_files = sorted(apple_files, key=lambda p: p.stat().st_mtime, reverse=True)
+
+assert spotify_files and apple_files, "No TooLost JSON files found in raw/toolost/streams or raw/toolost."
 
 with spotify_files[0].open(encoding="utf-8") as f:
     spotify_data = json.load(f)

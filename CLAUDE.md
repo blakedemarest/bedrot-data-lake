@@ -1,16 +1,19 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides comprehensive guidance to Claude Code (claude.ai/code) when working with the BEDROT Data Ecosystem. Last updated: 2025-07-08
 
-## Path Warning
+## Critical Path Warning ⚠️
 
-AI agents often mix up these two directories:
+AI agents often confuse these directories:
 
-`C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE`
+**WRONG**: `C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE`  
+**CORRECT**: `C:\Users\Earth\BEDROT PRODUCTIONS\bedrot-data-ecosystem\data_lake`
 
-`C:\Users\Earth\BEDROT PRODUCTIONS\BEDROT DATA LAKE\data_lake`
+The correct ecosystem path is: `C:\Users\Earth\BEDROT PRODUCTIONS\bedrot-data-ecosystem\`
+- Data Lake: `bedrot-data-ecosystem\data_lake\`
+- Data Warehouse: `bedrot-data-ecosystem\data-warehouse\`
 
-Be sure you're working in the correct folder before running any commands.
+Always verify you're in the correct directory before running commands!
 
 ## Project Overview
 
@@ -30,6 +33,11 @@ pytest -ra --cov=src --cov-report=term-missing
 
 # Run tests for specific service
 pytest tests/spotify/ -v
+
+# Run cookie refresh tests
+pytest tests/test_cookie_refresh.py -v
+pytest tests/test_integration.py -v
+pytest tests/test_e2e_scenarios.py -v
 ```
 
 ### Code Quality
@@ -43,7 +51,51 @@ flake8 src/
 mypy src/
 ```
 
+### Cookie Refresh System (NEW)
+
+#### Automated Cookie Management
+```bash
+# Check cookie status for all services
+python src/common/cookie_refresh/check_status.py
+
+# Manually refresh cookies for a specific service
+python src/common/cookie_refresh/manual_refresh.py --service spotify
+
+# Start cookie refresh scheduler
+python src/common/cookie_refresh/scheduler.py
+
+# Configure automatic refresh
+python src/common/cookie_refresh/configure.py
+```
+
+#### Cookie Refresh Monitoring
+```bash
+# View refresh dashboard (http://localhost:8080)
+python src/common/cookie_refresh/start_dashboard.py
+
+# Check refresh history
+python src/common/cookie_refresh/view_history.py --service all --days 7
+
+# Test notifications
+python src/common/cookie_refresh/test_notifications.py
+```
+
 ### Data Pipeline Execution
+
+#### New Semi-Manual Pipeline with Authentication (Recommended)
+```bash
+# Interactive mode - prompts for manual auth when needed
+cd "C:\Users\Earth\BEDROT PRODUCTIONS\bedrot-data-ecosystem\data_lake"
+cronjob\run_bedrot_pipeline.bat
+
+# Automated mode - skips services needing auth
+cronjob\run_bedrot_pipeline.bat --automated
+
+# Alternative with data warehouse ETL
+cronjob\run_pipeline_with_auth.bat
+```
+
+#### Legacy Pipeline Commands
 ```bash
 # Run full data lake pipeline (Windows)
 data_lake/cronjob/run_datalake_cron.bat
@@ -51,17 +103,24 @@ data_lake/cronjob/run_datalake_cron.bat
 # Run pipeline without extractors (cleaners only)
 data_lake/cronjob/run_datalake_cron_no_extractors.bat
 
-# Run complete data warehouse ETL pipeline
-cd "data_lake"
-.venv/Scripts/python.exe etl/run_all_etl.py
-
-# Run individual ETL pipelines
-.venv/Scripts/python.exe etl/etl_master_data.py
-.venv/Scripts/python.exe etl/etl_streaming_performance.py
-.venv/Scripts/python.exe etl/etl_social_media_performance.py
-
 # Manual Python execution requires PROJECT_ROOT environment variable
+set PROJECT_ROOT=%cd%
 python src/spotify/extractors/spotify_audience_extractor.py
+```
+
+#### Health Monitoring & Diagnostics
+```bash
+# Check pipeline health
+python src\common\pipeline_health_monitor.py
+
+# Check authentication status
+python src\common\run_with_auth_check.py --check-only
+
+# Run specific services with auth check
+python src\common\run_with_auth_check.py spotify toolost
+
+# Test pipeline components
+python test_pipeline_components.py
 ```
 
 ## Architecture
@@ -164,7 +223,40 @@ Key packages in `requirements.txt`:
 Data warehouse dependencies in `../data-warehouse/requirements.txt`:
 - pandas, numpy, python-dateutil (minimal set for ETL processing)
 
-## Current Data Warehouse Status
+## Current Pipeline Status (July 8, 2025)
+
+### Critical Issues Resolved
+1. **TikTok Zone A0 Authentication**: Fixed QR code requirement by properly configuring cookies
+   - Zone A0 cookies now stored at: `src/tiktok/cookies/tiktok_cookies_zonea0.json`
+   - Both pig1987 and zone.a0 accounts now work without manual QR code
+   
+2. **TooLost Data Pipeline**: Fixed directory mismatch issue
+   - Cleaner (`toolost_raw2staging.py`) now checks both `raw/toolost/` and `raw/toolost/streams/`
+   - Latest data (July 4) can now flow through to curated zone
+   - JWT token expires every 7 days - requires weekly refresh
+
+3. **Semi-Manual Authentication Workflow**: Implemented comprehensive solution
+   - `run_bedrot_pipeline.bat` - Interactive pipeline with auth checks
+   - `pipeline_health_monitor.py` - Shows data freshness and cookie status
+   - `run_with_auth_check.py` - Manages authentication for all services
+
+### Current Data Status
+- **DistroKid**: Up to date (July 4 data processed)
+- **Spotify**: Data current but needs cleaners run
+- **TikTok**: 13 days old, needs extraction and cleaning
+- **TooLost**: 32 days old, cookies expired (last success: May 26)
+- **Linktree**: 5 days old, needs cleaning
+- **MetaAds**: 13 days old, no cookies configured
+
+### Authentication Status
+- ✅ **Spotify**: Cookies valid (21 days old, max 30)
+- ✅ **TikTok**: Cookies fresh (0 days old)
+- ✅ **Linktree**: Cookies valid (26 days old, max 30)
+- ❌ **TooLost**: Cookies expired (26 days old, max 7)
+- ❌ **DistroKid**: Cookies expired (26 days old, max 14)
+- ❌ **MetaAds**: No cookies found
+
+### Data Warehouse Status
 - **Database**: `../data-warehouse/bedrot_analytics.db` (160 KB)
 - **Artists**: 5 (PIG1987, ZONE A0, IWARY, collaborations)
 - **Tracks**: 19 (with ISRC codes)
@@ -172,4 +264,183 @@ Data warehouse dependencies in `../data-warehouse/requirements.txt`:
 - **Social Media Records**: 765 (TikTok analytics)
 - **Platforms**: 10 (Spotify, TikTok, Meta Ads, etc.)
 
-Ready for business analytics and reporting!
+## Recent Improvements (July 2025)
+
+### New Pipeline Tools
+1. **Pipeline Health Monitor** (`src/common/pipeline_health_monitor.py`)
+   - Comprehensive health scores for each service
+   - Data freshness tracking across all zones
+   - Cookie expiration warnings
+   - Bottleneck detection
+   - Actionable recommendations
+
+2. **Authentication Wrapper** (`src/common/run_with_auth_check.py`)
+   - Checks cookie freshness before running extractors
+   - Prompts for manual auth when needed
+   - Supports both interactive and automated modes
+   - Service-specific cookie expiration tracking
+
+3. **Improved Batch Files**
+   - `run_bedrot_pipeline.bat` - New interactive pipeline
+   - `run_pipeline_with_auth.bat` - Existing pipeline with auth checks
+   - Both handle authentication gracefully and continue on failures
+
+### Cookie Management
+- **TikTok**: Now supports multiple accounts (zone.a0, pig1987)
+- **Cookie Helper**: `src/tiktok/manage_cookies.py` for cookie management
+- **Per-Service Storage**: Cookies stored in `src/<service>/cookies/`
+- **Expiration Tracking**: Different expiration times per service
+
+## Cookie Refresh Automation System (NEW)
+
+### Overview
+The Cookie Refresh System provides automated management of authentication cookies across all services, eliminating manual intervention for most authentication scenarios.
+
+### Key Features
+- **Automated Refresh**: Scheduled checks and proactive cookie renewal
+- **2FA Support**: Interactive handling of two-factor authentication
+- **Service Strategies**: Custom refresh logic per service (OAuth, Playwright, JWT)
+- **Monitoring Dashboard**: Real-time status and history tracking
+- **Notifications**: Email/Slack alerts for failures and expirations
+- **Concurrent Processing**: Efficient parallel refresh with configurable limits
+
+### Quick Start
+```bash
+# Deploy the cookie refresh system
+cd data_lake
+python scripts/deployment/check_deployment_readiness.py
+python scripts/deployment/migrate_cookies.py --execute
+python scripts/deployment/validate_deployment.py
+
+# Start automated refresh
+python src/common/cookie_refresh/scheduler.py
+
+# View dashboard
+python src/common/cookie_refresh/start_dashboard.py
+# Access at http://localhost:8080
+```
+
+### Service-Specific Cookie Expiration
+| Service | Strategy | Max Age | Refresh Interval | 2FA | Notes |
+|---------|----------|---------|------------------|-----|-------|
+| Spotify | OAuth | 30 days | 7 days | No | Uses refresh tokens |
+| TikTok | Playwright | 30 days | 7 days | Yes | Multiple accounts supported |
+| DistroKid | JWT | 12 days | 10 days | No | JWT token in cookies |
+| TooLost | JWT | 7 days | 5 days | No | Frequent expiration |
+| Linktree | Playwright | 30 days | 14 days | No | Simple session cookies |
+| MetaAds | OAuth | 60 days | 30 days | No | Long-lived tokens |
+
+### Manual Cookie Refresh
+```bash
+# Check cookie status
+python src/common/cookie_refresh/check_status.py
+
+# Refresh specific service
+python src/common/cookie_refresh/manual_refresh.py --service toolost
+
+# Force refresh all expired
+python src/common/cookie_refresh/manual_refresh.py --all --force
+
+# Test refresh without saving (dry run)
+python src/common/cookie_refresh/manual_refresh.py --service spotify --dry-run
+```
+
+### Configuration
+Edit `config/cookie_refresh_config.json`:
+```json
+{
+  "global": {
+    "check_interval_minutes": 60,
+    "max_retry_attempts": 3,
+    "notification_channels": ["email", "slack"]
+  },
+  "services": {
+    "spotify": {
+      "enabled": true,
+      "refresh_interval_hours": 168,
+      "strategy": "oauth",
+      "priority": 1
+    }
+  }
+}
+```
+
+### Windows Task Scheduler Integration
+```powershell
+# Create scheduled task (run as Administrator)
+Register-ScheduledTask -TaskName "BEDROT Cookie Refresh" `
+  -Action (New-ScheduledTaskAction -Execute "python.exe" `
+    -Argument "src\common\cookie_refresh\scheduler.py") `
+  -Trigger (New-ScheduledTaskTrigger -Daily -At 3:00AM) `
+  -Settings (New-ScheduledTaskSettingsSet -StartWhenAvailable)
+```
+
+### Troubleshooting Cookie Issues
+```bash
+# View detailed logs
+python src/common/cookie_refresh/view_logs.py --service spotify --verbose
+
+# Test authentication without refresh
+python src/common/cookie_refresh/test_auth.py --service tiktok
+
+# Clear and retry
+python src/common/cookie_refresh/clear_cookies.py --service toolost
+python src/common/cookie_refresh/manual_refresh.py --service toolost
+
+# Restore from backup
+python src/common/cookie_refresh/restore_backup.py --service distrokid --latest
+```
+
+### Cookie Refresh Strategies
+
+#### OAuth Strategy (Spotify, MetaAds)
+- Uses refresh tokens for seamless renewal
+- No user interaction required
+- Handles token expiration gracefully
+
+#### Playwright Strategy (TikTok, Linktree)
+- Browser automation for login flows
+- Supports 2FA with user prompts
+- Handles captchas and security checks
+
+#### JWT Strategy (DistroKid, TooLost)
+- API-based authentication
+- Monitors JWT expiration in cookies
+- Automatic token renewal
+
+### Monitoring & Alerts
+```bash
+# Check system health
+python src/common/cookie_refresh/health_check.py
+
+# View refresh metrics
+python src/common/cookie_refresh/view_metrics.py --days 30
+
+# Configure notifications
+python src/common/cookie_refresh/setup_notifications.py
+```
+
+### Best Practices
+1. **Regular Monitoring**: Check dashboard weekly for service health
+2. **Proactive Refresh**: Don't wait for expiration - refresh at 80% of max age
+3. **Backup Strategy**: Always backup cookies before manual changes
+4. **Security**: Use environment variables for credentials, never commit
+5. **Testing**: Run dry-run tests before production changes
+
+### Known Issues & Next Steps
+1. **Immediate Actions Needed**:
+   - Refresh TooLost cookies (run `python src/toolost/extractors/toolost_scraper.py`)
+   - Refresh DistroKid cookies (run `python src/distrokid/extractors/dk_auth.py`)
+   - Configure MetaAds authentication
+   - Run cleaners for all services to catch up on processing
+
+2. **Data Quality Improvements**:
+   - Several services have data stuck in landing/raw zones
+   - Need to run full cleaner pipeline to promote to curated
+   - Consider automating cookie refresh reminders
+
+3. **Future Enhancements**:
+   - Implement automated cookie refresh notifications
+   - Add data quality metrics to health monitor
+   - Create unified dashboard for pipeline status
+   - Implement retry logic for failed extractors

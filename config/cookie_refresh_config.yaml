@@ -1,0 +1,81 @@
+# Cookie Refresh Configuration
+# This file configures the automated cookie refresh system for BEDROT Data Lake
+
+general:
+  check_interval_hours: 24
+  expiration_warning_days: 7
+  expiration_critical_days: 3
+  backup_retention_days: 30
+  max_refresh_attempts: 3
+  browser_headless: false  # Show browser for manual interventions
+  browser_timeout_seconds: 300
+  screenshot_on_failure: true
+
+services:
+  spotify:
+    enabled: true
+    refresh_strategy: spotify
+    expiration_days: 30
+    priority: 1
+    auth_url: https://accounts.spotify.com/login
+    requires_2fa: false
+
+  distrokid:
+    enabled: true
+    refresh_strategy: distrokid
+    expiration_days: 90
+    priority: 2
+    auth_url: https://distrokid.com/signin
+    requires_2fa: false
+
+  tiktok:
+    enabled: true
+    refresh_strategy: tiktok
+    expiration_days: 30
+    priority: 3
+    auth_url: https://www.tiktok.com/login
+    requires_2fa: true
+    accounts:
+      - pig1987
+      - zone.a0
+
+  toolost:
+    enabled: true
+    refresh_strategy: toolost
+    expiration_days: 7  # JWT expires weekly
+    priority: 4
+    auth_url: https://app.toolost.com/login
+    requires_2fa: false
+
+  linktree:
+    enabled: true
+    refresh_strategy: linktree
+    expiration_days: 30
+    priority: 5
+    auth_url: https://linktr.ee/login
+    requires_2fa: false
+
+  metaads:
+    enabled: false  # Not configured yet
+    refresh_strategy: metaads
+    expiration_days: 90
+    priority: 6
+    auth_url: https://business.facebook.com
+    requires_2fa: true
+
+notifications:
+  enabled: true
+  console:
+    enabled: true
+    log_level: INFO
+  file:
+    enabled: true
+    log_path: logs/cookie_refresh.log
+  email:
+    enabled: false
+    # Configure SMTP settings via environment variables:
+    # SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD
+    # NOTIFICATION_FROM_EMAIL, NOTIFICATION_TO_EMAILS
+
+# Paths are automatically configured based on PROJECT_ROOT
+# Override only if necessary

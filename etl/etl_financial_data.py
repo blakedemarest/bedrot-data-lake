@@ -14,7 +14,8 @@ DATA_LAKE_PATH = Path(__file__).parent.parent
 ECOSYSTEM_ROOT = DATA_LAKE_PATH.parent
 WAREHOUSE_PATH = ECOSYSTEM_ROOT / "data-warehouse"
 DB_PATH = WAREHOUSE_PATH / "bedrot_analytics.db"
-CURATED_CSV_PATH = DATA_LAKE_PATH / "curated"
+# Fix path issue - use warehouse curated path where files actually exist
+CURATED_CSV_PATH = WAREHOUSE_PATH / "curated"
 
 def get_connection():
     """Get database connection with optimized settings."""
@@ -53,21 +54,22 @@ def extract_distrokid_financial_data() -> List[Dict]:
     df = pd.read_csv(dk_file)
     
     for _, row in df.iterrows():
-        if pd.notna(row.get('Earnings USD')) and float(row['Earnings USD']) != 0:
+        # Fix column name issue - use 'Earnings (USD)' not 'Earnings USD'
+        if pd.notna(row.get('Earnings (USD)')) and float(row['Earnings (USD)']) != 0:
             # Parse date from filename or reporting period
             date_str = row.get('Reporting Date', '2024-01-01')
             
             transaction = {
                 'transaction_date': date_str,
                 'description': f"DistroKid earnings for {row.get('Title', 'Unknown Track')}",
-                'amount': float(row['Earnings USD']),
+                'amount': float(row['Earnings (USD)']),  # Fix column name
                 'currency': 'USD',
                 'category': 'Streaming Revenue',
                 'status': 'Completed',
                 'source_platform': 'DistroKid',
                 'artist_name': row.get('Artist'),
                 'track_title': row.get('Title'),
-                'country': row.get('Territory', 'Unknown')
+                'country': row.get('Country of Sale', 'Unknown')  # Fix column name
             }
             transactions.append(transaction)
     
@@ -77,11 +79,11 @@ def extract_capitol_one_financial_data() -> List[Dict]:
     """Extract financial transactions from Capitol One banking data."""
     transactions = []
     
-    # Look for Capitol One files
-    capitol_files = list(CURATED_CSV_PATH.glob("*capitol*")) + list(CURATED_CSV_PATH.glob("*bank*"))
+    # Look for Capitol One files - use specific filename
+    capitol_files = [CURATED_CSV_PATH / "capitol_one_purchases_7113.csv"]
     
     for file_path in capitol_files:
-        if file_path.name == "dk_bank_details.csv":  # Skip DistroKid file
+        if not file_path.exists():
             continue
             
         try:
@@ -96,8 +98,8 @@ def extract_capitol_one_financial_data() -> List[Dict]:
                         'description': row.get('Description', 'Capitol One Transaction'),
                         'amount': float(row['Amount']),
                         'currency': 'USD',
-                        'category': 'Business Expense',
-                        'status': 'Completed',
+                        'category': row.get('Category', 'Business Expense'),  # Use actual category from data
+                        'status': row.get('Status', 'Posted'),  # Use actual status from data
                         'source_platform': 'Capitol One',
                         'artist_name': None,  # No artist association for bank transactions
                         'track_title': None,

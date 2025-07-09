@@ -40,10 +40,41 @@ def load_ndjson_files() -> Dict[str, Path]:
     
     latest_per_artist = {}
     for file_path in ndjson_files:
-        # Extract artist from filename pattern: tiktok_analytics_YYYYMMDD_artist_timestamp.ndjson
-        parts = file_path.stem.split("_")
-        if len(parts) >= 4:
-            artist = parts[-2]  # second to last part should be artist
+        # Extract artist from different filename patterns
+        filename = file_path.stem
+        artist = None
+        
+        # Pattern 1: enhanced_test_pig1987_20250624_test.ndjson
+        if "enhanced_test" in filename:
+            parts = filename.split("_")
+            for i, part in enumerate(parts):
+                if part in ["pig1987", "zonea0"]:
+                    artist = part
+                    break
+        
+        # Pattern 2: Overview_2024-06-17_1750084991_pig1987_20250618_074423.ndjson
+        elif "Overview" in filename:
+            parts = filename.split("_")
+            for part in parts:
+                if part in ["pig1987", "zonea0"]:
+                    artist = part
+                    break
+        
+        # Pattern 3: Other patterns - look for known artist names
+        if not artist:
+            parts = filename.split("_")
+            for part in parts:
+                if part.lower() in ["pig1987", "zonea0", "zone.a0"]:
+                    artist = part.lower()
+                    break
+        
+        # Normalize artist name
+        if artist:
+            if artist.lower() == "zonea0":
+                artist = "zone.a0"
+            elif artist.lower() == "pig1987":
+                artist = "pig1987"
+            
             mtime = file_path.stat().st_mtime
             
             if artist not in latest_per_artist or mtime > latest_per_artist[artist][1]:

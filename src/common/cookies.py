@@ -48,9 +48,22 @@ import asyncio
 from pathlib import Path
 from typing import List, Dict, Any
 
-__all__ = ["load_cookies", "load_cookies_async"]
+__all__ = ["load_cookies", "load_cookies_async", "save_cookies_async"]
 
 _VALID_SAMESITE: set[str] = {"Strict", "Lax", "None"}
+
+
+def _get_service_domains(service_name: str) -> List[str]:
+    """Get relevant domains for a service."""
+    domain_mapping = {
+        'toolost': ['toolost.com', 'toolost'],
+        'distrokid': ['distrokid.com', 'distrokid'],
+        'spotify': ['spotify.com', 'accounts.spotify.com', 'open.spotify.com'],
+        'tiktok': ['tiktok.com', 'www.tiktok.com'],
+        'linktree': ['linktr.ee', 'linktree.com'],
+        'metaads': ['facebook.com', 'business.facebook.com', 'meta.com']
+    }
+    return domain_mapping.get(service_name, [service_name])
 
 
 def _resolve_cookie_dir(service: str) -> Path:
@@ -148,3 +161,59 @@ async def load_cookies_async(context, service_name: str) -> None:
         print(f"[cookies] {service_name}: imported {len(cookie_dicts)} cookies → marker created.")
     except Exception as exc:
         print(f"[ERROR] Failed to import cookies for {service_name}: {exc}")
+
+
+async def save_cookies_async(context, service_name: str) -> None:
+    """/// Save current cookies from browser context to file system.
+    
+    Parameters
+    ----------
+    context
+        A Playwright ``BrowserContext`` (usually persistent).
+    service_name
+        Name of the ETL service – must match sub-directory under ``src``.
+    """
+    cookie_dir = _resolve_cookie_dir(service_name)
+    
+    try:
+        # Get current cookies from browser context
+        cookies = await context.cookies()
+        
+        if not cookies:
+            print(f"[cookies] {service_name}: no cookies to save.")
+            return
+        
+        # Filter cookies to only include relevant ones for this service
+        relevant_cookies = []
+        service_domains = _get_service_domains(service_name)
+        
+        for cookie in cookies:
+            # Include cookies that have meaningful names and values from relevant domains
+            if (cookie.get('name') and cookie.get('value') and len(cookie.get('value', '')) > 1):
+                cookie_domain = cookie.get('domain', '')
+                # Check if cookie belongs to service domains
+                if any(domain in cookie_domain for domain in service_domains):
+                    relevant_cookies.append(cookie)
+        
+        if not relevant_cookies:
+            print(f"[cookies] {service_name}: no relevant cookies to save.")
+            return
+        
+        # Save to service-specific cookie file
+        cookie_file = cookie_dir / f"{service_name}_cookies.json"
+        
+        # Backup existing file if it exists
+        if cookie_file.exists():
+            backup_file = cookie_dir / f"{service_name}_cookies.backup.json"
+            import shutil
+            shutil.copy2(cookie_file, backup_file)
+            print(f"[cookies] {service_name}: backed up existing cookies.")
+        
+        # Write new cookies
+        with open(cookie_file, 'w') as f:
+            json.dump(relevant_cookies, f, indent=2)
+        
+        print(f"[cookies] {service_name}: saved {len(relevant_cookies)} cookies to {cookie_file}")
+        
+    except Exception as exc:
+        print(f"[ERROR] Failed to save cookies for {service_name}: {exc}")

@@ -6,7 +6,7 @@ from pathlib import Path
 from datetime import datetime
 from playwright.async_api import async_playwright
 from dotenv import load_dotenv
-from common.cookies import load_cookies_async
+from common.cookies import load_cookies_async, save_cookies_async
 
 load_dotenv()
 
@@ -150,6 +150,11 @@ async def main():
         await _save_if_available("apple", api_results, responses, OUTPUT_DIR / f"toolost_apple_{now}.json")
 
         await _download_sales_report(page)
+        
+        # Save updated cookies before closing
+        print("Saving updated cookies...")
+        await save_cookies_async(browser, "toolost")
+        
         print("Data collection complete. Closing browser...")
         await browser.close()
 

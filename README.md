@@ -2,11 +2,18 @@
 
 ## Executive Summary
 
-The BEDROT Data Lake provides a robust, modular, and auditable platform for ingesting, validating, transforming, and curating data from music, social, and ad platforms. Data flows through clearly defined zones (Landing, Raw, Staging, Curated, Archive), ensuring traceability, governance, and business readiness. Automation and modular Python ETL scripts (with Playwright for web sources) enable reliable, scalable operations.
+The BEDROT Data Lake is a production-grade, multi-zone ETL platform that ingests, validates, transforms, and curates data from 15+ music industry platforms. Built with Python and Playwright, it processes streaming analytics, financial transactions, social media metrics, and advertising data through a robust 5-zone architecture ensuring complete data lineage, governance, and business readiness.
+
+### Key Capabilities
+- **Multi-Platform Integration**: Spotify, TikTok, Meta Ads, DistroKid, Linktree, TooLost, YouTube, MailChimp
+- **Zone-Based Processing**: Landing → Raw → Staging → Curated → Archive
+- **Automated Orchestration**: Cron-based pipeline execution with dependency management
+- **Data Quality**: SHA-256 deduplication, schema validation, business rule enforcement
+- **AI-Ready**: Comprehensive documentation for autonomous agent operations
 
 For full architectural diagrams and technical deep-dive, see: `BEDROT_Data_Lake_Analysis.md`
 
-## Project Folder Structure
+## 📁 Data Lake Architecture
 
 ```plaintext
 BEDROT_DATA_LAKE/
@@ -44,13 +51,16 @@ BEDROT_DATA_LAKE/
 │   └── knowledge/
 ```
 
-This is the central data lake for BEDROT productions
-
----
-
-
-
----
+### Zone-Based Data Flow
+```
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   LANDING   │───▶│     RAW     │───▶│   STAGING   │───▶│   CURATED   │───▶│   ARCHIVE   │
+│             │    │             │    │             │    │             │    │             │
+│ • Raw files │    │ • Validated │    │ • Cleaned   │    │ • Business  │    │ • Historical│
+│ • Timestamped│    │ • Immutable │    │ • Transform │    │ • Analytics │    │ • Compliance│
+│ • All sources│    │ • Lineage   │    │ • Quality   │    │ • Aggregated│    │ • Backup    │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+```
 
 - `.agent/` — AI agent working directories (cache, context, logs)
 - `archive/` — **Archive Zone**: Long-term storage for datasets no longer actively used. Ensures historical data is preserved for compliance and future analysis.
@@ -95,13 +105,42 @@ This is the central data lake for BEDROT productions
 
 ---
 
-### Data Lake Zone Definitions
+### 🔄 Data Lake Zone Definitions
 
-- **Landing Zone**: Initial data ingestion, raw files, timestamped, never modified. Ensures traceability and auditability.
-- **Raw Zone**: Immutable, validated, append-only. Full data lineage, no transformations.
-- **Staging Zone**: Data cleaning, validation, transformation, and joining. All business logic applied here. Outputs promoted to `curated/` only after validation.
-- **Curated Zone**: Business-ready, stable, and documented datasets for analytics and ML. Consumed by BI tools and downstream apps.
-- **Archive Zone**: Long-term retention for compliance and historical analysis.
+#### Landing Zone (`landing/`)
+- **Purpose**: Initial data ingestion from external sources
+- **Characteristics**: Raw, unprocessed, timestamped files
+- **Format**: Original format (HTML, JSON, CSV) from source systems
+- **Retention**: Permanent for audit trail and reprocessing capability
+- **Access**: Write-only by extractors, read-only for downstream processing
+
+#### Raw Zone (`raw/`)
+- **Purpose**: Validated, immutable copy of landing data
+- **Characteristics**: Append-only, never modified, full lineage tracking
+- **Format**: Standardized NDJSON and CSV with consistent schemas
+- **Validation**: Data type checking, required field validation, duplicate detection
+- **Storage**: SHA-256 hash tracking in `_hashes.json` for deduplication
+
+#### Staging Zone (`staging/`)
+- **Purpose**: Data cleaning, transformation, and business rule application
+- **Processing**: Normalization, enrichment, quality checks, aggregation
+- **Format**: Business-aligned schemas with standardized field names
+- **Quality Gates**: Data validation rules, outlier detection, completeness checks
+- **Promotion**: Only validated data proceeds to curated zone
+
+#### Curated Zone (`curated/`)
+- **Purpose**: Business-ready datasets for analytics and reporting
+- **Characteristics**: Stable schemas, documented, high-quality data
+- **Consumers**: Data warehouse ETL, dashboards, ML models, BI tools
+- **SLA**: <12 hour freshness for critical business metrics
+- **Versioning**: Atomic updates with rollback capability
+
+#### Archive Zone (`archive/`)
+- **Purpose**: Long-term historical data preservation
+- **Retention**: 7+ years for compliance and trend analysis
+- **Access**: Read-only for historical reporting and data recovery
+- **Compression**: Optimized storage for cost-effective long-term retention
+- **Restoration**: Full data recovery capability for any point in time
 
 - **DistroKid & TooLost Extractors and Staging-to-Curated Cleaners**
   - Scripts: `src/distrokid/cleaners/distrokid_staging2curated.py`, `src/toolost/cleaners/toolost_staging2curated.py`, `src/toolost/extractors/toolost_scraper.py`
@@ -142,15 +181,44 @@ This is the central data lake for BEDROT productions
 
 ---
 
-## ETL Pipeline Architecture
+## 🔧 ETL Pipeline Architecture
 
-The ETL pipeline is modular and source-centric, with clear separation between extraction, validation, transformation, and loading. Automation is managed by batch/cron jobs that trigger each stage in sequence.
+### Pipeline Design Principles
+- **Modularity**: Each service has independent extractor/cleaner scripts
+- **Self-Discovery**: New services automatically detected without manual registration
+- **Idempotency**: Safe to re-run any pipeline stage without data corruption
+- **Atomicity**: All-or-nothing processing ensures data consistency
+- **Observability**: Comprehensive logging and monitoring at every stage
 
-- **Extraction**: Playwright-based scripts for DistroKid, TooLost, TikTok, Meta Ads, Linktree, etc. Each extractor handles login/2FA, navigation, and robust download/capture of analytics and sales reports.
-- **Validation**: Landing-to-raw validators ensure data integrity, structure, and correct source mapping.
-- **Transformation**: Raw-to-staging cleaners standardize, join, and aggregate data. All business logic is applied here. Outputs are only promoted to curated after validation.
-- **Loading**: Staging-to-curated promotion scripts archive prior versions and ensure only changed data is written.
-- **Automation**: All stages are orchestrated by batch scripts and cron jobs for hands-off operation.
+### Processing Stages
+
+#### 1. **Extraction** (`src/*/extractors/`)
+- **Technology**: Playwright for browser automation, Requests for API calls
+- **Capabilities**: Session management, 2FA handling, rate limiting, error recovery
+- **Authentication**: Cookie-based persistence, token refresh, credential rotation
+- **Output**: Raw files timestamped and stored in landing zone
+- **Services**: 15+ integrated platforms with service-specific logic
+
+#### 2. **Validation** (`*_landing2raw.py`)
+- **Schema Validation**: JSON Schema enforcement, data type checking
+- **Integrity Checks**: File completeness, required field validation
+- **Deduplication**: SHA-256 hash comparison prevents reprocessing
+- **Error Handling**: Quarantine invalid data, detailed error logging
+- **Promotion**: Only valid data moves to raw zone
+
+#### 3. **Transformation** (`*_raw2staging.py`)
+- **Normalization**: Standardize field names, data types, units
+- **Enrichment**: Add calculated fields, business metrics, categorization
+- **Aggregation**: Time-based rollups, cross-platform summaries
+- **Quality Assurance**: Outlier detection, completeness scoring
+- **Business Rules**: Apply domain-specific logic and validations
+
+#### 4. **Curation** (`*_staging2curated.py`)
+- **Final Validation**: Business rule compliance, data quality gates
+- **Versioning**: Atomic updates with timestamped backups
+- **Documentation**: Metadata generation, lineage tracking
+- **Optimization**: Index creation, query performance tuning
+- **Publication**: Make data available to downstream consumers
 
 ### Extractor Class Hierarchy
 
@@ -161,11 +229,34 @@ The ETL pipeline is modular and source-centric, with clear separation between ex
 
 See `BEDROT_Data_Lake_Analysis.md` for class diagrams and technical details.
 
-## Automation & Operational Strategy
+## 🚀 Automation & Operations
 
-- **Cron jobs**: Master cron triggers all ETL stages. No manual duplication—secondary batch files are auto-generated.
-- **Monitoring & Logging**: All major ETL steps are logged for traceability. Failures trigger clear logs for troubleshooting.
-- **Validation & Error Handling**: Validators and robust error handling at every stage ensure data quality and pipeline resilience.
+### Orchestration Strategy
+- **Master Cron**: Single entry point triggers all pipeline stages
+- **Dependency Management**: Automatic stage sequencing based on data availability
+- **Parallel Processing**: Independent services run concurrently for efficiency
+- **Auto-Discovery**: New extractors automatically included in execution
+- **Batch Optimization**: Smart batching reduces resource consumption
+
+### Monitoring & Observability
+- **Pipeline Health**: Success/failure tracking for each stage
+- **Data Quality Metrics**: Completeness, accuracy, freshness monitoring
+- **Performance Tracking**: Execution time, throughput, resource usage
+- **Alert System**: Automated notifications for failures and anomalies
+- **Audit Trail**: Complete lineage from source to curated data
+
+### Error Handling & Recovery
+- **Graceful Degradation**: Continue processing other sources on individual failures
+- **Retry Logic**: Exponential backoff for transient failures
+- **Circuit Breakers**: Prevent cascade failures across services
+- **Data Quarantine**: Isolate problematic data for manual review
+- **Recovery Procedures**: Automated and manual recovery options
+
+### Operational Procedures
+- **Daily Health Checks**: Automated data freshness and quality validation
+- **Weekly Performance Review**: Pipeline optimization and capacity planning
+- **Monthly Audits**: Compliance verification and security assessment
+- **Quarterly Upgrades**: Technology stack updates and feature enhancements
 
 ## Changelog
 
@@ -174,53 +265,164 @@ See `BEDROT_Data_Lake_Analysis.md` for class diagrams and technical details.
 
 ---
 
-For full diagrams, technical details, and deep-dive documentation, see `BEDROT_Data_Lake_Analysis.md`.
+## 📚 Additional Resources
 
-## Getting Started with MinIO
+### Documentation
+- **[BEDROT_Data_Lake_Analysis.md](BEDROT_Data_Lake_Analysis.md)** - Technical deep-dive and architecture diagrams
+- **[CLAUDE.md](../CLAUDE.md)** - AI agent guidance and development conventions
+- **[Changelog](changelog.md)** - Version history and feature updates
+- **Service READMEs** - Platform-specific documentation in each `src/*/` directory
 
-1. **Prerequisites**
-   - Docker and Docker Compose installed
-   - Ports 9000 and 9001 available
+### Development Resources
+- **[Testing Guide](tests/README.md)** - Comprehensive testing documentation
+- **[API Documentation](docs/api.md)** - Service API specifications
+- **[Troubleshooting Guide](docs/troubleshooting.md)** - Common issues and solutions
+- **[Performance Tuning](docs/performance.md)** - Optimization best practices
 
-2. **Start MinIO**
+### Operational Guides
+- **[Deployment Guide](docs/deployment.md)** - Production deployment procedures
+- **[Monitoring Setup](docs/monitoring.md)** - Observability and alerting configuration
+- **[Backup & Recovery](docs/backup.md)** - Data protection strategies
+- **[Security Checklist](docs/security.md)** - Security best practices
+
+---
+
+**BEDROT Data Lake** | Production-Grade ETL Platform | v2.0.0
+
+## 🚀 Quick Start Guide
+
+### Prerequisites
+- Python 3.9+ with pip
+- Docker and Docker Compose (for MinIO)
+- Git for version control
+- 4GB+ available RAM
+- 50GB+ available disk space
+
+### Environment Setup
+
+1. **Clone Repository**
+   ```bash
+   git clone <repository-url>
+   cd bedrot-data-ecosystem/data_lake
+   ```
+
+2. **Create Virtual Environment**
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # Linux/Mac
+   .venv\Scripts\activate     # Windows
+   ```
+
+3. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   playwright install  # Install browser drivers
+   ```
+
+4. **Configure Environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
+
+### MinIO Object Storage Setup
+
+1. **Start MinIO Services**
    ```bash
    docker-compose up -d
    ```
 
-3. **Access MinIO Console**
+2. **Access MinIO Console**
    - URL: http://localhost:9001
-   - Username: admin
+   - Username: admin (configurable in .env)
    - Password: your_secure_password
 
-4. **Create Buckets**
-   After logging in, create the following buckets:
-   - landing
-   - raw
-   - staging
-   - curated
-   - archive
-   - sandbox
+3. **Create Required Buckets**
+   ```bash
+   # Via console or programmatically
+   python scripts/setup_minio_buckets.py
+   ```
+   Creates: `landing`, `raw`, `staging`, `curated`, `archive`, `sandbox`
 
-## Environment Variables
+### Running the Pipeline
 
-Update `.env` with your preferred credentials before starting MinIO.
+1. **Manual Execution**
+   ```bash
+   # Set environment variable
+   export PROJECT_ROOT="$(pwd)"
+   
+   # Run specific extractor
+   python src/spotify/extractors/spotify_audience_extractor.py
+   
+   # Run specific cleaner
+   python src/spotify/cleaners/spotify_landing2raw.py
+   ```
 
-## Data Flow
+2. **Automated Pipeline**
+   ```bash
+   # Full pipeline (Windows)
+   cronjob/run_datalake_cron.bat
+   
+   # Cleaners only
+   cronjob/run_datalake_cron_no_extractors.bat
+   ```
 
-1. Data lands in the `landing` zone
-2. Processed to `raw` (immutable)
-3. Cleaned in `staging`
-4. Business-ready in `curated`
-5. Archived to `archive` when no longer actively used
+### Data Flow Verification
 
-## Running Tests
+1. **Check Landing Zone**: Verify raw data files are created
+2. **Validate Raw Zone**: Confirm data passes validation
+3. **Review Staging**: Check transformed data quality
+4. **Inspect Curated**: Verify business-ready datasets
+5. **Monitor Logs**: Review execution logs for errors
 
-This project uses **pytest** for the test suite. To run tests locally with coverage:
+### Troubleshooting
 
+- **Browser Issues**: Run `playwright install` to update drivers
+- **Permission Errors**: Ensure proper file system permissions
+- **Network Issues**: Check firewall settings for external APIs
+- **Memory Issues**: Increase available RAM or reduce batch sizes
+
+## 🧪 Testing & Quality Assurance
+
+### Test Framework
 ```bash
+# Install dependencies
 pip install -r requirements.txt
-pytest -q --cov=src
+
+# Run full test suite with coverage
+pytest -ra --cov=src --cov-report=term-missing
+
+# Run specific service tests
+pytest tests/spotify/ -v
+pytest tests/tiktok/ -v
+
+# Run integration tests
+pytest tests/integration/ -v
 ```
 
-The CI workflow executes the same command on every push and pull request. Coverage results are uploaded as an artifact in GitHub Actions.
+### Code Quality
+```bash
+# Code formatting
+black src/
+isort src/
+
+# Linting
+flake8 src/
+
+# Type checking
+mypy src/
+```
+
+### Testing Strategy
+- **Unit Tests**: Individual function and class testing
+- **Integration Tests**: End-to-end pipeline validation
+- **Data Quality Tests**: Schema validation, data integrity checks
+- **Performance Tests**: Load testing and benchmark validation
+- **Security Tests**: Authentication flow and data protection validation
+
+### Continuous Integration
+- **Automated Testing**: Every push triggers full test suite
+- **Coverage Reporting**: Minimum 80% code coverage required
+- **Quality Gates**: Code quality checks prevent regression
+- **Security Scanning**: Dependency vulnerability assessment
 

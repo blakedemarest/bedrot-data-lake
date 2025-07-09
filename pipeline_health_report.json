@@ -1,0 +1,456 @@
+{
+  "timestamp": "2025-07-09T07:34:58.886936",
+  "services": {
+    "spotify": {
+      "health_score": 70,
+      "status": "WARNING",
+      "priority": "HIGH",
+      "freshness": {
+        "landing": {
+          "exists": true,
+          "latest_file": "spotify_audience_1Eu67EqPy2NutiM0lqCarw_20250704_070222.csv",
+          "latest_date": "2025-07-04 07:02:24",
+          "days_old": 5,
+          "full_path": "landing/spotify/audience/spotify_audience_1Eu67EqPy2NutiM0lqCarw_20250704_070222.csv"
+        },
+        "raw": {
+          "exists": true,
+          "latest_file": "spotify_audience_zone_a0_20250708_080102.ndjson",
+          "latest_date": "2025-07-08 08:01:02",
+          "days_old": 0,
+          "full_path": "raw/spotify/audience/spotify_audience_zone_a0_20250708_080102.ndjson"
+        },
+        "staging": {
+          "exists": true,
+          "latest_file": "spotify_audience_staging_20250708_080103.csv",
+          "latest_date": "2025-07-08 08:01:03",
+          "days_old": 0,
+          "full_path": "staging/spotify/audience/spotify_audience_staging_20250708_080103.csv"
+        },
+        "curated": {
+          "exists": false,
+          "latest_file": null,
+          "latest_date": null,
+          "days_old": null
+        }
+      },
+      "cookie_health": {
+        "status": "valid",
+        "days_old": 22,
+        "max_age": 30,
+        "expires_in": 8,
+        "file": "spotify_cookies.json"
+      },
+      "bottlenecks": [
+        "No data in curated zone"
+      ],
+      "recommendations": [
+        "Run spotify extractor (last data: 5 days ago)",
+        "Run cleaners for spotify"
+      ],
+      "auto_actions": [
+        {
+          "type": "run_cleaners",
+          "service": "spotify",
+          "reason": "pipeline_blocked",
+          "priority": "medium"
+        }
+      ]
+    },
+    "tiktok": {
+      "health_score": 40,
+      "status": "CRITICAL",
+      "priority": "HIGH",
+      "freshness": {
+        "landing": {
+          "exists": true,
+          "latest_file": "zonea0_followers_20250624_test.json",
+          "latest_date": "2025-06-24 08:21:40",
+          "days_old": 14,
+          "full_path": "landing/tiktok/analytics/zonea0_followers_20250624_test.json"
+        },
+        "raw": {
+          "exists": true,
+          "latest_file": "Overview_2024-07-07_1751814033_pig1987_20250708_080104.ndjson",
+          "latest_date": "2025-07-08 08:01:04",
+          "days_old": 0,
+          "full_path": "raw/tiktok/Overview_2024-07-07_1751814033_pig1987_20250708_080104.ndjson"
+        },
+        "staging": {
+          "exists": true,
+          "latest_file": null,
+          "latest_date": null,
+          "days_old": null
+        },
+        "curated": {
+          "exists": false,
+          "latest_file": null,
+          "latest_date": null,
+          "days_old": null
+        }
+      },
+      "cookie_health": {
+        "status": "multiple",
+        "cookies": [
+          {
+            "status": "expired",
+            "days_old": 41,
+            "max_age": 30,
+            "expires_in": 0,
+            "file": "tiktok_cookies_pig1987.json",
+            "account": "pig1987"
+          },
+          {
+            "status": "valid",
+            "days_old": 1,
+            "max_age": 30,
+            "expires_in": 29,
+            "file": "tiktok_cookies_zonea0.json",
+            "account": "zonea0"
+          }
+        ]
+      },
+      "bottlenecks": [
+        "No data in staging zone",
+        "No data in curated zone"
+      ],
+      "recommendations": [
+        "\u26a0\ufe0f URGENT: Run tiktok extractor (last data: 14 days ago)",
+        "Run cleaners for tiktok"
+      ],
+      "auto_actions": [
+        {
+          "type": "run_extractor",
+          "service": "tiktok",
+          "reason": "stale_data_14_days",
+          "priority": "high"
+        },
+        {
+          "type": "run_cleaners",
+          "service": "tiktok",
+          "reason": "pipeline_blocked",
+          "priority": "medium"
+        }
+      ]
+    },
+    "distrokid": {
+      "health_score": 55,
+      "status": "CRITICAL",
+      "priority": "MEDIUM",
+      "freshness": {
+        "landing": {
+          "exists": true,
+          "latest_file": "dk_bank_details_20250704_070003.tsv",
+          "latest_date": "2025-07-04 07:00:18",
+          "days_old": 5,
+          "full_path": "landing/distrokid/streams/dk_bank_details_20250704_070003.tsv"
+        },
+        "raw": {
+          "exists": true,
+          "latest_file": "dk_bank_details_20250704_070003.csv",
+          "latest_date": "2025-07-04 07:00:20",
+          "days_old": 5,
+          "full_path": "raw/distrokid/finance/dk_bank_details_20250704_070003.csv"
+        },
+        "staging": {
+          "exists": false,
+          "latest_file": null,
+          "latest_date": null,
+          "days_old": null
+        },
+        "curated": {
+          "exists": false,
+          "latest_file": null,
+          "latest_date": null,
+          "days_old": null
+        }
+      },
+      "cookie_health": {
+        "status": "valid",
+        "days_old": 27,
+        "max_age": 30,
+        "expires_in": 3,
+        "file": "distrokid_cookies.json"
+      },
+      "bottlenecks": [
+        "No data in staging zone",
+        "No data in curated zone"
+      ],
+      "recommendations": [
+        "Consider refreshing distrokid cookies (expires in 3 days)",
+        "Run distrokid extractor (last data: 5 days ago)",
+        "Run cleaners for distrokid"
+      ],
+      "auto_actions": [
+        {
+          "type": "cookie_refresh",
+          "service": "distrokid",
+          "reason": "expiring_soon_3_days",
+          "priority": "medium"
+        },
+        {
+          "type": "run_cleaners",
+          "service": "distrokid",
+          "reason": "pipeline_blocked",
+          "priority": "medium"
+        }
+      ]
+    },
+    "toolost": {
+      "health_score": 55,
+      "status": "CRITICAL",
+      "priority": "CRITICAL",
+      "freshness": {
+        "landing": {
+          "exists": true,
+          "latest_file": "extraction_failure_20250709_060308.json",
+          "latest_date": "2025-07-09 06:03:36",
+          "days_old": 0,
+          "full_path": "landing/toolost/extraction_failure_20250709_060308.json"
+        },
+        "raw": {
+          "exists": true,
+          "latest_file": "toolost_apple_20250709_044125.json",
+          "latest_date": "2025-07-09 04:41:40",
+          "days_old": 0,
+          "full_path": "raw/toolost/toolost_apple_20250709_044125.json"
+        },
+        "staging": {
+          "exists": false,
+          "latest_file": null,
+          "latest_date": null,
+          "days_old": null
+        },
+        "curated": {
+          "exists": false,
+          "latest_file": null,
+          "latest_date": null,
+          "days_old": null
+        }
+      },
+      "cookie_health": {
+        "status": "valid",
+        "days_old": 0,
+        "max_age": 7,
+        "expires_in": 7,
+        "file": "toolost_cookies.json"
+      },
+      "bottlenecks": [
+        "No data in staging zone",
+        "No data in curated zone",
+        "Newer TooLost files in raw/ not being processed"
+      ],
+      "recommendations": [
+        "Run cleaners for toolost"
+      ],
+      "auto_actions": [
+        {
+          "type": "run_cleaners",
+          "service": "toolost",
+          "reason": "pipeline_blocked",
+          "priority": "medium"
+        }
+      ]
+    },
+    "linktree": {
+      "health_score": 55,
+      "status": "CRITICAL",
+      "priority": "MEDIUM",
+      "freshness": {
+        "landing": {
+          "exists": true,
+          "latest_file": "graphql_20250702_073042_450424.json",
+          "latest_date": "2025-07-02 07:30:42",
+          "days_old": 7,
+          "full_path": "landing/linktree/analytics/graphql_20250702_073042_450424.json"
+        },
+        "raw": {
+          "exists": true,
+          "latest_file": "graphql_20250611_131852_889579.ndjson",
+          "latest_date": "2025-06-11 13:31:26",
+          "days_old": 27,
+          "full_path": "raw/linktree/analytics/graphql_20250611_131852_889579.ndjson"
+        },
+        "staging": {
+          "exists": true,
+          "latest_file": "linktree_analytics_staging_20250708_080059.csv",
+          "latest_date": "2025-07-08 08:00:59",
+          "days_old": 0,
+          "full_path": "staging/linktree/linktree_analytics_staging_20250708_080059.csv"
+        },
+        "curated": {
+          "exists": false,
+          "latest_file": null,
+          "latest_date": null,
+          "days_old": null
+        }
+      },
+      "cookie_health": {
+        "status": "valid",
+        "days_old": 27,
+        "max_age": 30,
+        "expires_in": 3,
+        "file": "linktree_cookies.json"
+      },
+      "bottlenecks": [
+        "raw zone is 20 days behind landing",
+        "No data in curated zone"
+      ],
+      "recommendations": [
+        "Consider refreshing linktree cookies (expires in 3 days)",
+        "Run linktree extractor (last data: 7 days ago)",
+        "Run cleaners for linktree"
+      ],
+      "auto_actions": [
+        {
+          "type": "cookie_refresh",
+          "service": "linktree",
+          "reason": "expiring_soon_3_days",
+          "priority": "medium"
+        },
+        {
+          "type": "run_cleaners",
+          "service": "linktree",
+          "reason": "pipeline_blocked",
+          "priority": "medium"
+        }
+      ]
+    },
+    "metaads": {
+      "health_score": 28,
+      "status": "FAILED",
+      "priority": "LOW",
+      "freshness": {
+        "landing": {
+          "exists": true,
+          "latest_file": "metaads_campaign_daily_20250624_125921.csv",
+          "latest_date": "2025-06-24 12:59:21",
+          "days_old": 14,
+          "full_path": "landing/metaads/metaads_campaign_daily_20250624_125921.csv"
+        },
+        "raw": {
+          "exists": true,
+          "latest_file": "metaads_campaign_daily_20250624_125921_raw_20250708_080100.ndjson",
+          "latest_date": "2025-07-08 08:01:00",
+          "days_old": 0,
+          "full_path": "raw/metaads/metaads_campaign_daily_20250624_125921_raw_20250708_080100.ndjson"
+        },
+        "staging": {
+          "exists": true,
+          "latest_file": "metaads_daily_campaigns_staging_20250708_080100.csv",
+          "latest_date": "2025-07-08 08:01:00",
+          "days_old": 0,
+          "full_path": "staging/metaads/metaads_daily_campaigns_staging_20250708_080100.csv"
+        },
+        "curated": {
+          "exists": false,
+          "latest_file": null,
+          "latest_date": null,
+          "days_old": null
+        }
+      },
+      "cookie_health": {
+        "status": "missing",
+        "message": "Cookie file not found"
+      },
+      "bottlenecks": [
+        "No data in curated zone"
+      ],
+      "recommendations": [
+        "Run manual authentication for metaads",
+        "\u26a0\ufe0f URGENT: Run metaads extractor (last data: 14 days ago)",
+        "Run cleaners for metaads"
+      ],
+      "auto_actions": [
+        {
+          "type": "cookie_refresh",
+          "service": "metaads",
+          "reason": "missing_cookies",
+          "priority": "high"
+        },
+        {
+          "type": "run_extractor",
+          "service": "metaads",
+          "reason": "stale_data_14_days",
+          "priority": "high"
+        },
+        {
+          "type": "run_cleaners",
+          "service": "metaads",
+          "reason": "pipeline_blocked",
+          "priority": "medium"
+        }
+      ]
+    }
+  },
+  "overall_status": "CRITICAL",
+  "remediation_actions": [
+    {
+      "type": "run_cleaners",
+      "service": "spotify",
+      "reason": "pipeline_blocked",
+      "priority": "medium"
+    },
+    {
+      "type": "run_extractor",
+      "service": "tiktok",
+      "reason": "stale_data_14_days",
+      "priority": "high"
+    },
+    {
+      "type": "run_cleaners",
+      "service": "tiktok",
+      "reason": "pipeline_blocked",
+      "priority": "medium"
+    },
+    {
+      "type": "cookie_refresh",
+      "service": "distrokid",
+      "reason": "expiring_soon_3_days",
+      "priority": "medium"
+    },
+    {
+      "type": "run_cleaners",
+      "service": "distrokid",
+      "reason": "pipeline_blocked",
+      "priority": "medium"
+    },
+    {
+      "type": "run_cleaners",
+      "service": "toolost",
+      "reason": "pipeline_blocked",
+      "priority": "medium"
+    },
+    {
+      "type": "cookie_refresh",
+      "service": "linktree",
+      "reason": "expiring_soon_3_days",
+      "priority": "medium"
+    },
+    {
+      "type": "run_cleaners",
+      "service": "linktree",
+      "reason": "pipeline_blocked",
+      "priority": "medium"
+    },
+    {
+      "type": "cookie_refresh",
+      "service": "metaads",
+      "reason": "missing_cookies",
+      "priority": "high"
+    },
+    {
+      "type": "run_extractor",
+      "service": "metaads",
+      "reason": "stale_data_14_days",
+      "priority": "high"
+    },
+    {
+      "type": "run_cleaners",
+      "service": "metaads",
+      "reason": "pipeline_blocked",
+      "priority": "medium"
+    }
+  ],
+  "auto_remediation_enabled": false
+}

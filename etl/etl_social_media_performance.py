@@ -14,7 +14,10 @@ DATA_LAKE_PATH = Path(__file__).parent.parent
 ECOSYSTEM_ROOT = DATA_LAKE_PATH.parent
 WAREHOUSE_PATH = ECOSYSTEM_ROOT / "data-warehouse"
 DB_PATH = WAREHOUSE_PATH / "bedrot_analytics.db"
+# Use data-lake curated path as primary source
 CURATED_CSV_PATH = DATA_LAKE_PATH / "curated"
+# Fallback to warehouse curated path if data-lake path doesn't exist
+WAREHOUSE_CURATED_PATH = WAREHOUSE_PATH / "curated"
 
 def get_connection():
     """Get database connection with optimized settings."""
@@ -57,10 +60,20 @@ def extract_tiktok_performance_data() -> List[Dict]:
     """Extract social media performance from TikTok analytics data."""
     performance_data = []
     
-    tiktok_file = CURATED_CSV_PATH / "tiktok_analytics_curated_20250623_081404.csv"
-    if not tiktok_file.exists():
-        print(f"Warning: {tiktok_file} not found")
+    # Find latest TikTok curated file from data-lake first, then warehouse as fallback
+    tiktok_files = list(CURATED_CSV_PATH.glob("tiktok_analytics_curated_*.csv"))
+    
+    # If no files in data-lake curated, check warehouse curated
+    if not tiktok_files:
+        print(f"No TikTok files in {CURATED_CSV_PATH}, checking warehouse...")
+        tiktok_files = list(WAREHOUSE_CURATED_PATH.glob("tiktok_analytics_curated_*.csv"))
+        
+    if not tiktok_files:
+        print(f"Warning: No TikTok curated files found in {CURATED_CSV_PATH} or {WAREHOUSE_CURATED_PATH}")
         return performance_data
+    
+    tiktok_file = max(tiktok_files, key=lambda x: x.stat().st_mtime)
+    print(f"Processing TikTok file: {tiktok_file}")
     
     df = pd.read_csv(tiktok_file)
     
@@ -70,11 +83,11 @@ def extract_tiktok_performance_data() -> List[Dict]:
                 'date': row.get('date', '2024-06-23'),
                 'artist_name': normalize_artist_name(row['artist']),
                 'platform': 'TikTok',
-                'video_views': int(row.get('video_views', 0)) if pd.notna(row.get('video_views')) else 0,
-                'profile_views': int(row.get('profile_views', 0)) if pd.notna(row.get('profile_views')) else 0,
-                'likes': int(row.get('likes', 0)) if pd.notna(row.get('likes')) else 0,
-                'comments': int(row.get('comments', 0)) if pd.notna(row.get('comments')) else 0,
-                'shares': int(row.get('shares', 0)) if pd.notna(row.get('shares')) else 0,
+                'video_views': int(row.get('Video Views', 0)) if pd.notna(row.get('Video Views')) else 0,
+                'profile_views': int(row.get('Profile Views', 0)) if pd.notna(row.get('Profile Views')) else 0,
+                'likes': int(row.get('Likes', 0)) if pd.notna(row.get('Likes')) else 0,
+                'comments': int(row.get('Comments', 0)) if pd.notna(row.get('Comments')) else 0,
+                'shares': int(row.get('Shares', 0)) if pd.notna(row.get('Shares')) else 0,
                 'engagement_rate': float(row.get('engagement_rate', 0.0)) if pd.notna(row.get('engagement_rate')) else 0.0
             }
             performance_data.append(performance)

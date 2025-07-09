@@ -1,0 +1,13 @@
+ 
+REM Add this to run_bedrot_pipeline.bat after health check: 
+ 
+echo. 
+echo ======================================================================== 
+echo STEP 1.5: COOKIE REFRESH CHECK 
+echo ======================================================================== 
+call cronjob\cookie_check.bat 
+if errorlevel 1 ( 
+    echo WARNING: Some cookies may need refresh 
+    echo Run: python cookie_refresh.py --refresh SERVICE_NAME 
+) 
+ 

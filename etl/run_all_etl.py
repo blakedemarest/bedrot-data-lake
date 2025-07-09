@@ -7,11 +7,23 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
-# Import all ETL modules
+# Set up paths for both data_lake and warehouse ETL scripts
+DATA_LAKE_PATH = Path(__file__).parent.parent
+ECOSYSTEM_ROOT = DATA_LAKE_PATH.parent
+WAREHOUSE_PATH = ECOSYSTEM_ROOT / "data-warehouse"
+
+# Import data_lake ETL modules first (existing ETLs)
 from etl_master_data import run_master_data_etl
-from etl_financial_data import run_financial_etl
 from etl_streaming_performance import run_streaming_performance_etl
 from etl_social_media_performance import run_social_media_etl
+
+# Add warehouse path and import warehouse ETL modules (new ETLs)
+sys.path.insert(0, str(WAREHOUSE_PATH))
+from etl_financial_data_fixed import run_financial_etl
+from etl_daily_streams import run_daily_streams_etl
+from etl_advertising_performance import run_advertising_etl
+from etl_link_analytics import run_link_analytics_etl
+from etl_submithub_analytics import run_submithub_analytics_etl
 
 def run_complete_etl_pipeline():
     """Run all ETL pipelines in proper dependency order."""
@@ -23,7 +35,7 @@ def run_complete_etl_pipeline():
     print()
     
     success_count = 0
-    total_pipelines = 4
+    total_pipelines = 8
     
     # Stage 1: Master Data (Artists, Platforms, Tracks)
     print("📋 STAGE 1: MASTER DATA")
@@ -84,6 +96,62 @@ def run_complete_etl_pipeline():
         print(f"❌ Social Media Performance ETL error: {e}")
     
     print()
+    
+    # Stage 5: Daily Streaming Data
+    print("📋 STAGE 5: DAILY STREAMING DATA")
+    print("-" * 30)
+    try:
+        if run_daily_streams_etl():
+            print("✅ Daily Streaming ETL completed successfully")
+            success_count += 1
+        else:
+            print("❌ Daily Streaming ETL failed")
+    except Exception as e:
+        print(f"❌ Daily Streaming ETL error: {e}")
+    
+    print()
+    
+    # Stage 6: Advertising Performance (Meta Ads)
+    print("📋 STAGE 6: ADVERTISING PERFORMANCE")
+    print("-" * 30)
+    try:
+        if run_advertising_etl():
+            print("✅ Advertising Performance ETL completed successfully")
+            success_count += 1
+        else:
+            print("❌ Advertising Performance ETL failed")
+    except Exception as e:
+        print(f"❌ Advertising Performance ETL error: {e}")
+    
+    print()
+    
+    # Stage 7: Link Analytics (Linktree)
+    print("📋 STAGE 7: LINK ANALYTICS")
+    print("-" * 30)
+    try:
+        if run_link_analytics_etl():
+            print("✅ Link Analytics ETL completed successfully")
+            success_count += 1
+        else:
+            print("❌ Link Analytics ETL failed")
+    except Exception as e:
+        print(f"❌ Link Analytics ETL error: {e}")
+    
+    print()
+    
+    # Stage 8: SubmitHub Analytics
+    print("📋 STAGE 8: SUBMITHUB ANALYTICS")
+    print("-" * 30)
+    try:
+        if run_submithub_analytics_etl():
+            print("✅ SubmitHub Analytics ETL completed successfully")
+            success_count += 1
+        else:
+            print("❌ SubmitHub Analytics ETL failed")
+    except Exception as e:
+        print(f"❌ SubmitHub Analytics ETL error: {e}")
+    
+    print()
     print("=" * 60)
     print("📊 ETL PIPELINE SUMMARY")
     print("=" * 60)
@@ -119,9 +187,13 @@ def show_final_database_summary():
             ('artists', 'Artists'),
             ('tracks', 'Tracks'),
             ('platforms', 'Platforms'),
+            ('campaigns', 'Marketing Campaigns'),
             ('financial_transactions', 'Financial Transactions'),
             ('streaming_performance', 'Streaming Performance Records'),
-            ('social_media_performance', 'Social Media Performance Records')
+            ('social_media_performance', 'Social Media Performance Records'),
+            ('advertising_performance', 'Advertising Performance Records'),
+            ('link_analytics', 'Link Analytics Records'),
+            ('meta_pixel_events', 'Meta Pixel Events')
         ]
         
         for table_name, display_name in tables:
